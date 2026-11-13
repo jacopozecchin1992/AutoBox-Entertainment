@@ -63,5 +63,5 @@ jobs:
           if gh release view v2.5.0 >/dev/null 2>&1; then
             gh release upload v2.5.0 "$APK#AutoBox-Entertainment.apk" --clobber
           else
-            gh release create v2.5.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.5.0" --notes "APK Android universale compilato con Gradle da GitHub Actions. Scorciatoie native per le app installate sul Samsung. Include servizio POI Android Auto; per visualizzarlo sulle auto reali occorre installare tramite Google Play Internal app sharing. Video solo sul telefono."
+            gh release create v2.5.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.5.0" --notes "APK Android universale compilato con Gradle da GitHub Actions. Scorciatoie native per le app installate sul Samsung. Include servizio audio MediaBrowserServiceCompat e MediaSessionCompat per Android Auto. Musica locale e audio demo, controlli play/pausa/avanti. Test APK senza Play Console tramite Origini sconosciute sviluppatore Android Auto. Video solo sul telefono."
           fi
