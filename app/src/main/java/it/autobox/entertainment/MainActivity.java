@@ -146,6 +146,18 @@ public class MainActivity extends Activity {
             case "local_music":
                 startActivity(new Intent(this, AudioLibraryActivity.class));
                 break;
+            case "audio_play":
+                sendAudioCommand(AutoBoxMediaService.ACTION_PLAY);
+                break;
+            case "audio_pause":
+                sendAudioCommand(AutoBoxMediaService.ACTION_PAUSE);
+                break;
+            case "audio_next":
+                sendAudioCommand(AutoBoxMediaService.ACTION_NEXT);
+                break;
+            case "audio_previous":
+                sendAudioCommand(AutoBoxMediaService.ACTION_PREVIOUS);
+                break;
             case "ytmusic":
                 openInstalled("YouTube Music", "com.google.android.apps.youtube.music");
                 break;
@@ -181,6 +193,15 @@ public class MainActivity extends Activity {
                 break;
             default:
                 message("Scorciatoia non disponibile.");
+        }
+    }
+
+    private void sendAudioCommand(String action) {
+        try {
+            Intent intent = new Intent(this, AutoBoxMediaService.class).setAction(action);
+            startService(intent);
+        } catch (Exception e) {
+            message("Impossibile controllare la musica AutoBox. Apri la libreria musicale.");
         }
     }
 
