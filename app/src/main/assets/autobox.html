@@ -123,7 +123,7 @@
 .music-service-logo.spotify{background:#1b8f62}.music-service-logo.ytmusic{background:#dd364d}
 @media(max-width:710px){
   .app-navbar{padding:7px;top:4px;margin-bottom:15px;border-radius:15px}
-  .page-menu{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;gap:3px}
+  .page-menu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:3px}
   .page-tab{justify-content:center;flex-direction:column;gap:3px;font-size:10px;padding:9px 2px;border-radius:10px}
   .page-tab span{font-size:21px}
   .nav-indicator{display:none}
@@ -179,7 +179,6 @@ body.dashboard-fullscreen .pane-nav .route-art{flex:1;min-height:140px}
     <button id="tab-home" type="button" class="page-tab is-active" role="tab" aria-controls="page-home" aria-selected="true" data-page="home"><span aria-hidden="true">⌂</span> Home</button>
     <button id="tab-apps" type="button" class="page-tab" role="tab" aria-controls="page-apps" aria-selected="false" data-page="apps"><span aria-hidden="true">▦</span> App</button>
     <button id="tab-streaming" type="button" class="page-tab" role="tab" aria-controls="page-streaming" aria-selected="false" data-page="streaming"><span aria-hidden="true">▶</span> Streaming</button>
-    <button id="tab-music" type="button" class="page-tab" role="tab" aria-controls="page-music" aria-selected="false" data-page="music"><span aria-hidden="true">♫</span> Musica</button>
   </nav>
   <span class="nav-indicator" aria-hidden="true"><span class="indicator-dot"></span> Connesso al telefono</span>
 </header>
@@ -278,7 +277,7 @@ body.dashboard-fullscreen .pane-nav .route-art{flex:1;min-height:140px}
   <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
 </div></section>
 <section class="page-view" id="page-apps" role="tabpanel" aria-labelledby="tab-apps" hidden>
-<div class="page-lead"><span class="page-eyebrow">LA TUA RACCOLTA</span><h1>Applicazioni</h1><p>Apri direttamente le app installate sul Samsung.</p></div>
+<div class="page-lead"><span class="page-eyebrow">LA TUA RACCOLTA</span><h1>Applicazioni</h1></div>
 <div class="section-header"><h2>Guida e comunicazioni</h2><span class="hint">Accesso rapido</span></div>
 <div class="grid">
 <button class="tile" data-app="maps"><span class="symbol"><svg viewbox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15m6-12v15"></path></svg></span><span><strong>Google Maps</strong><small>Navigazione</small></span></button>
@@ -293,7 +292,7 @@ body.dashboard-fullscreen .pane-nav .route-art{flex:1;min-height:140px}
 </div>
 </section>
 <section class="page-view" id="page-streaming" role="tabpanel" aria-labelledby="tab-streaming" hidden>
-<div class="page-lead"><span class="page-eyebrow">SOLO A VEICOLO PARCHEGGIATO</span><h1>Streaming</h1><p>Apri le applicazioni video installate sul Samsung.</p></div>
+<div class="page-lead"><span class="page-eyebrow">SOLO A VEICOLO PARCHEGGIATO</span><h1>Streaming</h1></div>
 <div class="section-header"><h2>Streaming e intrattenimento</h2><span class="hint">Solo in sosta</span></div>
 
 <div class="grid stream-grid">
@@ -303,25 +302,7 @@ body.dashboard-fullscreen .pane-nav .route-art{flex:1;min-height:140px}
 <button class="tile video-tile" data-app="prime"><span class="video-symbol video-prime">▶</span><span><strong>Prime Video</strong><small>Film e serie</small></span></button>
 </div>
 </section>
-<section class="page-view" id="page-music" role="tabpanel" aria-labelledby="tab-music" hidden>
-  <div class="page-lead"><span class="page-eyebrow">LA TUA MUSICA</span><h1>Musica</h1><p>Riproduzione locale e collegamenti alle app audio.</p></div>
-  <section class="music-page-card">
-    <div class="music-page-art" aria-hidden="true">♫</div>
-    <div class="music-page-details"><span>LETTORE AUDIO</span><h2>Musica sul Samsung</h2><p>Ascolta file locali e l’audio originale di prova, anche tramite il lettore Android Auto.</p>
-      <button class="music-library-button" data-app="local_music" type="button">Apri la libreria <span aria-hidden="true">↗</span></button></div>
-  </section>
-  <div class="music-page-controls" aria-label="Controlli del lettore musicale">
-    <button type="button" data-audio="previous">◀◀ Precedente</button>
-    <button type="button" class="music-play" data-audio="play">▶ Riproduci</button>
-    <button type="button" data-audio="pause">Ⅱ Pausa</button>
-    <button type="button" data-audio="next">Successivo ▶▶</button>
-  </div>
-  <div class="section-header"><h2>Altre app musicali</h2><span class="hint">Apertura diretta</span></div>
-  <div class="music-services">
-    <button type="button" data-app="spotify"><span class="music-service-logo spotify">♫</span><strong>Spotify</strong><small>Apri l'app</small><span aria-hidden="true">↗</span></button>
-    <button type="button" data-app="ytmusic"><span class="music-service-logo ytmusic">▶</span><strong>YouTube Music</strong><small>Apri l'app</small><span aria-hidden="true">↗</span></button>
-  </div>
-</section>
+
 </main>
 <button id="fullscreenExit" class="fullscreen-exit" type="button" hidden>✕ Esci da tutto schermo</button>
 </div>
@@ -447,9 +428,9 @@ document.getElementById('splitSamsung').addEventListener('click',()=>{
     [],()=>launchNative('waze'),'Apri Waze');
 });
 
-// Navigate between the four launcher screens; no Android page reload or website redirect.
+// Navigate between Home, App and Streaming, retaining navigation in local storage.
 const menuButtons = [...document.querySelectorAll('.page-tab')];
-const pageNames = ['home','apps','streaming','music'];
+const pageNames = ['home','apps','streaming'];
 function activatePage(page, remember = true){
   if(!pageNames.includes(page)) page='home';
   for(const name of pageNames){
