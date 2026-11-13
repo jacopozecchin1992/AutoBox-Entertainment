@@ -50,7 +50,34 @@
 <script>
 'use strict';
 const $ = (s) => document.querySelector(s);
-const mem = {get(k){try{return localStorage.getItem(k)||''}catch{return ''}},set(k,v){try{localStorage.setItem(k,v)}catch{}}};
+const mem = {
+  get(k){
+    try {
+      if(window.AutoBoxBridge && (k==='place_home'||k==='place_work')){
+        const v=window.AutoBoxBridge.getPlace(k);
+        if(v) return v;
+      }
+      return localStorage.getItem(k)||'';
+    } catch { return ''; }
+  },
+  set(k,v){
+    try { localStorage.setItem(k,v); }catch{}
+    try {
+      if(window.AutoBoxBridge && (k==='place_home'||k==='place_work')){
+        window.AutoBoxBridge.savePlace(k,v);
+      }
+    }catch{}
+  }
+};
+// Import the old saved destinations after an in-place update from AutoBox 2.2.
+if(window.AutoBoxBridge){
+  for(const key of ['place_home','place_work']){
+    try {
+      const old=localStorage.getItem(key)||'';
+      if(old && !window.AutoBoxBridge.getPlace(key)) window.AutoBoxBridge.savePlace(key,old);
+    }catch{}
+  }
+}
 const clock=$('#clock'), date=$('#date');
 function updateClock(){const d=new Date();clock.textContent=d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});date.textContent=d.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
 updateClock();setInterval(updateClock,10000);
@@ -95,7 +122,7 @@ function showModal(title, text, fields, onConfirm, confirmLabel='Conferma'){
  $('#modalCancel').onclick=close;
  $('#modalConfirm').onclick=()=>{onConfirm(elements.map(e=>e.value));close()};
 }
-function showPlaces(focus){showModal('Indirizzi preferiti','Salva gli indirizzi sul dispositivo. Non vengono inviati ad AutoBox.',[{placeholder:'Indirizzo di casa',value:mem.get('place_home')},{placeholder:'Indirizzo del lavoro',value:mem.get('place_work')}],([home,work])=>{mem.set('place_home',home);mem.set('place_work',work);notify('Indirizzi salvati sul dispositivo.')},'Salva');}
+function showPlaces(focus){showModal('Indirizzi preferiti','Gli indirizzi salvati saranno visibili anche nella schermata Android Auto di AutoBox.',[{placeholder:'Indirizzo di casa',value:mem.get('place_home')},{placeholder:'Indirizzo del lavoro',value:mem.get('place_work')}],([home,work])=>{mem.set('place_home',home);mem.set('place_work',work);notify('Indirizzi salvati sul dispositivo.')},'Salva');}
 $('#editPlaces').addEventListener('click',()=>showPlaces());
 function startVoice(){const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SpeechRecognition){notify('Il riconoscimento vocale non è disponibile in questo browser.');return}try{const recognition=new SpeechRecognition();recognition.lang='it-IT';recognition.interimResults=false;recognition.onresult=(event)=>{const phrase=event.results[0][0].transcript.trim();const lower=phrase.toLowerCase();if(lower.startsWith('naviga a '))navigate(phrase.slice(9));else if(lower.startsWith('vai a '))navigate(phrase.slice(6));else if(lower.includes('spotify'))openApp('spotify');else if(lower.includes('waze'))openApp('waze');else if(lower.includes('musica'))openApp('ytmusic');else if(lower.includes('chiama'))openApp('calls');else notify('Comando non riconosciuto: '+phrase)};recognition.onerror=()=>notify('Microfono o riconoscimento vocale non disponibili.');recognition.start();notify('Ascolto in corso…')}catch{notify('Impossibile avviare il microfono.')}}
 $('#gpsButton').addEventListener('click',()=>{if(!navigator.geolocation){notify('GPS non disponibile in questo browser.');return}if(watcher!==null){navigator.geolocation.clearWatch(watcher);watcher=null;speedKmh=null;$('#speed').textContent='--';$('#gpsButton').textContent='Attiva GPS';$('#gpsButton').classList.add('pending');return}$('#gpsButton').textContent='Ricerca GPS…';watcher=navigator.geolocation.watchPosition(pos=>{const v=pos.coords.speed;speedKmh=(v===null || !Number.isFinite(v))?null:Math.max(0,v*3.6);$('#speed').textContent=speedKmh===null?'--':String(Math.round(speedKmh));$('#gpsButton').textContent='GPS attivo · disattiva';$('#gpsButton').classList.remove('pending')},err=>{notify('Non posso leggere il GPS. Concedi il permesso posizione e usa HTTPS se richiesto.');if(watcher!==null){navigator.geolocation.clearWatch(watcher);watcher=null}$('#gpsButton').textContent='Attiva GPS'}, {enableHighAccuracy:true,maximumAge:2000,timeout:12000})});
