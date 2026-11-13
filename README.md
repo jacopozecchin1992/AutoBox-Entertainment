@@ -1,6 +1,21 @@
-# AutoBox Entertainment Universale 2.5.0
+# AutoBox Entertainment Universale 2.6.0
 
 AutoBox è un **launcher sul Samsung** e una **vera app audio su Android Auto**.
+
+## AutoBox Drive 2.6.0 — nuova dashboard
+
+La schermata Samsung ha un nuovo cruscotto a due pannelli **in stile AI Box**:
+- Navigazione, destinazioni, indirizzi Casa/Lavoro e velocità GPS a sinistra;
+- Musica AutoBox (play, pausa, precedente, successivo) a destra, con collegamenti diretti a Spotify e YouTube Music;
+- Layout 7:3, 5:5 e 3:7 selezionabili e salvati sul telefono, disponibili affiancati quando lo schermo è abbastanza ampio (es. telefono orizzontale);
+- Barra inferiore con Maps, Waze, Spotify e WhatsApp;
+- Pannello di guida «Split Samsung» per utilizzare **due vere app Android** tramite One UI Multi Window.
+
+La mappa visibile nel nuovo cruscotto è **schematica**, non una cartografia live. Il pulsante Maps o l'inserimento della destinazione apre direttamente Google Maps Android. Il cruscotto divide **due componenti di AutoBox**: non può incorporare arbitrariamente l'interfaccia di Spotify, Netflix o Maps. Se desideri due vere app Samsung affiancate, usa lo schermo diviso One UI: Apri App recenti → icona Google Maps → Apri in visualizzazione a schermo diviso → Spotify; usa il divisore per le proporzioni e salva eventualmente la coppia.
+
+**Android Auto:** il servizio multimediale di AutoBox continua a funzionare con MediaBrowserServiceCompat e MediaSessionCompat, e Android Auto decide il layout. Se supporta la modalità dashboard, può affiancare la musica AutoBox a Google Maps; l'APK non impone split screen, ratio, né pannelli video all'auto.
+
+---
 
 ## Samsung: tutte le scorciatoie originali
 
