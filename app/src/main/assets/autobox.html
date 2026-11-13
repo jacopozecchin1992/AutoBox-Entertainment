@@ -136,6 +136,40 @@
   .page-lead{padding:22px 20px}
 }
 @media(min-width:711px) and (max-width:920px){.nav-indicator{display:none}}
+
+/* Home optimized for Waze + Spotify. Spotify controls are deliberately
+   separate from AutoBox local playback (no unsupported Spotify remote API). */
+.spotify-hero{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;min-height:180px;border:1px solid #236847;border-radius:17px;padding:17px;background:radial-gradient(ellipse at 50% 16%,#206a45 0%,#113b34 49%,#0d2529 100%)}
+.spotify-hero-icon{height:67px;width:67px;background:#1ed760;border-radius:50%;color:#073622;font-weight:950;font-size:61px;line-height:1;display:grid;place-items:center;transform:rotate(-10deg)}
+.spotify-hero-tag{font-size:10px;letter-spacing:.18em;color:#8df7b0;font-weight:900}
+.spotify-hero strong{font-size:clamp(21px,3vw,29px);line-height:1.1}
+.spotify-hero small{font-size:11px;color:#b8d5cd;max-width:240px}
+.spotify-hero-open{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:7px;background:#27e278;color:#073522;border:none;border-radius:13px;padding:13px 16px;font-size:12px;font-weight:800}
+.home-local-player{border:1px solid #365566;background:#10283a;border-radius:14px;padding:11px}
+.home-local-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.home-local-header span{color:#80bacc;letter-spacing:.11em;font-size:9px;font-weight:850}
+.home-local-header button{font-size:10px;border:1px solid #376876;border-radius:8px;padding:6px 9px;background:#143949;color:#d3f6ef}
+.home-local-player .transport button{height:35px;min-width:30px}
+.home-local-player p{color:#91acb9;font-size:10px;line-height:1.4;margin:9px 0 0}
+.drive-dock .dock-favorite{background:#224b47;color:#ccffea;border-color:#367c6a}
+.drive-dock .dock-fullscreen{background:#1b3b53;color:#b9ebff;border-color:#3f6e88}
+body.dashboard-fullscreen{overflow:auto;background:#08111c}
+body.dashboard-fullscreen .app{max-width:unset;padding:0!important}
+body.dashboard-fullscreen .app-navbar,body.dashboard-fullscreen #page-home .journey-foot,
+body.dashboard-fullscreen #page-home .drive-head,
+body.dashboard-fullscreen #page-home .drive-dock,
+body.dashboard-fullscreen #page-home .dashboard-fullscreen-hint{display:none!important}
+body.dashboard-fullscreen .drive-shell{min-height:100dvh;padding:10px;border-radius:0;border:0}
+body.dashboard-fullscreen .split-view{min-height:calc(100dvh - 20px)}
+body.dashboard-fullscreen #page-home .split-pane{display:flex;flex-direction:column}
+body.dashboard-fullscreen .pane-nav .route-art{flex:1;min-height:140px}
+.fullscreen-exit{position:fixed;z-index:20;top:14px;right:14px;background:#2aefca;color:#082c37;border:none;border-radius:12px;padding:12px 15px;font-size:13px;font-weight:850;box-shadow:0 8px 24px #0008}
+.fullscreen-exit[hidden]{display:none!important}
+@media(max-width:710px){
+ body.dashboard-fullscreen .split-view{min-height:calc(100dvh - 20px)}
+ body.dashboard-fullscreen .split-pane{flex-shrink:0}
+ .spotify-hero{min-height:150px;flex-direction:column}
+}
 </style>
 </head>
 <body>
@@ -156,7 +190,7 @@
   <div class="drive-head">
     <div class="drive-label">
       <span class="drive-symbol" aria-hidden="true">A</span>
-      <div><strong>Il tuo viaggio</strong><span>Navigazione e musica • Schermo diviso</span></div>
+      <div><strong>Waze + Spotify</strong><span>Le tue app preferite • Schermo diviso</span></div>
     </div>
     <div class="layout-picker" aria-label="Proporzioni pannelli">
       <span class="layout-caption">LAYOUT</span>
@@ -168,8 +202,8 @@
   <div class="split-view ratio-50" id="splitView">
     <section class="split-pane pane-nav" aria-label="Navigazione e velocità">
       <div class="pane-heading">
-        <span class="pane-kicker">NAVIGAZIONE</span>
-        <button class="small-action" data-app="maps" type="button">Apri Maps <span aria-hidden="true">↗</span></button>
+        <span class="pane-kicker">WAZE · NAVIGAZIONE</span>
+        <button class="small-action fullscreen-launch" data-app="waze" type="button">Apri Waze <span aria-hidden="true">⛶</span></button>
       </div>
       <div class="route-art" aria-label="Illustrazione schematica della strada, non è una mappa in tempo reale">
         <svg viewBox="0 0 640 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -197,7 +231,7 @@
           <path d="M496 16a17 17 0 0 0 -17 17c0 12 17 31 17 31s17 -19 17 -31a17 17 0 0 0 -17 -17z" fill="#54ffe0"/>
           <circle cx="496" cy="33" r="6" fill="#0c2c37"/>
         </svg>
-        <div class="map-caption"><span class="map-led"></span> Mappa illustrativa <span>• Percorso reale in Google Maps</span></div>
+        <div class="map-caption"><span class="map-led"></span> Mappa illustrativa <span>• Percorso reale in Waze</span></div>
       </div>
       <div class="pane-input">
         <div class="pane-kicker">DESTINAZIONE</div>
@@ -209,34 +243,37 @@
         <button class="gps pending" id="gpsButton" type="button">Attiva GPS</button>
       </div>
     </section>
-    <section class="split-pane pane-audio" aria-label="Musica e controlli">
+    <section class="split-pane pane-audio" aria-label="Spotify e musica">
       <div class="pane-heading">
-        <span class="pane-kicker">MUSICA</span>
-        <button class="small-action" data-app="local_music" type="button">Libreria <span aria-hidden="true">↗</span></button>
+        <span class="pane-kicker">SPOTIFY · MUSICA</span>
+        <button class="small-action fullscreen-launch" type="button" data-app="spotify">Apri Spotify <span aria-hidden="true">⛶</span></button>
       </div>
-      <div class="audio-feature">
-        <div class="audio-art" aria-hidden="true"><div class="audio-logo">A<span>▶</span></div></div>
-        <div class="audio-title"><span class="audio-overline">AUTOBOX AUDIO</span><strong>Musica sul Samsung</strong><small>Brani locali e audio di prova</small></div>
+      <div class="spotify-hero">
+        <span class="spotify-hero-icon" aria-hidden="true">≋</span>
+        <span class="spotify-hero-tag">LA TUA MUSICA</span>
+        <strong>Spotify</strong>
+        <small>Playlist, album e podcast nell'app ufficiale</small>
+        <button data-app="spotify" class="spotify-hero-open" type="button">Apri a tutto schermo <span aria-hidden="true">↗</span></button>
       </div>
-      <div class="transport" aria-label="Controlli della musica AutoBox">
-        <button type="button" data-audio="previous" aria-label="Brano precedente" title="Precedente">|◀</button>
-        <button class="play-main" type="button" data-audio="play" aria-label="Riproduci musica" title="Riproduci">▶</button>
-        <button type="button" data-audio="pause" aria-label="Metti in pausa" title="Pausa">Ⅱ</button>
-        <button type="button" data-audio="next" aria-label="Brano successivo" title="Successivo">▶|</button>
+      <div class="home-local-player">
+        <div class="home-local-header"><span>LETTORE LOCALE AUTOBOX</span><button type="button" data-app="local_music">Libreria ↗</button></div>
+        <div class="transport" aria-label="Comandi della musica locale AutoBox, non di Spotify">
+          <button type="button" data-audio="previous" aria-label="Precedente locale">|◀</button>
+          <button class="play-main" type="button" data-audio="play" aria-label="Riproduci musica locale">▶</button>
+          <button type="button" data-audio="pause" aria-label="Pausa musica locale">Ⅱ</button>
+          <button type="button" data-audio="next" aria-label="Successivo locale">▶|</button>
+        </div>
+        <p>Questi controlli sono per i brani locali; Spotify usa i propri comandi.</p>
       </div>
-      <div class="audio-destinations">
-        <button class="audio-app-btn" data-app="spotify" type="button"><span class="spotify-dot">≋</span> Spotify <span>↗</span></button>
-        <button class="audio-app-btn" data-app="ytmusic" type="button"><span class="yt-dot">▶</span> YouTube Music <span>↗</span></button>
-      </div>
-      <div class="audio-note">Comandi audio AutoBox. I servizi streaming si aprono nelle rispettive app.</div>
     </section>
   </div>
   <nav class="drive-dock" aria-label="Scorciatoie rapide">
+    <button data-app="waze" class="dock-favorite" type="button"><span>◈</span> Waze</button>
     <button data-app="maps" type="button"><span>⌁</span> Maps</button>
-    <button data-app="waze" type="button"><span>◈</span> Waze</button>
-    <button data-app="spotify" type="button"><span>♫</span> Spotify</button>
+    <button data-app="spotify" class="dock-favorite" type="button"><span>♫</span> Spotify</button>
     <button data-app="whatsapp" type="button"><span>◉</span> WhatsApp</button>
-    <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Split Samsung</button>
+    <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Split Waze + Spotify</button>
+    <button id="fullDashboard" type="button" class="dock-fullscreen" aria-pressed="false"><span>⛶</span> Dashboard intera</button>
   </nav>
   <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
 </div></section>
@@ -286,6 +323,7 @@
   </div>
 </section>
 </main>
+<button id="fullscreenExit" class="fullscreen-exit" type="button" hidden>✕ Esci da tutto schermo</button>
 </div>
 <div class="modal" hidden="" id="modal"><div class="modal-card"><h2 id="modalTitle"></h2><p id="modalText" style="white-space:pre-line"></p><div id="modalFields"></div><div class="modal-actions"><button id="modalCancel" type="button">Annulla</button><button class="main" id="modalConfirm" type="button">Conferma</button></div></div></div>
 <div class="toast" hidden="" id="toast" role="status"></div>
@@ -405,8 +443,8 @@ document.querySelectorAll('[data-audio]').forEach(b=>b.addEventListener('click',
 }));
 document.getElementById('splitSamsung').addEventListener('click',()=>{
   showModal('Schermo diviso Samsung',
-    'Per affiancare due vere app sul Galaxy S25 Ultra:\n\n1. Apri Google Maps e Spotify dalle scorciatoie AutoBox.\n2. Apri App recenti sul Samsung.\n3. Tocca l’icona di Maps e scegli «Apri in visualizzazione a schermo diviso».\n4. Seleziona Spotify come seconda app.\n5. Trascina il divisore per scegliere le proporzioni; dalle opzioni del divisore puoi salvare la coppia.\n\nAndroid Auto decide autonomamente la disposizione delle app sul display dell’auto.',
-    [],()=>launchNative('maps'),'Apri Google Maps');
+    'Per affiancare davvero Waze e Spotify sul Galaxy S25 Ultra:\n\n1. Apri Waze e Spotify dalle scorciatoie AutoBox.\n2. Apri App recenti sul Samsung.\n3. Tocca l’icona di Waze e scegli «Apri in visualizzazione a schermo diviso».\n4. Seleziona Spotify come seconda app.\n5. Trascina il divisore per regolare le proporzioni e salva la coppia se lo desideri.\n\nIl comando «Dashboard intera» mostra la sola schermata AutoBox senza barre, non incorpora le due app. Android Auto gestisce autonomamente il layout sul display dell’auto.',
+    [],()=>launchNative('waze'),'Apri Waze');
 });
 
 // Navigate between the four launcher screens; no Android page reload or website redirect.
@@ -444,5 +482,24 @@ menuButtons.forEach((button,index)=>{
 let initialPage='home';
 try{initialPage=localStorage.getItem('autobox_current_page')||'home';}catch{}
 activatePage(initialPage,false);
+
+const fullscreenExit=document.getElementById('fullscreenExit');
+const fullscreenButton=document.getElementById('fullDashboard');
+function setDashboardFullscreen(enable){
+  document.body.classList.toggle('dashboard-fullscreen',!!enable);
+  fullscreenExit.hidden=!enable;
+  fullscreenButton.setAttribute('aria-pressed',enable?'true':'false');
+  try {
+    if(window.AutoBoxNative && window.AutoBoxNative.setFullscreen){
+      window.AutoBoxNative.setFullscreen(!!enable);
+    }
+  }catch{}
+  if(enable) activatePage('home');
+}
+fullscreenButton.addEventListener('click',()=>setDashboardFullscreen(true));
+fullscreenExit.addEventListener('click',()=>setDashboardFullscreen(false));
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape' && document.body.classList.contains('dashboard-fullscreen'))setDashboardFullscreen(false);
+});
 </script>
 </body></html>
