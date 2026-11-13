@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AutoBoxTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:colorAccent">#58E9CB</item>
+        <item name="android:statusBarColor">#08111C</item>
+        <item name="android:navigationBarColor">#08111C</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
