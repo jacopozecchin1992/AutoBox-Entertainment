@@ -68,8 +68,8 @@ jobs:
         run: |
           set -euo pipefail
           APK=app/build/outputs/apk/debug/app-debug.apk
-          if gh release view v2.6.0 >/dev/null 2>&1; then
-            gh release upload v2.6.0 "$APK#AutoBox-Entertainment.apk" --clobber
+          if gh release view v2.7.0 >/dev/null 2>&1; then
+            gh release upload v2.7.0 "$APK#AutoBox-Entertainment.apk" --clobber
           else
-            gh release create v2.6.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.6.0" --notes "AutoBox Drive 2.6.0: nuova dashboard smartphone con pannelli navigazione + musica e proporzioni 7:3, 5:5, 3:7; dock delle app, scorciatoie native e audio locale. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
+            gh release create v2.7.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.7.0" --notes "AutoBox Drive 2.7.0: menu a pagine Home, App, Streaming e Musica senza intestazione AutoBox; dashboard con split 7:3, 5:5, 3:7, scorciatoie native e lettore locale. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
           fi
