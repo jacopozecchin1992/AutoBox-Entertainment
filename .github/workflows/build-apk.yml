@@ -68,8 +68,8 @@ jobs:
         run: |
           set -euo pipefail
           APK=app/build/outputs/apk/debug/app-debug.apk
-          if gh release view v2.8.0 >/dev/null 2>&1; then
-            gh release upload v2.8.0 "$APK#AutoBox-Entertainment.apk" --clobber
+          if gh release view v2.9.0 >/dev/null 2>&1; then
+            gh release upload v2.9.0 "$APK#AutoBox-Entertainment.apk" --clobber
           else
-            gh release create v2.8.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.8.0" --notes "AutoBox Drive 2.8.0: Home con Waze e Spotify in evidenza, Waze come navigatore predefinito, avvio diretto delle app a tutto schermo sul Samsung e dashboard immersiva con uscita rapida; menu Home App Streaming Musica e split interno 7:3, 5:5, 3:7. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
+            gh release create v2.9.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.9.0" --notes "AutoBox Drive 2.9.0: Home con Waze e Spotify in evidenza, Waze come navigatore predefinito, avvio diretto delle app a tutto schermo sul Samsung e dashboard immersiva con uscita rapida; menu Home App Streaming e split interno 7:3, 5:5, 3:7; pagina Musica rimossa, lettore locale ancora disponibile dalla Home e App. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
           fi
