@@ -1,6 +1,21 @@
-# AutoBox Entertainment Universale 3.0
+# AutoBox Entertainment Universale 3.1
 
 AutoBox è un **launcher personalizzabile sul Samsung** e un **lettore audio Android Auto** che espone una libreria musicale tramite \`MediaBrowserServiceCompat\` / \`MediaSessionCompat\`. L'app è universale: nessuna scritta o vincolo per un particolare modello di automobile.
+
+## Modalità coppia Android Auto 3.1
+
+La Home rimane **identica alla 3.0**: due riquadri personalizzabili, cinque layout 30/70, 50/50, 70/30, Full SX e Full DX, e menu Home/App/Streaming.
+
+Il nuovo pulsante **Coppia Android Auto** apre una finestra dedicata alle combinazioni guida + audio effettivamente previste dal sistema:
+
+- Navigazione: **Waze** oppure **Google Maps**.
+- Musica: **Spotify**, **YouTube Music** oppure **AutoBox Musica**.
+
+Dopo **Salva coppia**, la scelta aggiorna e salva i due riquadri della Home sul Samsung. Il pannello mostra come aprire manualmente le due app sul display della Kia e tornare alla dashboard di Android Auto.
+
+**Cosa non può fare**: AutoBox non apre automaticamente le finestre di altre app *dentro Android Auto*, non ne controlla la dashboard, non impone rapporto 30/70/50/50/70/30 sul display della Kia e non integra i contenuti di Spotify nel proprio lettore. Le app reali funzionano nel sistema Android Auto tramite le rispettive app ufficiali, anche con il telefono bloccato.
+
+Fonti: https://developer.android.com/training/cars/platforms/android-auto e https://developers.google.com/cars/design/create-apps/media-apps/overview
 
 ## Sul Samsung — Home 3.0 personalizzabile
 
