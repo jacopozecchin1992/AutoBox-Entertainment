@@ -18,6 +18,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import android.view.View;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -28,6 +29,7 @@ public class MainActivity extends Activity {
     private static final int LOCATION_REQUEST = 100;
     private static final int VOICE_REQUEST = 101;
     private WebView webView;
+    private boolean dashboardImmersive = false;
     private GeolocationPermissions.Callback pendingGeolocation;
     private String pendingOrigin;
 
@@ -105,6 +107,24 @@ public class MainActivity extends Activity {
         }
         @JavascriptInterface public void navigate(String address) {
             runOnUiThread(() -> navigateWaze(address));
+        }
+        @JavascriptInterface public void setFullscreen(boolean fullscreen) {
+            runOnUiThread(() -> applyDashboardImmersive(fullscreen));
+        }
+    }
+
+    private void applyDashboardImmersive(boolean enabled) {
+        dashboardImmersive = enabled;
+        if (enabled) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        } else {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }
     }
 
@@ -274,7 +294,12 @@ public class MainActivity extends Activity {
     }
 
     @Override public void onBackPressed() {
-        if (webView.canGoBack()) webView.goBack();
+        if (dashboardImmersive) {
+            applyDashboardImmersive(false);
+            if (webView != null) {
+                webView.evaluateJavascript("if(window.setDashboardFullscreen)setDashboardFullscreen(false)", null);
+            }
+        } else if (webView.canGoBack()) webView.goBack();
         else super.onBackPressed();
     }
     @Override public void onDestroy() {
