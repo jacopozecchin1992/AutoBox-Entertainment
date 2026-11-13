@@ -21,6 +21,11 @@
             <action android:name="android.speech.action.RECOGNIZE_SPEECH" />
         </intent>
     </queries>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <application
         android:label="AutoBox Entertainment"
         android:icon="@drawable/ic_autobox"
@@ -32,19 +37,17 @@
         <meta-data
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
-        <meta-data
-            android:name="androidx.car.app.minCarApiLevel"
-            android:value="1" />
         <service
-            android:name=".AutoBoxCarService"
-            android:label="AutoBox · Luoghi"
+            android:name=".AutoBoxMediaService"
+            android:label="AutoBox · Musica"
             android:icon="@drawable/ic_autobox"
-            android:exported="true">
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
             <intent-filter>
-                <action android:name="androidx.car.app.CarAppService" />
-                <category android:name="androidx.car.app.category.POI" />
+                <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
         </service>
+        <activity android:name=".AudioLibraryActivity" android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
