@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#0b121e" name="theme-color"/>
+<meta content="AutoBox Entertainment: navigazione, velocità GPS, Spotify, WhatsApp, chiamate e collegamenti a YouTube, Netflix, Disney+ e Prime Video." name="description"/>
+<title>AutoBox Entertainment</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:#f7f9fc;background:#08111c;--bg:#08111c;--panel:#132233;--panel2:#182b3e;--stroke:rgba(218,234,253,.12);--quiet:#91a3b8;--accent:#58e9cb;--gold:#ffb45d;--radius:24px}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(ellipse 72% 50% at 90% -14%,#124846 0,transparent 70%),radial-gradient(ellipse 60% 55% at -5% 85%,#1b2746 0,transparent 62%),var(--bg)}button,input{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}button:active{transform:scale(.98)}.app{max-width:1080px;margin:auto;padding:24px clamp(16px,4vw,46px) 32px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.035em;font-size:23px}.mark{display:grid;place-items:center;background:var(--accent);color:#0b1b26;width:43px;height:43px;border-radius:14px;font-size:23px;box-shadow:0 8px 25px #20bfa627}.brand small{display:block;font-size:10px;font-weight:800;letter-spacing:.25em;color:var(--quiet);margin-top:1px}.status{display:flex;gap:7px;align-items:center;color:#b7c8d8;font-size:12px;background:#142435;border:1px solid var(--stroke);border-radius:99px;padding:9px 12px}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:15px;margin-bottom:16px}.glass{border:1px solid var(--stroke);background:linear-gradient(145deg,#182a3eaa,#111e30e8);border-radius:var(--radius);overflow:hidden}.clock-card{padding:28px;position:relative;min-height:226px}.clock-card:after{content:"";height:180px;width:180px;position:absolute;right:-60px;top:-60px;background:radial-gradient(circle,#4af0cd2d,transparent 67%);pointer-events:none}.eyebrow{font-size:11px;letter-spacing:.19em;font-weight:800;color:var(--accent);text-transform:uppercase}.clock{font-size:clamp(58px,9vw,96px);font-weight:750;letter-spacing:-.085em;line-height:1.22;font-variant-numeric:tabular-nums;margin:5px 0 0}.date{color:#adc0d3;font-size:15px}.speed{padding:25px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(152deg,#1c3940,#152439)}.speed-num{font-size:70px;line-height:1;font-weight:750;letter-spacing:-.08em}.speed-label{font-size:13px;color:#a5b9cb}.gps{align-self:start;background:#2c444b;border:1px solid #487b79;color:#a1f0df;border-radius:999px;font-weight:700;font-size:11px;padding:8px 11px}.gps.pending{color:#ccd6e2;background:#253648;border-color:#3f5063}.section-header{display:flex;align-items:center;justify-content:space-between;margin:30px 0 13px}.section-header h2{font-size:17px;letter-spacing:-.02em;margin:0}.hint{font-size:11px;color:#8ea3b8}.navigator{display:flex;gap:9px;padding:10px;background:#152337;border:1px solid var(--stroke);border-radius:18px}.navigator input{min-width:0;flex:1;border:none;color:white;background:transparent;padding:12px;outline:none}.navigator input::placeholder{color:#93a8ba}.go{display:grid;place-items:center;background:var(--accent);border:none;color:#08272d;border-radius:13px;width:54px;min-width:54px}.quick-dest{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.small-chip{background:#142336;border:1px solid var(--stroke);color:#c9d6e4;padding:11px 15px;border-radius:12px;font-size:12px;font-weight:650}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.tile{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;min-height:151px;padding:19px;border:1px solid var(--stroke);border-radius:22px;background:linear-gradient(145deg,#1b2d41,#112031);color:#f4f9fd;text-align:left}.tile .symbol{display:grid;place-items:center;border-radius:15px;width:49px;height:49px;background:#24394b;color:var(--accent)}.tile .symbol.warm{background:#49382b;color:#ffc88d}.tile .symbol.purple{background:#37304e;color:#c8b5ff}.tile .symbol.blue{background:#1b3e54;color:#8ddaff}.tile strong{font-size:15px;display:block;margin-top:14px}.tile small{font-size:11px;color:#9bb0c4;display:block;margin-top:3px}.tile svg{width:24px;height:24px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}.bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:28px;padding-top:17px;border-top:1px solid var(--stroke)}.bottom span{font-size:12px;color:#8aa0b5}.bottom button{border:1px solid #49615e;color:#a8f0e0;background:#18352f;border-radius:11px;padding:10px 13px}.notice{color:#b5c8d5;margin-top:18px;font-size:12px;line-height:1.6}.modal{position:fixed;inset:0;background:#02070bd9;display:flex;align-items:center;justify-content:center;padding:18px;z-index:5}.modal[hidden]{display:none}.modal-card{max-width:420px;width:100%;padding:25px;border:1px solid #45606d;border-radius:24px;background:#142335}.modal-card h2{margin:0 0 12px}.modal-card p{color:#becbdb;line-height:1.55;font-size:14px}.modal-card input{width:100%;padding:15px;color:#fff;background:#0b192a;border:1px solid #3f546a;border-radius:12px}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.modal-actions button{padding:12px 15px;border:1px solid #476073;border-radius:12px;background:#22364d;color:white}.modal-actions button.main{background:var(--accent);color:#08272d;border:none;font-weight:750}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:max-content;max-width:92%;padding:12px 16px;background:#28574e;border:1px solid #5c938a;border-radius:14px;font-size:13px;box-shadow:0 10px 30px #0005;z-index:9}.toast[hidden]{display:none}.footnote{font-size:11px;color:#8399ae;margin-top:8px}@media(max-width:660px){.app{padding:21px 16px 30px}.top{margin-bottom:19px}.hero{grid-template-columns:1.5fr 1fr;gap:10px}.clock-card{padding:18px;min-height:178px}.clock{font-size:clamp(49px,10vw,68px)}.date{font-size:12px}.speed{padding:17px}.speed-num{font-size:54px}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.tile{min-height:144px;padding:16px}.status{font-size:10px;padding:8px}.brand{font-size:20px}.brand .mark{width:39px;height:39px}.section-header{margin-top:25px}}@media(min-width:661px) and (max-height:620px){.clock-card{min-height:170px}.hero{grid-template-columns:1.5fr 1fr}.tile{min-height:130px}.app{padding-top:16px}}
+.stream-grid .tile{background:linear-gradient(155deg,#242a40,#111d2b)}.video-symbol{font-size:26px;font-weight:950;width:50px;height:50px;display:grid;place-items:center;border-radius:15px}.video-youtube{background:#5d1e29;color:#ff6f72}.video-netflix{background:#341f2e;color:#ff5b65}.video-disney{background:#223b61;color:#a6cdff}.video-prime{background:#183f59;color:#7ccfff}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><span class="mark">A</span><div>AutoBox<small>ENTERTAINMENT · UNIVERSALE</small></div></div></header>
+<main>
+
+<div class="hero"><section class="glass clock-card"><div class="eyebrow">Il tuo viaggio</div><div class="clock" id="clock">--:--</div><div class="date" id="date">Caricamento data…</div></section><section class="glass speed"><div class="eyebrow">Velocità GPS</div><div><span class="speed-num" id="speed">--</span><div class="speed-label">km/h</div></div><button class="gps pending" id="gpsButton" type="button">Attiva GPS</button></section></div>
+<div class="section-header"><h2>Destinazione</h2><span class="hint">Google Maps</span></div>
+<div class="navigator"><input aria-label="Cerca una destinazione" enterkeyhint="go" id="destination" placeholder="Dove vuoi andare?"/><button aria-label="Avvia navigazione" class="go" id="go" type="button"><svg fill="none" height="26" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="26" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></button></div>
+<div class="quick-dest"><button class="small-chip" data-destination="home">⌂   Casa</button><button class="small-chip" data-destination="work">▣   Lavoro</button><button class="small-chip" id="editPlaces">✎   Modifica indirizzi</button></div>
+<div class="section-header"><h2>Guida e comunicazioni</h2><span class="hint">Accesso rapido</span></div>
+<div class="grid">
+<button class="tile" data-app="maps"><span class="symbol"><svg viewbox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15m6-12v15"></path></svg></span><span><strong>Google Maps</strong><small>Navigazione</small></span></button>
+<button class="tile" data-app="spotify"><span class="symbol" style="background:#203e34;color:#70efaa"><svg viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M5 10c5-1 9-1 14 2M6 13c5-1 8 0 12 2M7 16c4-1 7 0 10 2"></path></svg></span><span><strong>Spotify</strong><small>La tua musica</small></span></button>
+<button class="tile" data-app="calls"><span class="symbol blue"><svg viewbox="0 0 24 24"><path d="M4 4c0 9 7 16 16 16l2-4-5-3-3 2c-3-1-5-3-6-6l2-3-3-5z"></path></svg></span><span><strong>Chiamate</strong><small>Apri il telefono</small></span></button>
+<button class="tile" data-app="waze"><span class="symbol warm"><svg viewbox="0 0 24 24"><path d="M5 14C2 9 7 3 13 3c6 0 9 5 8 10-.5 3-4 4-8 4H9l-4 2v-5z"></path><circle cx="10" cy="19" r="1"></circle><circle cx="17" cy="19" r="1"></circle></svg></span><span><strong>Waze</strong><small>Traffico e percorsi</small></span></button>
+<button class="tile" data-app="ytmusic"><span class="symbol warm"><svg viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span><span><strong>YouTube Music</strong><small>Playlist</small></span></button>
+<button class="tile" data-app="whatsapp"><span class="symbol"><svg viewbox="0 0 24 24"><path d="M6 19 3 22l1-5a9 9 0 1 1 4 4z"></path><path d="m8 9 2 4 5 3 2-2"></path></svg></span><span><strong>WhatsApp</strong><small>Chat e chiamate</small></span></button>
+<button class="tile" data-app="voice"><span class="symbol purple"><svg viewbox="0 0 24 24"><rect height="12" rx="3" width="6" x="9" y="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8"></path></svg></span><span><strong>Voce</strong><small>Comandi vocali</small></span></button>
+<button class="tile" data-app="sms"><span class="symbol blue"><svg viewbox="0 0 24 24"><rect height="14" rx="3" width="18" x="3" y="4"></rect><path d="m7 18-2 3v-3M7 9h10m-10 4h7"></path></svg></span><span><strong>Messaggi SMS</strong><small>App messaggi</small></span></button>
+</div>
+<div class="section-header"><h2>Streaming e intrattenimento</h2><span class="hint">Solo in sosta</span></div>
+
+<div class="grid stream-grid">
+<button class="tile video-tile" data-app="youtube"><span class="video-symbol video-youtube">▶</span><span><strong>YouTube</strong><small>Video e canali</small></span></button>
+<button class="tile video-tile" data-app="netflix"><span class="video-symbol video-netflix">N</span><span><strong>Netflix</strong><small>Film e serie</small></span></button>
+<button class="tile video-tile" data-app="disney"><span class="video-symbol video-disney">D+</span><span><strong>Disney+</strong><small>Film e serie</small></span></button>
+<button class="tile video-tile" data-app="prime"><span class="video-symbol video-prime">▶</span><span><strong>Prime Video</strong><small>Film e serie</small></span></button>
+</div>
+
+
+
+</main>
+</div>
+<div class="modal" hidden="" id="modal"><div class="modal-card"><h2 id="modalTitle"></h2><p id="modalText" style="white-space:pre-line"></p><div id="modalFields"></div><div class="modal-actions"><button id="modalCancel" type="button">Annulla</button><button class="main" id="modalConfirm" type="button">Conferma</button></div></div></div>
+<div class="toast" hidden="" id="toast" role="status"></div>
+<script>
+'use strict';
+const $ = (s) => document.querySelector(s);
+const mem = {get(k){try{return localStorage.getItem(k)||''}catch{return ''}},set(k,v){try{localStorage.setItem(k,v)}catch{}}};
+const clock=$('#clock'), date=$('#date');
+function updateClock(){const d=new Date();clock.textContent=d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});date.textContent=d.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+updateClock();setInterval(updateClock,10000);
+let speedKmh=null, watcher=null, lastToast=0;
+function notify(s){const t=$('#toast');t.textContent=s;t.hidden=false;const n=Date.now();lastToast=n;setTimeout(()=>{if(lastToast===n)t.hidden=true},3500)}
+function navigate(dest){if(!dest.trim()){notify('Inserisci prima la destinazione.');return;}window.location.href='https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(dest.trim())+'&travelmode=driving';}
+$('#go').addEventListener('click',()=>navigate($('#destination').value));
+$('#destination').addEventListener('keydown',e=>{if(e.key==='Enter')navigate(e.target.value)});
+document.querySelectorAll('[data-destination]').forEach(b=>b.addEventListener('click',()=>{const label=b.dataset.destination;const val=mem.get('place_'+label);if(val)navigate(val);else showPlaces(label)}));
+function openLink(href){window.location.href=href;}
+function openApp(name){switch(name){
+ case 'maps':openLink('https://www.google.com/maps');break;
+ case 'spotify':openLink('https://open.spotify.com/');break;
+ case 'calls':openLink('tel:');break;
+ case 'waze':openLink('https://waze.com/ul?navigate=yes');break;
+ case 'ytmusic':openLink('https://music.youtube.com/');break;
+ case 'whatsapp':openLink('https://www.whatsapp.com/');break;
+ case 'sms':openLink('sms:');break;
+ case 'voice':startVoice();break;
+ case 'youtube':case 'netflix':case 'disney':case 'prime':confirmVideo(name);break;
+}}
+const videoServices={
+ youtube:{name:'YouTube',url:'https://www.youtube.com/'},
+ netflix:{name:'Netflix',url:'https://www.netflix.com/'},
+ disney:{name:'Disney+',url:'https://www.disneyplus.com/'},
+ prime:{name:'Prime Video',url:'https://www.primevideo.com/'}
+};
+function confirmVideo(name){
+ const svc=videoServices[name];if(!svc)return;
+ if(speedKmh!==null && speedKmh>3){notify('Auto in movimento: non aprire video.');return;}
+ showModal('Solo a veicolo parcheggiato',
+  'Vuoi aprire '+svc.name+' sullo smartphone? Verifica di essere parcheggiato in sicurezza e di non essere alla guida.\n\nAutoBox non può verificare se il veicolo è parcheggiato.',
+  [],()=>openLink(svc.url),'Confermo: sono parcheggiato');
+}
+
+document.querySelectorAll('[data-app]').forEach(b=>b.addEventListener('click',()=>openApp(b.dataset.app)));
+function showModal(title, text, fields, onConfirm, confirmLabel='Conferma'){
+ $('#modalTitle').textContent=title;$('#modalText').textContent=text;$('#modalFields').innerHTML='';
+ const elements=fields.map(f=>{const input=document.createElement('input');input.placeholder=f.placeholder;input.value=f.value;input.setAttribute('aria-label',f.placeholder);input.style.marginBottom='10px';$('#modalFields').appendChild(input);return input});
+ $('#modalConfirm').textContent=confirmLabel;$('#modal').hidden=false;
+ const close=()=>{$('#modal').hidden=true;$('#modalCancel').onclick=null;$('#modalConfirm').onclick=null};
+ $('#modalCancel').onclick=close;
+ $('#modalConfirm').onclick=()=>{onConfirm(elements.map(e=>e.value));close()};
+}
+function showPlaces(focus){showModal('Indirizzi preferiti','Salva gli indirizzi sul dispositivo. Non vengono inviati ad AutoBox.',[{placeholder:'Indirizzo di casa',value:mem.get('place_home')},{placeholder:'Indirizzo del lavoro',value:mem.get('place_work')}],([home,work])=>{mem.set('place_home',home);mem.set('place_work',work);notify('Indirizzi salvati sul dispositivo.')},'Salva');}
+$('#editPlaces').addEventListener('click',()=>showPlaces());
+function startVoice(){const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SpeechRecognition){notify('Il riconoscimento vocale non è disponibile in questo browser.');return}try{const recognition=new SpeechRecognition();recognition.lang='it-IT';recognition.interimResults=false;recognition.onresult=(event)=>{const phrase=event.results[0][0].transcript.trim();const lower=phrase.toLowerCase();if(lower.startsWith('naviga a '))navigate(phrase.slice(9));else if(lower.startsWith('vai a '))navigate(phrase.slice(6));else if(lower.includes('spotify'))openApp('spotify');else if(lower.includes('waze'))openApp('waze');else if(lower.includes('musica'))openApp('ytmusic');else if(lower.includes('chiama'))openApp('calls');else notify('Comando non riconosciuto: '+phrase)};recognition.onerror=()=>notify('Microfono o riconoscimento vocale non disponibili.');recognition.start();notify('Ascolto in corso…')}catch{notify('Impossibile avviare il microfono.')}}
+$('#gpsButton').addEventListener('click',()=>{if(!navigator.geolocation){notify('GPS non disponibile in questo browser.');return}if(watcher!==null){navigator.geolocation.clearWatch(watcher);watcher=null;speedKmh=null;$('#speed').textContent='--';$('#gpsButton').textContent='Attiva GPS';$('#gpsButton').classList.add('pending');return}$('#gpsButton').textContent='Ricerca GPS…';watcher=navigator.geolocation.watchPosition(pos=>{const v=pos.coords.speed;speedKmh=(v===null || !Number.isFinite(v))?null:Math.max(0,v*3.6);$('#speed').textContent=speedKmh===null?'--':String(Math.round(speedKmh));$('#gpsButton').textContent='GPS attivo · disattiva';$('#gpsButton').classList.remove('pending')},err=>{notify('Non posso leggere il GPS. Concedi il permesso posizione e usa HTTPS se richiesto.');if(watcher!==null){navigator.geolocation.clearWatch(watcher);watcher=null}$('#gpsButton').textContent='Attiva GPS'}, {enableHighAccuracy:true,maximumAge:2000,timeout:12000})});
+if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){navigator.serviceWorker.register('./service-worker.js').catch(()=>{})}
+</script>
+</body></html>
