@@ -104,7 +104,7 @@ public class MainActivity extends Activity {
             runOnUiThread(() -> launchShortcut(key));
         }
         @JavascriptInterface public void navigate(String address) {
-            runOnUiThread(() -> navigateMaps(address));
+            runOnUiThread(() -> navigateWaze(address));
         }
     }
 
@@ -205,20 +205,23 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void navigateMaps(String address) {
+    private void navigateWaze(String address) {
         if (address == null || address.trim().isEmpty()) {
             message("Inserisci una destinazione.");
             return;
         }
-        Intent navigation = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("google.navigation:q=" + Uri.encode(address.trim())));
-        navigation.setPackage("com.google.android.apps.maps");
+        // Waze deep-link documented by Google: q is the URL-encoded search,
+        // navigate=yes starts guidance; package restriction prevents browser fallback.
+        Uri target = Uri.parse("waze://?q=" + Uri.encode(address.trim()) +
+                "&navigate=yes");
+        Intent navigation = new Intent(Intent.ACTION_VIEW, target);
+        navigation.setPackage("com.waze");
         try {
             startActivity(navigation);
         } catch (ActivityNotFoundException e) {
-            message("Installa Google Maps per avviare la navigazione.");
+            message("Installa o aggiorna Waze per avviare il percorso.");
         } catch (Exception e) {
-            message("Impossibile aprire la navigazione.");
+            message("Impossibile aprire la navigazione in Waze.");
         }
     }
 
@@ -241,8 +244,8 @@ public class MainActivity extends Activity {
         if (results == null || results.isEmpty()) return;
         String original = results.get(0).trim();
         String command = original.toLowerCase(Locale.ITALIAN);
-        if (command.startsWith("naviga a ")) navigateMaps(original.substring(9));
-        else if (command.startsWith("vai a ")) navigateMaps(original.substring(6));
+        if (command.startsWith("naviga a ")) navigateWaze(original.substring(9));
+        else if (command.startsWith("vai a ")) navigateWaze(original.substring(6));
         else if (command.contains("spotify")) launchShortcut("spotify");
         else if (command.contains("waze")) launchShortcut("waze");
         else if (command.contains("whatsapp")) launchShortcut("whatsapp");
