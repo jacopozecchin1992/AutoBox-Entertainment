@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -48,3 +48,15 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
+
+      - name: Pubblica APK come download diretto GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          APK=app/build/outputs/apk/debug/app-debug.apk
+          if gh release view v2.2.1 >/dev/null 2>&1; then
+            gh release upload v2.2.1 "$APK#AutoBox-Entertainment.apk" --clobber
+          else
+            gh release create v2.2.1 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.2.1" --notes "APK Android universale compilato con Gradle da GitHub Actions. Non e una app Android Auto ufficiale."
+          fi
