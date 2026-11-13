@@ -1,4 +1,4 @@
-# AutoBox Entertainment Universale 2.7.0
+# AutoBox Entertainment Universale 2.8.0
 
 AutoBox è un **launcher sul Samsung** e una **vera app audio su Android Auto**.
 
