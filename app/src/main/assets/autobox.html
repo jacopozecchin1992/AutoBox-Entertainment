@@ -170,6 +170,77 @@ body.dashboard-fullscreen .pane-nav .route-art{flex:1;min-height:140px}
  body.dashboard-fullscreen .split-pane{flex-shrink:0}
  .spotify-hero{min-height:150px;flex-direction:column}
 }
+
+/* AutoBox 3.0. Customizable Home is for Samsung; Android Auto has a host-controlled media UI. */
+.personalize-btn{background:#2be7ce;color:#07323b;border:0;border-radius:12px;padding:12px 17px;font-size:12px;font-weight:850;box-shadow:0 8px 24px #26eacc22}
+.home-layout{width:100%;justify-content:center;margin-bottom:13px;flex-wrap:wrap}
+.home-layout .ratio-choice{font-size:12px;white-space:nowrap}
+.home-configurable-split{min-height:370px}
+.home-configurable-split.ratio-full-left,.home-configurable-split.ratio-full-right{grid-template-columns:minmax(0,1fr)}
+.home-configurable-split .slot-pane[hidden]{display:none!important}
+.slot-pane{display:flex;flex-direction:column;gap:12px;padding:15px;background:linear-gradient(150deg,#0e2635,#122a3c)}
+.slot-preview{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;flex:1;min-height:280px;border-radius:18px;border:1px solid #3d6572;padding:19px;background:radial-gradient(ellipse at 50% 8%,#2a5566,#112d3c 51%,#0e2231 100%)}
+.slot-preview.app-spotify{background:radial-gradient(ellipse at 50% 8%,#175c43,#113831 51%,#10262d 100%);border-color:#427a62}
+.slot-preview.app-waze,.slot-preview.app-maps{background:radial-gradient(ellipse at 50% 8%,#2b6685,#173b53 51%,#0b273d 100%)}
+.slot-preview.app-ytmusic{background:radial-gradient(ellipse at 50% 8%,#643f54,#34283c 53%,#152336 100%)}
+.slot-preview.app-whatsapp{background:radial-gradient(ellipse at 50% 8%,#27725b,#1c413b 55%,#112b32 100%)}
+.slot-app-icon{width:102px;height:102px;display:grid;place-items:center;font-weight:900;font-size:66px;line-height:1;border-radius:28px;background:#2fe9d5;color:#0b3440;box-shadow:0 13px 25px #0006}
+.app-spotify .slot-app-icon{background:#1ed760;color:#073820;border-radius:50%}
+.app-waze .slot-app-icon{background:#a2ddff;color:#164663}
+.app-ytmusic .slot-app-icon{background:#fc5a66;color:#fff;border-radius:50%}
+.app-whatsapp .slot-app-icon{background:#23d76b;color:#053d23;border-radius:50%}
+.slot-app-caption{font-size:10px;letter-spacing:.17em;font-weight:850;color:#a5d6dd}
+.slot-preview strong{font-size:clamp(22px,3vw,32px);letter-spacing:-.04em;line-height:1.1}
+.slot-app-description{color:#b3cedb;font-size:12px}
+.slot-open{margin-top:8px;border:0;background:#30e8d0;color:#082b36;font-weight:850;padding:13px 17px;border-radius:13px;font-size:12px}
+.app-spotify .slot-open{background:#1ed760;color:#052d1e}
+.pane-hint{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:#9bb4c2;font-size:11px;line-height:1.45}
+.pane-hint span{font-size:17px;color:#54dcd3}
+.home-navigation{display:grid;grid-template-columns:minmax(0,1fr) 185px;gap:11px;margin-top:13px}
+.home-search,.home-speed{border:1px solid #335363;background:#122d3c;padding:13px 15px;border-radius:17px}
+.home-search>.pane-kicker,.home-speed>.pane-kicker{display:block;margin-bottom:8px}
+.home-search .navigator{padding:5px;background:#0d2031;border-radius:12px}
+.home-search .navigator input{font-size:13px}
+.home-search .navigator .go{min-width:43px;width:43px}
+.home-search .quick-dest{gap:6px}
+.home-search .small-chip{font-size:10px;padding:9px 11px}
+.home-speed .split-speed-num{font-size:38px}
+.home-speed .gps{margin-top:6px}
+.chooser-backdrop{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:#050e17e8}
+.chooser-backdrop[hidden]{display:none}
+.chooser-card{background:linear-gradient(150deg,#153447,#0e2134);border:1px solid #43707a;border-radius:24px;max-width:440px;width:100%;padding:25px;box-shadow:0 20px 60px #0008}
+.chooser-heading{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:21px}
+.chooser-heading span{color:#58e9cb;font-size:10px;letter-spacing:.18em;font-weight:850}
+.chooser-heading h2{margin:7px 0 0;font-size:26px}
+.chooser-close{background:#264458;border:1px solid #446274;color:white;border-radius:10px;padding:8px 12px}
+.chooser-card label{display:block;margin:15px 0 8px;font-size:12px;font-weight:850;color:#c6dfeb}
+.chooser-card select{width:100%;font:inherit;padding:13px;border-radius:12px;background:#0b1b2d;color:#f7ffff;border:1px solid #55798a}
+.chooser-card p{color:#a8c2cf;font-size:12px;line-height:1.55}
+.chooser-actions{display:flex;gap:9px;justify-content:space-between;margin-top:22px}
+.chooser-actions button{padding:12px;border-radius:12px;font-weight:800;border:1px solid #4a7281;background:#193d4e;color:#e1ffff}
+.chooser-actions button:last-child{background:#35e8d2;color:#093443;border:0}
+body.dashboard-fullscreen .home-configurable-split{min-height:calc(100dvh - 20px)}
+body.dashboard-fullscreen .drive-shell>.home-layout,body.dashboard-fullscreen .drive-shell>.home-navigation,
+body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
+@media(max-width:710px){
+ .home-layout{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:5px;gap:3px}
+ .home-layout .ratio-choice{padding:11px 2px;font-size:10px}
+ .home-configurable-split,.home-configurable-split.ratio-30,.home-configurable-split.ratio-50,
+ .home-configurable-split.ratio-70{height:640px;display:grid;grid-template-columns:minmax(0,1fr)}
+ .home-configurable-split.ratio-30{grid-template-rows:minmax(0,3fr) minmax(0,7fr)}
+ .home-configurable-split.ratio-50{grid-template-rows:repeat(2,minmax(0,1fr))}
+ .home-configurable-split.ratio-70{grid-template-rows:minmax(0,7fr) minmax(0,3fr)}
+ .home-configurable-split.ratio-full-left,.home-configurable-split.ratio-full-right{height:510px;grid-template-rows:minmax(0,1fr);display:grid}
+ .home-configurable-split .slot-pane{min-height:0;overflow:auto}
+ .slot-preview{min-height:0;padding:11px;gap:5px}
+ .slot-app-icon{height:70px;width:70px;font-size:48px;border-radius:20px}
+ .slot-preview strong{font-size:22px}
+ .slot-open{padding:11px 14px}
+ .home-navigation{grid-template-columns:1fr}
+ .home-speed{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+ .personalize-btn{padding:11px}
+ body.dashboard-fullscreen .home-configurable-split{height:calc(100dvh - 20px)}
+}
 </style>
 </head>
 <body>
@@ -185,97 +256,83 @@ body.dashboard-fullscreen .pane-nav .route-art{flex:1;min-height:140px}
 <main>
 
 
-<section class="page-view is-visible" id="page-home" role="tabpanel" aria-labelledby="tab-home"><div class="drive-shell" aria-label="Dashboard di guida">
-  <div class="drive-head">
-    <div class="drive-label">
-      <span class="drive-symbol" aria-hidden="true">A</span>
-      <div><strong>Waze + Spotify</strong><span>Le tue app preferite • Schermo diviso</span></div>
+<section class="page-view is-visible" id="page-home" role="tabpanel" aria-labelledby="tab-home">
+  <div class="drive-shell" aria-label="Home AutoBox personalizzabile">
+    <div class="drive-head">
+      <div class="drive-label">
+        <span class="drive-symbol" aria-hidden="true">A</span>
+        <div><strong>AutoBox</strong><span>Home personalizzabile • Schermo diviso</span></div>
+      </div>
+      <button type="button" class="personalize-btn" id="personalizeHome">⚙ Personalizza Home</button>
     </div>
-    <div class="layout-picker" aria-label="Proporzioni pannelli">
+    <div class="layout-picker home-layout" aria-label="Cinque modalità di visualizzazione">
       <span class="layout-caption">LAYOUT</span>
-      <button class="ratio-choice" data-ratio="70" type="button" aria-label="Navigazione 70%, musica 30%">7:3</button>
-      <button class="ratio-choice is-active" data-ratio="50" type="button" aria-label="Navigazione 50%, musica 50%">5:5</button>
-      <button class="ratio-choice" data-ratio="30" type="button" aria-label="Navigazione 30%, musica 70%">3:7</button>
+      <button class="ratio-choice" data-ratio="30" type="button" aria-pressed="false">30/70</button>
+      <button class="ratio-choice is-active" data-ratio="50" type="button" aria-pressed="true">50/50</button>
+      <button class="ratio-choice" data-ratio="70" type="button" aria-pressed="false">70/30</button>
+      <button class="ratio-choice" data-ratio="full-left" type="button" aria-pressed="false">Full SX</button>
+      <button class="ratio-choice" data-ratio="full-right" type="button" aria-pressed="false">Full DX</button>
     </div>
-  </div>
-  <div class="split-view ratio-50" id="splitView">
-    <section class="split-pane pane-nav" aria-label="Navigazione e velocità">
-      <div class="pane-heading">
-        <span class="pane-kicker">WAZE · NAVIGAZIONE</span>
-        <button class="small-action fullscreen-launch" data-app="waze" type="button">Apri Waze <span aria-hidden="true">⛶</span></button>
-      </div>
-      <div class="route-art" aria-label="Illustrazione schematica della strada, non è una mappa in tempo reale">
-        <svg viewBox="0 0 640 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <defs>
-            <linearGradient id="route-bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#153f4c"/><stop offset="100%" stop-color="#0b1c30"/></linearGradient>
-            <linearGradient id="route-line" x1="0" x2="1"><stop stop-color="#5df7db"/><stop offset="100%" stop-color="#00a7dc"/></linearGradient>
-          </defs>
-          <rect width="640" height="240" fill="url(#route-bg)"/>
-          <g fill="none" stroke="#375366" stroke-width="9" opacity=".42">
-            <path d="M-30 55 Q145 100 240 -40"/>
-            <path d="M45 260 Q150 110 344 152 T710 97"/>
-            <path d="M0 185 Q127 150 210 239"/>
-            <path d="M391 -25 Q348 90 495 270"/>
-            <path d="M-10 17 Q220 15 289 240"/>
-          </g>
-          <g fill="none" stroke="#426b75" stroke-width="2.5" opacity=".55" stroke-dasharray="5 9">
-            <path d="M-30 55 Q145 100 240 -40"/>
-            <path d="M45 260 Q150 110 344 152 T710 97"/>
-            <path d="M391 -25 Q348 90 495 270"/>
-          </g>
-          <path d="M140 268 C155 172 185 173 266 161 C335 150 301 80 383 69 C440 61 459 90 496 46" fill="none" stroke="#092d35" stroke-width="20" stroke-linecap="round"/>
-          <path d="M140 268 C155 172 185 173 266 161 C335 150 301 80 383 69 C440 61 459 90 496 46" fill="none" stroke="url(#route-line)" stroke-width="8" stroke-linecap="round"/>
-          <circle cx="263" cy="161" r="16" fill="#5af5dd" fill-opacity=".17"/>
-          <circle cx="263" cy="161" r="6" fill="#e5fff9" stroke="#0e9e98" stroke-width="3"/>
-          <path d="M496 16a17 17 0 0 0 -17 17c0 12 17 31 17 31s17 -19 17 -31a17 17 0 0 0 -17 -17z" fill="#54ffe0"/>
-          <circle cx="496" cy="33" r="6" fill="#0c2c37"/>
-        </svg>
-        <div class="map-caption"><span class="map-led"></span> Mappa illustrativa <span>• Percorso reale in Waze</span></div>
-      </div>
-      <div class="pane-input">
-        <div class="pane-kicker">DESTINAZIONE</div>
-        <div class="navigator"><input aria-label="Cerca una destinazione" enterkeyhint="go" id="destination" placeholder="Dove vuoi andare?"/><button aria-label="Avvia navigazione" class="go" id="go" type="button"><svg fill="none" height="26" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="26" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></button></div>
+    <div class="split-view ratio-50 home-configurable-split" id="splitView">
+      <section class="split-pane slot-pane" id="slotLeftPane" aria-label="Riquadro sinistro">
+        <div class="pane-heading"><span class="pane-kicker">RIQUADRO SINISTRO</span>
+          <button class="small-action" data-slot-launch="left" type="button">Apri app ↗</button>
+        </div>
+        <div class="slot-preview app-waze" id="leftPreview">
+          <span class="slot-app-icon" id="leftIcon" aria-hidden="true">◈</span>
+          <span class="slot-app-caption">APP SELEZIONATA</span>
+          <strong id="leftName">Waze</strong>
+          <span class="slot-app-description" id="leftDescription">Navigazione e traffico</span>
+          <button class="slot-open" type="button" data-slot-launch="left">Apri Waze a tutto schermo ↗</button>
+        </div>
+      </section>
+      <section class="split-pane slot-pane" id="slotRightPane" aria-label="Riquadro destro">
+        <div class="pane-heading"><span class="pane-kicker">RIQUADRO DESTRO</span>
+          <button class="small-action" data-slot-launch="right" type="button">Apri app ↗</button>
+        </div>
+        <div class="slot-preview app-spotify" id="rightPreview">
+          <span class="slot-app-icon" id="rightIcon" aria-hidden="true">♫</span>
+          <span class="slot-app-caption">APP SELEZIONATA</span>
+          <strong id="rightName">Spotify</strong>
+          <span class="slot-app-description" id="rightDescription">Playlist, musica e podcast</span>
+          <button class="slot-open" type="button" data-slot-launch="right">Apri Spotify a tutto schermo ↗</button>
+        </div>
+      </section>
+    </div>
+    <div class="pane-hint"><span>▥</span> Questi sono riquadri di scelta, non le schermate delle app. Per due app vere affiancate usa lo schermo diviso del Samsung.</div>
+    <section class="home-navigation" aria-label="Destinazione e velocità">
+      <div class="home-search">
+        <span class="pane-kicker">DESTINAZIONE · WAZE</span>
+        <div class="navigator"><input aria-label="Cerca una destinazione" enterkeyhint="go" id="destination" placeholder="Dove vuoi andare?" /><button aria-label="Avvia navigazione" class="go" id="go" type="button">➜</button></div>
         <div class="quick-dest"><button class="small-chip" data-destination="home" type="button">⌂ Casa</button><button class="small-chip" data-destination="work" type="button">▣ Lavoro</button><button class="small-chip" id="editPlaces" type="button">✎ Indirizzi</button></div>
       </div>
-      <div class="pane-speed">
-        <div><span class="pane-kicker">VELOCITÀ GPS</span><div><span class="split-speed-num" id="speed">--</span><span class="speed-label"> km/h</span></div></div>
+      <div class="home-speed">
+        <span class="pane-kicker">VELOCITÀ GPS</span>
+        <div><span class="split-speed-num" id="speed">--</span> <span class="speed-label">km/h</span></div>
         <button class="gps pending" id="gpsButton" type="button">Attiva GPS</button>
       </div>
     </section>
-    <section class="split-pane pane-audio" aria-label="Spotify e musica">
-      <div class="pane-heading">
-        <span class="pane-kicker">SPOTIFY · MUSICA</span>
-        <button class="small-action fullscreen-launch" type="button" data-app="spotify">Apri Spotify <span aria-hidden="true">⛶</span></button>
-      </div>
-      <div class="spotify-hero">
-        <span class="spotify-hero-icon" aria-hidden="true">≋</span>
-        <span class="spotify-hero-tag">LA TUA MUSICA</span>
-        <strong>Spotify</strong>
-        <small>Playlist, album e podcast nell'app ufficiale</small>
-        <button data-app="spotify" class="spotify-hero-open" type="button">Apri a tutto schermo <span aria-hidden="true">↗</span></button>
-      </div>
-      <div class="home-local-player">
-        <div class="home-local-header"><span>LETTORE LOCALE AUTOBOX</span><button type="button" data-app="local_music">Libreria ↗</button></div>
-        <div class="transport" aria-label="Comandi della musica locale AutoBox, non di Spotify">
-          <button type="button" data-audio="previous" aria-label="Precedente locale">|◀</button>
-          <button class="play-main" type="button" data-audio="play" aria-label="Riproduci musica locale">▶</button>
-          <button type="button" data-audio="pause" aria-label="Pausa musica locale">Ⅱ</button>
-          <button type="button" data-audio="next" aria-label="Successivo locale">▶|</button>
-        </div>
-        <p>Questi controlli sono per i brani locali; Spotify usa i propri comandi.</p>
-      </div>
-    </section>
+    <nav class="drive-dock" aria-label="Scorciatoie rapide">
+      <button data-app="waze" type="button" class="dock-favorite"><span>◈</span> Waze</button>
+      <button data-app="spotify" type="button" class="dock-favorite"><span>♫</span> Spotify</button>
+      <button data-app="maps" type="button"><span>⌁</span> Maps</button>
+      <button data-app="whatsapp" type="button"><span>◉</span> WhatsApp</button>
+      <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Split Samsung</button>
+      <button id="fullDashboard" class="dock-fullscreen" aria-pressed="false" type="button"><span>⛶</span> Dashboard intera</button>
+    </nav>
+    <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
   </div>
-  <nav class="drive-dock" aria-label="Scorciatoie rapide">
-    <button data-app="waze" class="dock-favorite" type="button"><span>◈</span> Waze</button>
-    <button data-app="maps" type="button"><span>⌁</span> Maps</button>
-    <button data-app="spotify" class="dock-favorite" type="button"><span>♫</span> Spotify</button>
-    <button data-app="whatsapp" type="button"><span>◉</span> WhatsApp</button>
-    <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Split Waze + Spotify</button>
-    <button id="fullDashboard" type="button" class="dock-fullscreen" aria-pressed="false"><span>⛶</span> Dashboard intera</button>
-  </nav>
-  <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
-</div></section>
+</section>
+<div class="chooser-backdrop" id="homeChooser" hidden>
+  <div class="chooser-card" role="dialog" aria-modal="true" aria-labelledby="homeChooserTitle">
+    <div class="chooser-heading"><div><span>CONFIGURA I RIQUADRI</span><h2 id="homeChooserTitle">Personalizza Home</h2></div>
+      <button id="homeChooserClose" class="chooser-close" aria-label="Chiudi personalizzazione" type="button">✕</button></div>
+    <label for="leftAppChoice">App riquadro sinistro</label><select id="leftAppChoice"></select>
+    <label for="rightAppChoice">App riquadro destro</label><select id="rightAppChoice"></select>
+    <p>Le scelte vengono salvate sul Samsung. Tocca «Apri» per passare all'app ufficiale.</p>
+    <div class="chooser-actions"><button id="homeChooserReset" type="button">Waze + Spotify</button><button id="homeChooserSave" type="button">Salva Home</button></div>
+  </div>
+</div>
 <section class="page-view" id="page-apps" role="tabpanel" aria-labelledby="tab-apps" hidden>
 <div class="page-lead"><span class="page-eyebrow">LA TUA RACCOLTA</span><h1>Applicazioni</h1></div>
 <div class="section-header"><h2>Guida e comunicazioni</h2><span class="hint">Accesso rapido</span></div>
@@ -400,32 +457,99 @@ if('serviceWorker' in navigator && (location.protocol==='https:' || location.hos
 
 // The three split ratios are functional for AutoBox's own two panes.
 // External Android apps remain managed by Samsung One UI multi-window.
+// The dashboard is a configurable launcher, not a host for third-party app windows.
 const splitView = document.getElementById('splitView');
 const ratioOptions = [...document.querySelectorAll('[data-ratio]')];
-function setRatio(value) {
-  const allowed = ['30','50','70'];
-  if(!allowed.includes(String(value))) value='50';
-  splitView.className='split-view ratio-'+value;
-  for(const button of ratioOptions) {
+const slotApps = {
+  waze:       {name:'Waze',icon:'◈',description:'Navigazione e traffico'},
+  maps:       {name:'Google Maps',icon:'⌁',description:'Mappe, percorsi e luoghi'},
+  spotify:    {name:'Spotify',icon:'♫',description:'Playlist, musica e podcast'},
+  ytmusic:    {name:'YouTube Music',icon:'▶',description:'Musica e playlist'},
+  whatsapp:   {name:'WhatsApp',icon:'◉',description:'Messaggi e chiamate'},
+  sms:        {name:'Messaggi',icon:'▤',description:'SMS sul telefono'},
+  calls:      {name:'Telefono',icon:'☎',description:'Chiamate sul telefono'},
+  local_music:{name:'AutoBox Musica',icon:'♪',description:'Brani locali e audio di prova'}
+};
+const slotChoices = {left:'waze',right:'spotify'};
+const chooser = document.getElementById('homeChooser');
+const leftSelect=document.getElementById('leftAppChoice');
+const rightSelect=document.getElementById('rightAppChoice');
+for (const select of [leftSelect,rightSelect]){
+  for(const [key,app] of Object.entries(slotApps)){
+    const opt=document.createElement('option');opt.value=key;opt.textContent=app.name;select.appendChild(opt);
+  }
+}
+function safeAppKey(key,fallback){return Object.hasOwn(slotApps,key)?key:fallback;}
+function refreshSlot(side){
+  const key=slotChoices[side], app=slotApps[key];
+  document.getElementById(side+'Name').textContent=app.name;
+  document.getElementById(side+'Icon').textContent=app.icon;
+  document.getElementById(side+'Description').textContent=app.description;
+  const preview=document.getElementById(side+'Preview');
+  preview.className='slot-preview app-'+key;
+  preview.querySelector('.slot-open').textContent='Apri '+app.name+' a tutto schermo ↗';
+}
+function saveSlots(left,right){
+  slotChoices.left=safeAppKey(left,'waze');
+  slotChoices.right=safeAppKey(right,'spotify');
+  refreshSlot('left');refreshSlot('right');
+  try {
+    localStorage.setItem('autobox_slot_left',slotChoices.left);
+    localStorage.setItem('autobox_slot_right',slotChoices.right);
+  } catch {}
+}
+function setRatio(value){
+  const allowed=['30','50','70','full-left','full-right'];
+  if(!allowed.includes(String(value)))value='50';
+  splitView.className='split-view home-configurable-split ratio-'+value;
+  const fullLeft=value==='full-left',fullRight=value==='full-right';
+  document.getElementById('slotLeftPane').hidden=fullRight;
+  document.getElementById('slotRightPane').hidden=fullLeft;
+  for(const button of ratioOptions){
     const selected=button.dataset.ratio===String(value);
     button.classList.toggle('is-active',selected);
-    button.setAttribute('aria-pressed', selected?'true':'false');
+    button.setAttribute('aria-pressed',String(selected));
   }
-  try{localStorage.setItem('autobox_split_ratio',String(value));}catch{}
+  try {localStorage.setItem('autobox_split_ratio',value);}catch {}
 }
-ratioOptions.forEach(b=>b.addEventListener('click',()=>setRatio(b.dataset.ratio)));
-let savedRatio='50';
-try{savedRatio=localStorage.getItem('autobox_split_ratio')||'50';}catch{}
+ratioOptions.forEach(button=>button.addEventListener('click',()=>setRatio(button.dataset.ratio)));
+let savedRatio='50',savedLeft='waze',savedRight='spotify';
+try{
+  savedRatio=localStorage.getItem('autobox_split_ratio')||'50';
+  savedLeft=localStorage.getItem('autobox_slot_left')||'waze';
+  savedRight=localStorage.getItem('autobox_slot_right')||'spotify';
+}catch{}
+saveSlots(savedLeft,savedRight);
 setRatio(savedRatio);
-document.querySelectorAll('[data-audio]').forEach(b=>b.addEventListener('click',()=>{
-  const map={play:'audio_play',pause:'audio_pause',next:'audio_next',previous:'audio_previous'};
-  const action=map[b.dataset.audio];
-  if(action) launchNative(action);
+document.querySelectorAll('[data-slot-launch]').forEach(button=>button.addEventListener('click',()=>{
+  const side=button.dataset.slotLaunch;
+  if(Object.hasOwn(slotChoices,side))openApp(slotChoices[side]);
+}));
+function openChooser(){
+  leftSelect.value=slotChoices.left;rightSelect.value=slotChoices.right;
+  chooser.hidden=false;
+}
+function closeChooser(){chooser.hidden=true;}
+document.getElementById('personalizeHome').addEventListener('click',openChooser);
+document.getElementById('homeChooserClose').addEventListener('click',closeChooser);
+document.getElementById('homeChooserSave').addEventListener('click',()=>{
+  saveSlots(leftSelect.value,rightSelect.value);closeChooser();
+  notify('Home personalizzata e salvata.');
+});
+document.getElementById('homeChooserReset').addEventListener('click',()=>{
+  leftSelect.value='waze';rightSelect.value='spotify';
+});
+chooser.addEventListener('click',event=>{if(event.target===chooser)closeChooser();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!chooser.hidden)closeChooser();});
+document.querySelectorAll('[data-audio]').forEach(button=>button.addEventListener('click',()=>{
+  const actions={play:'audio_play',pause:'audio_pause',next:'audio_next',previous:'audio_previous'};
+  if(actions[button.dataset.audio])launchNative(actions[button.dataset.audio]);
 }));
 document.getElementById('splitSamsung').addEventListener('click',()=>{
-  showModal('Schermo diviso Samsung',
-    'Per affiancare davvero Waze e Spotify sul Galaxy S25 Ultra:\n\n1. Apri Waze e Spotify dalle scorciatoie AutoBox.\n2. Apri App recenti sul Samsung.\n3. Tocca l’icona di Waze e scegli «Apri in visualizzazione a schermo diviso».\n4. Seleziona Spotify come seconda app.\n5. Trascina il divisore per regolare le proporzioni e salva la coppia se lo desideri.\n\nIl comando «Dashboard intera» mostra la sola schermata AutoBox senza barre, non incorpora le due app. Android Auto gestisce autonomamente il layout sul display dell’auto.',
-    [],()=>launchNative('waze'),'Apri Waze');
+  const a=slotApps[slotChoices.left].name,b=slotApps[slotChoices.right].name;
+  showModal('Due app sul Samsung',
+    'Hai scelto '+a+' e '+b+'. Per vederle come due vere applicazioni affiancate: apri entrambe, vai in App recenti, seleziona «Apri in visualizzazione a schermo diviso» dalla prima app e scegli la seconda. Trascina il divisore per regolare le proporzioni.\\n\\nAndroid Auto controlla autonomamente le proprie finestre.',
+    [],()=>openApp(slotChoices.left),'Apri '+a);
 });
 
 // Navigate between Home, App and Streaming, retaining navigation in local storage.
