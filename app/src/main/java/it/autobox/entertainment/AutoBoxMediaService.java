@@ -216,6 +216,8 @@ public final class AutoBoxMediaService extends MediaBrowserServiceCompat {
 
         try {
             player = new MediaPlayer();
+            // Keep local audio playback alive while the phone display is off.
+            player.setWakeMode(getApplicationContext(), android.os.PowerManager.PARTIAL_WAKE_LOCK);
             player.setAudioAttributes(new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_MEDIA)
                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build());
