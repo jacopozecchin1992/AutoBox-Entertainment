@@ -30,7 +30,7 @@
         android:label="AutoBox Entertainment"
         android:icon="@drawable/ic_autobox"
         android:roundIcon="@drawable/ic_autobox"
-        android:theme="@android:style/Theme.Material.NoActionBar"
+        android:theme="@style/AutoBoxTheme"
         android:usesCleartextTraffic="false"
         android:allowBackup="false"
         android:supportsRtl="true">
