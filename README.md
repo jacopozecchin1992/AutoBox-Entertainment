@@ -1,8 +1,15 @@
-# AutoBox Entertainment Universale 2.8.0
+# AutoBox Entertainment Universale 2.9.0
 
 AutoBox è un **launcher sul Samsung** e una **vera app audio su Android Auto**.
 
-## AutoBox Drive 2.6.0 — nuova dashboard
+## Menu semplificato 2.9.0
+
+Il menu nella parte alta dell'app Samsung contiene **solo Home, App e Streaming**.
+Sono stati rimossi il pulsante **Musica** e i sottotitoli descrittivi dalle schermate **Applicazioni** e **Streaming**.
+La Home resta dedicata a Waze e Spotify, con il cruscotto a schermo intero e le proporzioni 7:3 / 5:5 / 3:7.
+La musica non scompare: Spotify rimane nella Home e nella pagina App; **AutoBox Musica** è ancora accessibile dalla pagina App e dalla dashboard per riprodurre brani locali. La distribuzione e l'interfaccia Android Auto restano invariate rispetto alla versione audio.
+
+## AutoBox Drive — dashboard
 
 La schermata Samsung ha un nuovo cruscotto a due pannelli **in stile AI Box**:
 - Navigazione, destinazioni, indirizzi Casa/Lavoro e velocità GPS a sinistra;
