@@ -48,7 +48,7 @@ public class AutoBoxCarService extends CarAppService {
 
         @NonNull
         @Override public Template onGetTemplate() {
-            SharedPreferences prefs = getCarContext().getSharedPreferences("autobox_prefs", MODE_PRIVATE);
+            SharedPreferences prefs = getCarContext().getSharedPreferences("autobox_prefs", android.content.Context.MODE_PRIVATE);
             String home = prefs.getString("place_home", "").trim();
             String work = prefs.getString("place_work", "").trim();
 
