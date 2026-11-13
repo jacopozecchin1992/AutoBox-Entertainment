@@ -83,34 +83,43 @@ function updateClock(){const d=new Date();clock.textContent=d.toLocaleTimeString
 updateClock();setInterval(updateClock,10000);
 let speedKmh=null, watcher=null, lastToast=0;
 function notify(s){const t=$('#toast');t.textContent=s;t.hidden=false;const n=Date.now();lastToast=n;setTimeout(()=>{if(lastToast===n)t.hidden=true},3500)}
-function navigate(dest){if(!dest.trim()){notify('Inserisci prima la destinazione.');return;}window.location.href='https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(dest.trim())+'&travelmode=driving';}
+function navigate(dest){
+  if(!dest.trim()){notify('Inserisci prima la destinazione.');return;}
+  if(window.AutoBoxNative){
+    try {window.AutoBoxNative.navigate(dest.trim());return;}catch{}
+  }
+  notify('Navigazione diretta disponibile nell’app Android AutoBox.');
+}
 $('#go').addEventListener('click',()=>navigate($('#destination').value));
 $('#destination').addEventListener('keydown',e=>{if(e.key==='Enter')navigate(e.target.value)});
-document.querySelectorAll('[data-destination]').forEach(b=>b.addEventListener('click',()=>{const label=b.dataset.destination;const val=mem.get('place_'+label);if(val)navigate(val);else showPlaces(label)}));
-function openLink(href){window.location.href=href;}
-function openApp(name){switch(name){
- case 'maps':openLink('https://www.google.com/maps');break;
- case 'spotify':openLink('https://open.spotify.com/');break;
- case 'calls':openLink('tel:');break;
- case 'waze':openLink('https://waze.com/ul?navigate=yes');break;
- case 'ytmusic':openLink('https://music.youtube.com/');break;
- case 'whatsapp':openLink('https://www.whatsapp.com/');break;
- case 'sms':openLink('sms:');break;
- case 'voice':startVoice();break;
- case 'youtube':case 'netflix':case 'disney':case 'prime':confirmVideo(name);break;
-}}
+document.querySelectorAll('[data-destination]').forEach(b=>b.addEventListener('click',()=>{
+  const label=b.dataset.destination;
+  const val=mem.get('place_'+label);
+  if(val)navigate(val);else showPlaces(label);
+}));
+function launchNative(name){
+  if(window.AutoBoxNative){
+    try{window.AutoBoxNative.openApp(name);return;}catch{}
+  }
+  if(name==='voice'){startVoice();return;}
+  notify('Questa scorciatoia apre l’app installata sul telefono nella versione Android di AutoBox.');
+}
+function openApp(name){
+  if(['youtube','netflix','disney','prime'].includes(name)){confirmVideo(name);return;}
+  launchNative(name);
+}
 const videoServices={
- youtube:{name:'YouTube',url:'https://www.youtube.com/'},
- netflix:{name:'Netflix',url:'https://www.netflix.com/'},
- disney:{name:'Disney+',url:'https://www.disneyplus.com/'},
- prime:{name:'Prime Video',url:'https://www.primevideo.com/'}
+  youtube:{name:'YouTube'},
+  netflix:{name:'Netflix'},
+  disney:{name:'Disney+'},
+  prime:{name:'Prime Video'}
 };
 function confirmVideo(name){
- const svc=videoServices[name];if(!svc)return;
- if(speedKmh!==null && speedKmh>3){notify('Auto in movimento: non aprire video.');return;}
- showModal('Solo a veicolo parcheggiato',
-  'Vuoi aprire '+svc.name+' sullo smartphone? Verifica di essere parcheggiato in sicurezza e di non essere alla guida.\n\nAutoBox non può verificare se il veicolo è parcheggiato.',
-  [],()=>openLink(svc.url),'Confermo: sono parcheggiato');
+  const svc=videoServices[name];if(!svc)return;
+  if(speedKmh!==null && speedKmh>3){notify('Auto in movimento: non aprire video.');return;}
+  showModal('Solo a veicolo parcheggiato',
+    'Vuoi aprire '+svc.name+' sullo smartphone? Verifica di essere parcheggiato in sicurezza e di non essere alla guida.\n\nAutoBox non può verificare se il veicolo è parcheggiato.',
+    [],()=>launchNative(name),'Confermo: sono parcheggiato');
 }
 
 document.querySelectorAll('[data-app]').forEach(b=>b.addEventListener('click',()=>openApp(b.dataset.app)));
