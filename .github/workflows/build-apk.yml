@@ -68,8 +68,8 @@ jobs:
         run: |
           set -euo pipefail
           APK=app/build/outputs/apk/debug/app-debug.apk
-          if gh release view v3.0.0 >/dev/null 2>&1; then
-            gh release upload v3.0.0 "$APK#AutoBox-Entertainment.apk" --clobber
+          if gh release view v3.1.0 >/dev/null 2>&1; then
+            gh release upload v3.1.0 "$APK#AutoBox-Entertainment.apk" --clobber
           else
-            gh release create v3.0.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 3.0.0" --notes "AutoBox Drive 3.0.0: Home personalizzabile con due app a scelta, cinque layout 30/70, 50/50, 70/30, Full SX, Full DX; avvio nativo delle app e dashboard Samsung immersiva; Android Auto media service con riproduzione locale anche a schermo del telefono spento. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
+            gh release create v3.1.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 3.1.0" --notes "AutoBox Drive 3.1.0: mantiene Home e cinque layout, aggiunge configurazione coppia Android Auto scegliendo Waze o Maps con Spotify, YouTube Music o AutoBox Musica. Le app sulla Kia si aprono dalla dashboard di Android Auto, non dall APK. Lettore AutoBox in background. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
           fi
