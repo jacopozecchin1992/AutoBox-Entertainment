@@ -10,6 +10,82 @@
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:#f7f9fc;background:#08111c;--bg:#08111c;--panel:#132233;--panel2:#182b3e;--stroke:rgba(218,234,253,.12);--quiet:#91a3b8;--accent:#58e9cb;--gold:#ffb45d;--radius:24px}
 *{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(ellipse 72% 50% at 90% -14%,#124846 0,transparent 70%),radial-gradient(ellipse 60% 55% at -5% 85%,#1b2746 0,transparent 62%),var(--bg)}button,input{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}button:active{transform:scale(.98)}.app{max-width:1080px;margin:auto;padding:24px clamp(16px,4vw,46px) 32px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.035em;font-size:23px}.mark{display:grid;place-items:center;background:var(--accent);color:#0b1b26;width:43px;height:43px;border-radius:14px;font-size:23px;box-shadow:0 8px 25px #20bfa627}.brand small{display:block;font-size:10px;font-weight:800;letter-spacing:.25em;color:var(--quiet);margin-top:1px}.status{display:flex;gap:7px;align-items:center;color:#b7c8d8;font-size:12px;background:#142435;border:1px solid var(--stroke);border-radius:99px;padding:9px 12px}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:15px;margin-bottom:16px}.glass{border:1px solid var(--stroke);background:linear-gradient(145deg,#182a3eaa,#111e30e8);border-radius:var(--radius);overflow:hidden}.clock-card{padding:28px;position:relative;min-height:226px}.clock-card:after{content:"";height:180px;width:180px;position:absolute;right:-60px;top:-60px;background:radial-gradient(circle,#4af0cd2d,transparent 67%);pointer-events:none}.eyebrow{font-size:11px;letter-spacing:.19em;font-weight:800;color:var(--accent);text-transform:uppercase}.clock{font-size:clamp(58px,9vw,96px);font-weight:750;letter-spacing:-.085em;line-height:1.22;font-variant-numeric:tabular-nums;margin:5px 0 0}.date{color:#adc0d3;font-size:15px}.speed{padding:25px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(152deg,#1c3940,#152439)}.speed-num{font-size:70px;line-height:1;font-weight:750;letter-spacing:-.08em}.speed-label{font-size:13px;color:#a5b9cb}.gps{align-self:start;background:#2c444b;border:1px solid #487b79;color:#a1f0df;border-radius:999px;font-weight:700;font-size:11px;padding:8px 11px}.gps.pending{color:#ccd6e2;background:#253648;border-color:#3f5063}.section-header{display:flex;align-items:center;justify-content:space-between;margin:30px 0 13px}.section-header h2{font-size:17px;letter-spacing:-.02em;margin:0}.hint{font-size:11px;color:#8ea3b8}.navigator{display:flex;gap:9px;padding:10px;background:#152337;border:1px solid var(--stroke);border-radius:18px}.navigator input{min-width:0;flex:1;border:none;color:white;background:transparent;padding:12px;outline:none}.navigator input::placeholder{color:#93a8ba}.go{display:grid;place-items:center;background:var(--accent);border:none;color:#08272d;border-radius:13px;width:54px;min-width:54px}.quick-dest{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.small-chip{background:#142336;border:1px solid var(--stroke);color:#c9d6e4;padding:11px 15px;border-radius:12px;font-size:12px;font-weight:650}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.tile{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;min-height:151px;padding:19px;border:1px solid var(--stroke);border-radius:22px;background:linear-gradient(145deg,#1b2d41,#112031);color:#f4f9fd;text-align:left}.tile .symbol{display:grid;place-items:center;border-radius:15px;width:49px;height:49px;background:#24394b;color:var(--accent)}.tile .symbol.warm{background:#49382b;color:#ffc88d}.tile .symbol.purple{background:#37304e;color:#c8b5ff}.tile .symbol.blue{background:#1b3e54;color:#8ddaff}.tile strong{font-size:15px;display:block;margin-top:14px}.tile small{font-size:11px;color:#9bb0c4;display:block;margin-top:3px}.tile svg{width:24px;height:24px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}.bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:28px;padding-top:17px;border-top:1px solid var(--stroke)}.bottom span{font-size:12px;color:#8aa0b5}.bottom button{border:1px solid #49615e;color:#a8f0e0;background:#18352f;border-radius:11px;padding:10px 13px}.notice{color:#b5c8d5;margin-top:18px;font-size:12px;line-height:1.6}.modal{position:fixed;inset:0;background:#02070bd9;display:flex;align-items:center;justify-content:center;padding:18px;z-index:5}.modal[hidden]{display:none}.modal-card{max-width:420px;width:100%;padding:25px;border:1px solid #45606d;border-radius:24px;background:#142335}.modal-card h2{margin:0 0 12px}.modal-card p{color:#becbdb;line-height:1.55;font-size:14px}.modal-card input{width:100%;padding:15px;color:#fff;background:#0b192a;border:1px solid #3f546a;border-radius:12px}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.modal-actions button{padding:12px 15px;border:1px solid #476073;border-radius:12px;background:#22364d;color:white}.modal-actions button.main{background:var(--accent);color:#08272d;border:none;font-weight:750}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:max-content;max-width:92%;padding:12px 16px;background:#28574e;border:1px solid #5c938a;border-radius:14px;font-size:13px;box-shadow:0 10px 30px #0005;z-index:9}.toast[hidden]{display:none}.footnote{font-size:11px;color:#8399ae;margin-top:8px}@media(max-width:660px){.app{padding:21px 16px 30px}.top{margin-bottom:19px}.hero{grid-template-columns:1.5fr 1fr;gap:10px}.clock-card{padding:18px;min-height:178px}.clock{font-size:clamp(49px,10vw,68px)}.date{font-size:12px}.speed{padding:17px}.speed-num{font-size:54px}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.tile{min-height:144px;padding:16px}.status{font-size:10px;padding:8px}.brand{font-size:20px}.brand .mark{width:39px;height:39px}.section-header{margin-top:25px}}@media(min-width:661px) and (max-height:620px){.clock-card{min-height:170px}.hero{grid-template-columns:1.5fr 1fr}.tile{min-height:130px}.app{padding-top:16px}}
 .stream-grid .tile{background:linear-gradient(155deg,#242a40,#111d2b)}.video-symbol{font-size:26px;font-weight:950;width:50px;height:50px;display:grid;place-items:center;border-radius:15px}.video-youtube{background:#5d1e29;color:#ff6f72}.video-netflix{background:#341f2e;color:#ff5b65}.video-disney{background:#223b61;color:#a6cdff}.video-prime{background:#183f59;color:#7ccfff}
+
+/* AutoBox Drive: a functional in-app dashboard inspired by modern AI-box launchers.
+   Android Auto media host still controls the screen layout. */
+.drive-shell{background:#0c1927;border:1px solid #2a4353;border-radius:28px;padding:19px;box-shadow:0 18px 60px #0005}
+.drive-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:15px}
+.drive-label{display:flex;align-items:center;gap:13px}
+.drive-symbol{display:grid;place-items:center;width:42px;height:42px;background:linear-gradient(140deg,#38fad7,#1b9dc0);color:#002734;border-radius:13px;font-weight:900;font-size:26px}
+.drive-label strong{display:block;font-size:21px;letter-spacing:-.04em}
+.drive-label span:not(.drive-symbol){font-size:11px;color:#93b5c5}
+.layout-picker{display:flex;align-items:center;gap:6px;padding:5px;background:#132839;border:1px solid #2a4c57;border-radius:15px}
+.layout-caption{color:#9ebdca;font-size:10px;font-weight:800;letter-spacing:.15em;padding:0 8px}
+.ratio-choice{border:none;background:transparent;color:#9dbac6;padding:9px 14px;border-radius:10px;font-size:12px;font-weight:800}
+.ratio-choice.is-active{background:#2ce9ce;color:#072a32;box-shadow:0 4px 15px #2ce9ce33}
+.split-view{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;min-height:448px}
+.split-view.ratio-70{grid-template-columns:minmax(0,7fr) minmax(0,3fr)}
+.split-view.ratio-30{grid-template-columns:minmax(0,3fr) minmax(0,7fr)}
+.split-pane{min-width:0;border:1px solid #335363;border-radius:21px;background:#11273a;overflow:hidden}
+.pane-nav{padding:14px;background:linear-gradient(145deg,#102d3b,#0b2237)}
+.pane-audio{padding:14px;display:flex;flex-direction:column;gap:13px;background:linear-gradient(145deg,#183647,#0d1b30)}
+.pane-heading{display:flex;align-items:center;justify-content:space-between;gap:9px;min-height:32px}
+.pane-kicker{font-size:10px;letter-spacing:.16em;font-weight:900;color:#5debd4}
+.small-action{color:#c1f5ed;border:1px solid #426a74;background:#1c4650;border-radius:10px;font-size:11px;padding:9px 11px}
+.route-art{position:relative;overflow:hidden;border-radius:13px;margin:12px 0 13px;height:178px;border:1px solid #315766}
+.route-art svg{height:100%;width:100%;display:block}
+.map-caption{position:absolute;bottom:9px;left:9px;right:9px;background:#0b1d29df;color:#cae3e9;border:1px solid #4d7f8099;padding:7px 9px;border-radius:9px;font-size:10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.map-caption span:last-child{color:#9ab0bf}
+.map-led{display:inline-block;width:7px;height:7px;border-radius:50%;background:#4efce0}
+.pane-input .pane-kicker{display:block;margin-bottom:7px}
+.pane-input .navigator{padding:5px;border-radius:12px;background:#0a1d2b}
+.pane-input .navigator input{font-size:13px;padding:10px}
+.pane-input .go{width:43px;min-width:43px}
+.pane-input .small-chip{padding:9px 10px;font-size:10px}
+.pane-input .quick-dest{gap:6px}
+.pane-speed{margin-top:12px;border-top:1px solid #34505b;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.split-speed-num{font-size:37px;font-weight:800;letter-spacing:-.07em}
+.pane-speed .gps{padding:8px 10px}
+.audio-feature{flex:1;min-height:165px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:13px;padding:13px 6px;border-radius:16px;background:radial-gradient(circle at 50% 10%,#1e606a 0%,#152e40 47%,#0b1a29 100%);border:1px solid #244b59}
+.audio-art{height:98px;width:98px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(135deg,#071d33,#0d3743);box-shadow:0 15px 32px #0006,inset 0 0 0 1px #2c7e89}
+.audio-logo{font-size:78px;font-weight:900;line-height:1;color:#19e9cf;text-shadow:0 4px 15px #1ce1d633;position:relative}
+.audio-logo span{position:absolute;top:29px;left:28px;font-size:23px;color:#072a34}
+.audio-title strong{display:block;font-size:clamp(14px,2vw,19px);line-height:1.1}
+.audio-title small{display:block;color:#a0c0cc;margin-top:5px;font-size:11px}
+.audio-overline{color:#48edda;font-weight:800;font-size:9px;letter-spacing:.17em;display:block;margin-bottom:8px}
+.transport{display:flex;align-items:center;justify-content:center;gap:9px}
+.transport button{min-width:41px;height:41px;border-radius:12px;border:1px solid #37606c;background:#193447;color:#daf8fa;font-size:15px;font-weight:800;flex:1;max-width:75px}
+.transport .play-main{background:#2af3d1;color:#082e36;border:none;font-size:18px}
+.audio-destinations{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.audio-app-btn{border:1px solid #31515c;background:#152d3d;color:#eefeff;border-radius:11px;padding:10px 8px;display:flex;align-items:center;gap:5px;justify-content:space-between;font-size:11px;font-weight:700;min-width:0}
+.spotify-dot,.yt-dot{border-radius:50%;display:grid;place-items:center;width:21px;height:21px;font-size:13px;flex-shrink:0}
+.spotify-dot{background:#19573b;color:#63ffa4}.yt-dot{background:#64333e;color:#ffa1ae}
+.audio-note{color:#96adbb;font-size:10px;line-height:1.45}
+.drive-dock{display:flex;gap:9px;align-items:center;justify-content:space-between;border:1px solid #2c4b59;background:#102538;padding:10px;border-radius:16px;margin-top:13px;flex-wrap:wrap}
+.drive-dock button{display:flex;align-items:center;gap:7px;background:transparent;border:1px solid transparent;color:#d2e7f2;font-size:11px;font-weight:700;padding:8px 10px;border-radius:10px}
+.drive-dock button:hover,.drive-dock button:focus-visible{border-color:#537885;background:#1b3b4e}
+.drive-dock button span{font-size:18px;color:#55e9d1}
+.drive-dock .dock-split{background:#224b4b;color:#a7ffe8;border-color:#467b78}
+.journey-foot{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:13px 5px 2px;color:#93aebd;font-size:12px}
+.journey-foot span:first-child{color:#61dfc7;font-size:10px;font-weight:800;letter-spacing:.17em}
+.journey-foot strong{color:#f8fcff;font-size:19px;letter-spacing:-.03em}
+@media(max-width:710px){
+  .drive-shell{padding:12px;border-radius:20px}
+  .split-view,.split-view.ratio-70,.split-view.ratio-30{display:flex;flex-direction:column}
+  .route-art{height:165px}
+  .pane-audio .audio-feature{min-height:140px;flex-direction:row;justify-content:flex-start;gap:12px;text-align:left}
+  .audio-art{height:75px;width:75px;border-radius:17px;flex-shrink:0}
+  .audio-logo{font-size:64px}
+  .audio-logo span{font-size:19px;top:24px;left:23px}
+  .pane-audio{gap:11px}
+  .drive-dock{justify-content:center;gap:2px}
+  .drive-dock button{padding:9px 8px}
+  .layout-caption{display:none}
+}
+@media(min-width:711px) and (max-width:900px){
+  .ratio-choice{padding:8px 11px}
+  .audio-destinations{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -17,10 +93,95 @@
 <header class="top"><div class="brand"><span class="mark">A</span><div>AutoBox<small>ENTERTAINMENT · UNIVERSALE</small></div></div></header>
 <main>
 
-<div class="hero"><section class="glass clock-card"><div class="eyebrow">Il tuo viaggio</div><div class="clock" id="clock">--:--</div><div class="date" id="date">Caricamento data…</div></section><section class="glass speed"><div class="eyebrow">Velocità GPS</div><div><span class="speed-num" id="speed">--</span><div class="speed-label">km/h</div></div><button class="gps pending" id="gpsButton" type="button">Attiva GPS</button></section></div>
-<div class="section-header"><h2>Destinazione</h2><span class="hint">Google Maps</span></div>
-<div class="navigator"><input aria-label="Cerca una destinazione" enterkeyhint="go" id="destination" placeholder="Dove vuoi andare?"/><button aria-label="Avvia navigazione" class="go" id="go" type="button"><svg fill="none" height="26" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="26" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></button></div>
-<div class="quick-dest"><button class="small-chip" data-destination="home">⌂   Casa</button><button class="small-chip" data-destination="work">▣   Lavoro</button><button class="small-chip" id="editPlaces">✎   Modifica indirizzi</button></div>
+
+<section class="drive-shell" aria-label="AutoBox Drive Dashboard">
+  <div class="drive-head">
+    <div class="drive-label">
+      <span class="drive-symbol" aria-hidden="true">A</span>
+      <div><strong>AutoBox Drive</strong><span>Dashboard • Schermo diviso</span></div>
+    </div>
+    <div class="layout-picker" aria-label="Proporzioni pannelli">
+      <span class="layout-caption">LAYOUT</span>
+      <button class="ratio-choice" data-ratio="70" type="button" aria-label="Navigazione 70%, musica 30%">7:3</button>
+      <button class="ratio-choice is-active" data-ratio="50" type="button" aria-label="Navigazione 50%, musica 50%">5:5</button>
+      <button class="ratio-choice" data-ratio="30" type="button" aria-label="Navigazione 30%, musica 70%">3:7</button>
+    </div>
+  </div>
+  <div class="split-view ratio-50" id="splitView">
+    <section class="split-pane pane-nav" aria-label="Navigazione e velocità">
+      <div class="pane-heading">
+        <span class="pane-kicker">NAVIGAZIONE</span>
+        <button class="small-action" data-app="maps" type="button">Apri Maps <span aria-hidden="true">↗</span></button>
+      </div>
+      <div class="route-art" aria-label="Illustrazione schematica della strada, non è una mappa in tempo reale">
+        <svg viewBox="0 0 640 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="route-bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#153f4c"/><stop offset="100%" stop-color="#0b1c30"/></linearGradient>
+            <linearGradient id="route-line" x1="0" x2="1"><stop stop-color="#5df7db"/><stop offset="100%" stop-color="#00a7dc"/></linearGradient>
+          </defs>
+          <rect width="640" height="240" fill="url(#route-bg)"/>
+          <g fill="none" stroke="#375366" stroke-width="9" opacity=".42">
+            <path d="M-30 55 Q145 100 240 -40"/>
+            <path d="M45 260 Q150 110 344 152 T710 97"/>
+            <path d="M0 185 Q127 150 210 239"/>
+            <path d="M391 -25 Q348 90 495 270"/>
+            <path d="M-10 17 Q220 15 289 240"/>
+          </g>
+          <g fill="none" stroke="#426b75" stroke-width="2.5" opacity=".55" stroke-dasharray="5 9">
+            <path d="M-30 55 Q145 100 240 -40"/>
+            <path d="M45 260 Q150 110 344 152 T710 97"/>
+            <path d="M391 -25 Q348 90 495 270"/>
+          </g>
+          <path d="M140 268 C155 172 185 173 266 161 C335 150 301 80 383 69 C440 61 459 90 496 46" fill="none" stroke="#092d35" stroke-width="20" stroke-linecap="round"/>
+          <path d="M140 268 C155 172 185 173 266 161 C335 150 301 80 383 69 C440 61 459 90 496 46" fill="none" stroke="url(#route-line)" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="263" cy="161" r="16" fill="#5af5dd" fill-opacity=".17"/>
+          <circle cx="263" cy="161" r="6" fill="#e5fff9" stroke="#0e9e98" stroke-width="3"/>
+          <path d="M496 16a17 17 0 0 0 -17 17c0 12 17 31 17 31s17 -19 17 -31a17 17 0 0 0 -17 -17z" fill="#54ffe0"/>
+          <circle cx="496" cy="33" r="6" fill="#0c2c37"/>
+        </svg>
+        <div class="map-caption"><span class="map-led"></span> Mappa illustrativa <span>• Percorso reale in Google Maps</span></div>
+      </div>
+      <div class="pane-input">
+        <div class="pane-kicker">DESTINAZIONE</div>
+        <div class="navigator"><input aria-label="Cerca una destinazione" enterkeyhint="go" id="destination" placeholder="Dove vuoi andare?"/><button aria-label="Avvia navigazione" class="go" id="go" type="button"><svg fill="none" height="26" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="26" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></button></div>
+        <div class="quick-dest"><button class="small-chip" data-destination="home" type="button">⌂ Casa</button><button class="small-chip" data-destination="work" type="button">▣ Lavoro</button><button class="small-chip" id="editPlaces" type="button">✎ Indirizzi</button></div>
+      </div>
+      <div class="pane-speed">
+        <div><span class="pane-kicker">VELOCITÀ GPS</span><div><span class="split-speed-num" id="speed">--</span><span class="speed-label"> km/h</span></div></div>
+        <button class="gps pending" id="gpsButton" type="button">Attiva GPS</button>
+      </div>
+    </section>
+    <section class="split-pane pane-audio" aria-label="Musica e controlli">
+      <div class="pane-heading">
+        <span class="pane-kicker">MUSICA</span>
+        <button class="small-action" data-app="local_music" type="button">Libreria <span aria-hidden="true">↗</span></button>
+      </div>
+      <div class="audio-feature">
+        <div class="audio-art" aria-hidden="true"><div class="audio-logo">A<span>▶</span></div></div>
+        <div class="audio-title"><span class="audio-overline">AUTOBOX AUDIO</span><strong>Musica sul Samsung</strong><small>Brani locali e audio di prova</small></div>
+      </div>
+      <div class="transport" aria-label="Controlli della musica AutoBox">
+        <button type="button" data-audio="previous" aria-label="Brano precedente" title="Precedente">|◀</button>
+        <button class="play-main" type="button" data-audio="play" aria-label="Riproduci musica" title="Riproduci">▶</button>
+        <button type="button" data-audio="pause" aria-label="Metti in pausa" title="Pausa">Ⅱ</button>
+        <button type="button" data-audio="next" aria-label="Brano successivo" title="Successivo">▶|</button>
+      </div>
+      <div class="audio-destinations">
+        <button class="audio-app-btn" data-app="spotify" type="button"><span class="spotify-dot">≋</span> Spotify <span>↗</span></button>
+        <button class="audio-app-btn" data-app="ytmusic" type="button"><span class="yt-dot">▶</span> YouTube Music <span>↗</span></button>
+      </div>
+      <div class="audio-note">Comandi audio AutoBox. I servizi streaming si aprono nelle rispettive app.</div>
+    </section>
+  </div>
+  <nav class="drive-dock" aria-label="Scorciatoie rapide">
+    <button data-app="maps" type="button"><span>⌁</span> Maps</button>
+    <button data-app="waze" type="button"><span>◈</span> Waze</button>
+    <button data-app="spotify" type="button"><span>♫</span> Spotify</button>
+    <button data-app="whatsapp" type="button"><span>◉</span> WhatsApp</button>
+    <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Split Samsung</button>
+  </nav>
+  <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
+</section>
 <div class="section-header"><h2>Guida e comunicazioni</h2><span class="hint">Accesso rapido</span></div>
 <div class="grid">
 <button class="tile" data-app="maps"><span class="symbol"><svg viewbox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15m6-12v15"></path></svg></span><span><strong>Google Maps</strong><small>Navigazione</small></span></button>
@@ -137,5 +298,35 @@ $('#editPlaces').addEventListener('click',()=>showPlaces());
 function startVoice(){const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SpeechRecognition){notify('Il riconoscimento vocale non è disponibile in questo browser.');return}try{const recognition=new SpeechRecognition();recognition.lang='it-IT';recognition.interimResults=false;recognition.onresult=(event)=>{const phrase=event.results[0][0].transcript.trim();const lower=phrase.toLowerCase();if(lower.startsWith('naviga a '))navigate(phrase.slice(9));else if(lower.startsWith('vai a '))navigate(phrase.slice(6));else if(lower.includes('spotify'))openApp('spotify');else if(lower.includes('waze'))openApp('waze');else if(lower.includes('musica'))openApp('ytmusic');else if(lower.includes('chiama'))openApp('calls');else notify('Comando non riconosciuto: '+phrase)};recognition.onerror=()=>notify('Microfono o riconoscimento vocale non disponibili.');recognition.start();notify('Ascolto in corso…')}catch{notify('Impossibile avviare il microfono.')}}
 $('#gpsButton').addEventListener('click',()=>{if(!navigator.geolocation){notify('GPS non disponibile in questo browser.');return}if(watcher!==null){navigator.geolocation.clearWatch(watcher);watcher=null;speedKmh=null;$('#speed').textContent='--';$('#gpsButton').textContent='Attiva GPS';$('#gpsButton').classList.add('pending');return}$('#gpsButton').textContent='Ricerca GPS…';watcher=navigator.geolocation.watchPosition(pos=>{const v=pos.coords.speed;speedKmh=(v===null || !Number.isFinite(v))?null:Math.max(0,v*3.6);$('#speed').textContent=speedKmh===null?'--':String(Math.round(speedKmh));$('#gpsButton').textContent='GPS attivo · disattiva';$('#gpsButton').classList.remove('pending')},err=>{notify('Non posso leggere il GPS. Concedi il permesso posizione e usa HTTPS se richiesto.');if(watcher!==null){navigator.geolocation.clearWatch(watcher);watcher=null}$('#gpsButton').textContent='Attiva GPS'}, {enableHighAccuracy:true,maximumAge:2000,timeout:12000})});
 if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){navigator.serviceWorker.register('./service-worker.js').catch(()=>{})}
+
+// The three split ratios are functional for AutoBox's own two panes.
+// External Android apps remain managed by Samsung One UI multi-window.
+const splitView = document.getElementById('splitView');
+const ratioOptions = [...document.querySelectorAll('[data-ratio]')];
+function setRatio(value) {
+  const allowed = ['30','50','70'];
+  if(!allowed.includes(String(value))) value='50';
+  splitView.className='split-view ratio-'+value;
+  for(const button of ratioOptions) {
+    const selected=button.dataset.ratio===String(value);
+    button.classList.toggle('is-active',selected);
+    button.setAttribute('aria-pressed', selected?'true':'false');
+  }
+  try{localStorage.setItem('autobox_split_ratio',String(value));}catch{}
+}
+ratioOptions.forEach(b=>b.addEventListener('click',()=>setRatio(b.dataset.ratio)));
+let savedRatio='50';
+try{savedRatio=localStorage.getItem('autobox_split_ratio')||'50';}catch{}
+setRatio(savedRatio);
+document.querySelectorAll('[data-audio]').forEach(b=>b.addEventListener('click',()=>{
+  const map={play:'audio_play',pause:'audio_pause',next:'audio_next',previous:'audio_previous'};
+  const action=map[b.dataset.audio];
+  if(action) launchNative(action);
+}));
+document.getElementById('splitSamsung').addEventListener('click',()=>{
+  showModal('Schermo diviso Samsung',
+    'Per affiancare due vere app sul Galaxy S25 Ultra:\\n\\n1. Apri Google Maps e Spotify dalle scorciatoie AutoBox.\\n2. Apri App recenti sul Samsung.\\n3. Tocca l’icona di Maps e scegli «Apri in visualizzazione a schermo diviso».\\n4. Seleziona Spotify come seconda app.\\n5. Trascina il divisore per scegliere le proporzioni; dalle opzioni del divisore puoi salvare la coppia.\\n\\nAndroid Auto decide autonomamente la disposizione delle app sul display dell’auto.',
+    [],()=>launchNative('maps'),'Apri Google Maps');
+});
 </script>
 </body></html>
