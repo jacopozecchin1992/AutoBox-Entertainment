@@ -1,66 +1,51 @@
-# AutoBox Entertainment Universale 2.9.0
+# AutoBox Entertainment Universale 3.0
 
-AutoBox è un **launcher sul Samsung** e una **vera app audio su Android Auto**.
+AutoBox è un **launcher personalizzabile sul Samsung** e un **lettore audio Android Auto** che espone una libreria musicale tramite \`MediaBrowserServiceCompat\` / \`MediaSessionCompat\`. L'app è universale: nessuna scritta o vincolo per un particolare modello di automobile.
 
-## Menu semplificato 2.9.0
+## Sul Samsung — Home 3.0 personalizzabile
 
-Il menu nella parte alta dell'app Samsung contiene **solo Home, App e Streaming**.
-Sono stati rimossi il pulsante **Musica** e i sottotitoli descrittivi dalle schermate **Applicazioni** e **Streaming**.
-La Home resta dedicata a Waze e Spotify, con il cruscotto a schermo intero e le proporzioni 7:3 / 5:5 / 3:7.
-La musica non scompare: Spotify rimane nella Home e nella pagina App; **AutoBox Musica** è ancora accessibile dalla pagina App e dalla dashboard per riprodurre brani locali. La distribuzione e l'interfaccia Android Auto restano invariate rispetto alla versione audio.
+In cima sono presenti solo **Home, App, Streaming**.
 
-## AutoBox Drive — dashboard
+La Home ha due riquadri **Sinistro** e **Destro**. Il pulsante **⚙ Personalizza Home** consente di scegliere separatamente:
+Waze, Google Maps, Spotify, YouTube Music, WhatsApp, Messaggi, Telefono, AutoBox Musica.
 
-La schermata Samsung ha un nuovo cruscotto a due pannelli **in stile AI Box**:
-- Navigazione, destinazioni, indirizzi Casa/Lavoro e velocità GPS a sinistra;
-- Musica AutoBox (play, pausa, precedente, successivo) a destra, con collegamenti diretti a Spotify e YouTube Music;
-- Layout 7:3, 5:5 e 3:7 selezionabili e salvati sul telefono, disponibili affiancati quando lo schermo è abbastanza ampio (es. telefono orizzontale);
-- Barra inferiore con Maps, Waze, Spotify e WhatsApp;
-- Pannello di guida «Split Samsung» per utilizzare **due vere app Android** tramite One UI Multi Window.
+Le scelte vengono **salvate** sul telefono. I valori iniziali sono Waze e Spotify. Seleziona una fra **cinque modalità**:
 
-La mappa visibile nel nuovo cruscotto è **schematica**, non una cartografia live. Il pulsante Maps o l'inserimento della destinazione apre direttamente Google Maps Android. Il cruscotto divide **due componenti di AutoBox**: non può incorporare arbitrariamente l'interfaccia di Spotify, Netflix o Maps. Se desideri due vere app Samsung affiancate, usa lo schermo diviso One UI: Apri App recenti → icona Google Maps → Apri in visualizzazione a schermo diviso → Spotify; usa il divisore per le proporzioni e salva eventualmente la coppia.
+- **30/70**, **50/50**, **70/30** per l'anteprima dei due riquadri interni;
+- **Full SX**, **Full DX** per mostrare un solo riquadro di AutoBox;
+- **Apri ... a tutto schermo** sul singolo riquadro, per lanciare direttamente l'**app Android ufficiale** selezionata;
+- **Dashboard intera** per nascondere le barre del Samsung e vedere la sola app AutoBox; si esce con il pulsante dedicato o con Indietro.
 
-**Android Auto:** il servizio multimediale di AutoBox continua a funzionare con MediaBrowserServiceCompat e MediaSessionCompat, e Android Auto decide il layout. Se supporta la modalità dashboard, può affiancare la musica AutoBox a Google Maps; l'APK non impone split screen, ratio, né pannelli video all'auto.
+**Nota tecnica:** i riquadri sono delle anteprime e scorciatoie personalizzabili, NON finestre reali di altre app. Un'app Android non può incorporare indiscriminatamente le schermate di Waze, Spotify o WhatsApp in una WebView. Per la vera visualizzazione di **due app Android affiancate**, usa la funzione **Schermo diviso / Multi Window** del Samsung dalla schermata delle app recenti, scegliendo due app compatibili.
 
----
+Il pulsante **Split Samsung** spiega come affiancarle. GPS e destinazioni restano disponibili dalla Home; gli indirizzi sono inviati a Waze sul Samsung. Le pagine **App** e **Streaming** mantengono tutti i collegamenti diretti alle app installate. Lo streaming video è destinato soltanto al telefono e esclusivamente durante la sosta.
 
-## Samsung: tutte le scorciatoie originali
+## Sul display Android Auto — telefono con schermo spento
 
-La schermata AutoBox mantiene GPS, destinazione, Casa/Lavoro e apertura **diretta** delle app ufficiali installate: Google Maps, Waze, Spotify, YouTube Music, WhatsApp, Telefono, Messaggi, YouTube, Netflix, Disney+ e Prime Video. Se un'app non è installata, AutoBox mostra un avviso; non apre un sito web.
+Android Auto **non** consente a un APK normale di sostituire la dashboard di sistema con l'interfaccia Waze+Spotify personalizzabile né di imporre un split-screen 30/70 o Full SX/DX. La schermata è disegnata e controllata dall'host Android Auto. Le app ammesse si utilizzano individualmente tramite l'interfaccia del sistema.
 
-È stato aggiunto il pulsante **AutoBox Musica**, che apre il lettore locale. Da questa schermata puoi concedere accesso alla musica sul Samsung, scegliere un brano e utilizzare i controlli audio. I contenuti video sul telefono vanno usati esclusivamente da parcheggiati.
+AutoBox dichiara il servizio multimediale **MediaBrowserServiceCompat** e una **MediaSessionCompat** con navigazione della libreria, play/pausa/avanti/indietro e notifica media. La riproduzione locale viene mantenuta in un servizio in primo piano con supporto al blocco schermo. Le raccolte sono:
 
-## Android Auto: media browser e MediaSession
+- **Musica sul Samsung** (file audio salvati sul telefono, previo permesso);
+- **Ascolta AutoBox** (audio originale di prova incluso).
 
-La versione 2.5.0 **non usa Car App Library per le schermate del display**, ma il servizio MediaBrowserServiceCompat / MediaSessionCompat ufficialmente supportato nella categoria media. Android Auto mostra l'interfaccia standard di navigazione musicale con:
+Per **Waze** e **Spotify** sul display dell'auto, usa le **loro app Android Auto ufficiali**. Se il display supporta la dashboard di Android Auto, può mostrarle affiancate secondo le modalità e le scelte del sistema. Non è una funzione controllabile da AutoBox.
 
-- **Musica sul Samsung**: fino a 200 file audio locali indicizzati dal sistema e autorizzati dall'utente;
-- **Ascolta AutoBox**: un audio ambient originale di prova incluso, riproducibile anche senza permesso per la musica;
-- i comandi Riproduci, Pausa, Precedente, Successivo, Ricerca e posizione di riproduzione;
-- notifica musicale e servizio in primo piano durante l'audio.
+### Test dell'APK senza Play Console
 
-Android Auto **non visualizza un launcher arbitrario di app terze**, né Netflix, Disney+, Prime Video e YouTube. Spotify e YouTube Music devono essere utilizzati tramite le rispettive app Android Auto; AutoBox non legge né riproduce il loro catalogo protetto.
+1. Installa l'APK sul Samsung. **Attenzione:** le build di GitHub Actions sono debug e la firma può cambiare fra compilazioni. Per un errore di firma è possibile che sia necessario disinstallare la versione precedente, perdendo gli indirizzi salvati.
+2. Prova la Home 3.0, salva i due riquadri e prova i cinque layout.
+3. Entra in **App → AutoBox Musica** e prova l'audio demo; concede l'accesso ai file audio se vuoi ascoltare i tuoi brani.
+4. Android Auto → impostazioni sviluppatore → **Origini sconosciute** (quando disponibile per le app media installate esternamente).
+5. Android Auto → **Personalizza Avvio app** → cerca **AutoBox · Musica**. Ricollega il telefono, avvia il lettore, quindi blocca lo schermo del Samsung per verificare la riproduzione con i controlli dell'auto.
 
-### Prova senza Google Play Console
+La corretta compilazione e firma dell'APK non garantiscono che sia visibile su tutti i veicoli: è necessario il test sul sistema reale.
 
-La modalità sviluppatore **Origini sconosciute** in Android Auto si applica alle vere app **media** (non alle app costruite con Android for Cars App Library). Per testare:
-
-1. Installa l'APK v2.5.0 sul Galaxy S25 Ultra. Se il precedente debug APK ha firma diversa, potrebbe essere necessaria la disinstallazione (salva prima Casa/Lavoro perché i dati locali verrebbero cancellati).
-2. Apri AutoBox sul Samsung e tocca **AutoBox Musica**. L'audio demo funziona senza permessi; se hai MP3, tocca **Consenti accesso ai brani del Samsung**.
-3. In Android Auto sul Samsung abilita **modalità sviluppatore** e dal menu sviluppatore seleziona **Origini sconosciute**.
-4. In **Android Auto → Personalizza Avvio app** cerca **AutoBox · Musica**.
-5. Ricollega Android Auto; apri AutoBox nella sezione musicale e prova **Ascolta AutoBox** e **Musica sul Samsung**.
-6. Prova esclusivamente da fermo. Se non compare, invia uno screenshot di **Personalizza Avvio app** e dei permessi/app installate per esaminare il comportamento.
-
-Non è garantita la comparsa su qualsiasi sistema multimediale; un APK compilato non sostituisce il test reale.
-
-Documentazione Android ufficiale:
-- https://developer.android.com/training/cars/media/auto
+Documentazione ufficiale Android: 
+- https://developer.android.com/training/cars/media
 - https://developer.android.com/training/cars/media/create-media-browser
-- https://developer.android.com/training/cars/testing
+- https://developer.android.com/design/ui/cars/guides/app-types/create-media-apps
 
-## Compilazione
+## Build
 
-GitHub Actions esegue Gradle e controlla manifest, archivio e firma dell'APK prima di pubblicare la build direttamente in GitHub Releases. Gli APK debug vengono firmati da GitHub Actions e potrebbero avere certificati diversi fra esecuzioni.
-
-Progetto: it.autobox.entertainment. Licenze dei contenuti musicali sul telefono rimangono ai rispettivi proprietari; AutoBox non offre servizi streaming di terze parti.
+Il workflow GitHub Actions usa Java 17, Android SDK 35 e Gradle 8.10.2 per compilare \`assembleDebug\`, verificare manifest e firma, e pubblicare APK + anteprima HTML. Package: \`it.autobox.entertainment\`.
