@@ -1,31 +1,44 @@
-# AutoBox Entertainment Universale
+# AutoBox Entertainment Universale 2.5.0
 
-AutoBox è un'app Android per smartphone con schermata dedicata a GPS, destinazioni, comunicazioni e intrattenimento.
+AutoBox è un **launcher sul Samsung** e una **vera app audio su Android Auto**.
 
-## Funzioni sul Samsung
+## Samsung: tutte le scorciatoie originali
 
-I pulsanti del launcher aprono direttamente **le applicazioni Android installate**, senza aprire i rispettivi siti nel browser: Google Maps, Waze, Spotify, YouTube Music, WhatsApp, SMS, telefono, YouTube, Netflix, Disney+ e Prime Video. Se manca un'app, AutoBox mostra un avviso e non reindirizza al sito. Le app video devono essere usate solo quando il veicolo è parcheggiato.
+La schermata AutoBox mantiene GPS, destinazione, Casa/Lavoro e apertura **diretta** delle app ufficiali installate: Google Maps, Waze, Spotify, YouTube Music, WhatsApp, Telefono, Messaggi, YouTube, Netflix, Disney+ e Prime Video. Se un'app non è installata, AutoBox mostra un avviso; non apre un sito web.
 
-## Funzioni su Android Auto
+È stato aggiunto il pulsante **AutoBox Musica**, che apre il lettore locale. Da questa schermata puoi concedere accesso alla musica sul Samsung, scegliere un brano e utilizzare i controlli audio. I contenuti video sul telefono vanno usati esclusivamente da parcheggiati.
 
-Il servizio Android Auto attuale è una piccola app **POI / Luoghi** con gli indirizzi Casa e Lavoro salvati sul telefono e ricerche di parcheggi, distributori e colonnine. Non è una superficie di mirroring e non permette di mostrare video o aprire le app video dalla schermata dell'auto.
+## Android Auto: media browser e MediaSession
 
-**Una installazione APK da GitHub non è sufficiente per visualizzare le app Android for Cars App Library su una vettura reale.** L'opzione sviluppatore «Origini sconosciute» non si applica a questa tipologia di app. Per provarla sull'auto, caricare l'APK su **Google Play Console > Condivisione interna delle app (Internal app sharing)**, quindi **installarla sul telefono usando il link Google Play**, non un'installazione sideload da GitHub.
+La versione 2.5.0 **non usa Car App Library per le schermate del display**, ma il servizio MediaBrowserServiceCompat / MediaSessionCompat ufficialmente supportato nella categoria media. Android Auto mostra l'interfaccia standard di navigazione musicale con:
 
-Documentazione ufficiale:
+- **Musica sul Samsung**: fino a 200 file audio locali indicizzati dal sistema e autorizzati dall'utente;
+- **Ascolta AutoBox**: un audio ambient originale di prova incluso, riproducibile anche senza permesso per la musica;
+- i comandi Riproduci, Pausa, Precedente, Successivo, Ricerca e posizione di riproduzione;
+- notifica musicale e servizio in primo piano durante l'audio.
+
+Android Auto **non visualizza un launcher arbitrario di app terze**, né Netflix, Disney+, Prime Video e YouTube. Spotify e YouTube Music devono essere utilizzati tramite le rispettive app Android Auto; AutoBox non legge né riproduce il loro catalogo protetto.
+
+### Prova senza Google Play Console
+
+La modalità sviluppatore **Origini sconosciute** in Android Auto si applica alle vere app **media** (non alle app costruite con Android for Cars App Library). Per testare:
+
+1. Installa l'APK v2.5.0 sul Galaxy S25 Ultra. Se il precedente debug APK ha firma diversa, potrebbe essere necessaria la disinstallazione (salva prima Casa/Lavoro perché i dati locali verrebbero cancellati).
+2. Apri AutoBox sul Samsung e tocca **AutoBox Musica**. L'audio demo funziona senza permessi; se hai MP3, tocca **Consenti accesso ai brani del Samsung**.
+3. In Android Auto sul Samsung abilita **modalità sviluppatore** e dal menu sviluppatore seleziona **Origini sconosciute**.
+4. In **Android Auto → Personalizza Avvio app** cerca **AutoBox · Musica**.
+5. Ricollega Android Auto; apri AutoBox nella sezione musicale e prova **Ascolta AutoBox** e **Musica sul Samsung**.
+6. Prova esclusivamente da fermo. Se non compare, invia uno screenshot di **Personalizza Avvio app** e dei permessi/app installate per esaminare il comportamento.
+
+Non è garantita la comparsa su qualsiasi sistema multimediale; un APK compilato non sostituisce il test reale.
+
+Documentazione Android ufficiale:
+- https://developer.android.com/training/cars/media/auto
+- https://developer.android.com/training/cars/media/create-media-browser
 - https://developer.android.com/training/cars/testing
-- https://support.google.com/googleplay/android-developer/answer/9844679
-
-### Passaggi per test Android Auto
-
-1. Avere accesso a Google Play Console con un'app configurata per il package `it.autobox.entertainment`.
-2. Aprire la pagina [Internal app sharing](https://play.google.com/console/about/internalappsharing/) e caricare l'APK debug della release GitHub.
-3. Aprire il **link generato da Google Play** sul Galaxy e installare l'app da quel link. Se Android segnala una firma differente, disinstallare la precedente versione sideload, dopo aver annotato gli indirizzi salvati.
-4. Collegare il Galaxy a Android Auto e aprire **Personalizza Avvio app**. Cercare *AutoBox · Luoghi*.
-5. Verificare l'esperienza e i requisiti Google prima di procedere verso distribuzione pubblica.
-
-Le app video non si aprono sul display Android Auto tramite AutoBox. Il logo dell'app resta universale.
 
 ## Compilazione
 
-GitHub Actions esegue `gradle :app:assembleDebug`, verifica APK e firma digitale e pubblica l'APK nelle Releases. La compilazione garantisce un artefatto valido, ma non dimostra la compatibilità con una specifica automobile.
+GitHub Actions esegue Gradle e controlla manifest, archivio e firma dell'APK prima di pubblicare la build direttamente in GitHub Releases. Gli APK debug vengono firmati da GitHub Actions e potrebbero avere certificati diversi fra esecuzioni.
+
+Progetto: it.autobox.entertainment. Licenze dei contenuti musicali sul telefono rimangono ai rispettivi proprietari; AutoBox non offre servizi streaming di terze parti.
