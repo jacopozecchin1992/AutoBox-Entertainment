@@ -54,14 +54,22 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+      - name: Pubblica anteprima HTML AutoBox Drive
+        uses: actions/upload-artifact@v4
+        with:
+          name: AutoBox-Drive-HTML
+          path: app/src/main/assets/autobox.html
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Pubblica APK come download diretto GitHub
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           APK=app/build/outputs/apk/debug/app-debug.apk
-          if gh release view v2.5.0 >/dev/null 2>&1; then
-            gh release upload v2.5.0 "$APK#AutoBox-Entertainment.apk" --clobber
+          if gh release view v2.6.0 >/dev/null 2>&1; then
+            gh release upload v2.6.0 "$APK#AutoBox-Entertainment.apk" --clobber
           else
-            gh release create v2.5.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.5.0" --notes "APK Android universale compilato con Gradle da GitHub Actions. Scorciatoie native per le app installate sul Samsung. Include servizio audio MediaBrowserServiceCompat e MediaSessionCompat per Android Auto. Musica locale e audio demo, controlli play/pausa/avanti. Test APK senza Play Console tramite Origini sconosciute sviluppatore Android Auto. Video solo sul telefono."
+            gh release create v2.6.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 2.6.0" --notes "AutoBox Drive 2.6.0: nuova dashboard smartphone con pannelli navigazione + musica e proporzioni 7:3, 5:5, 3:7; dock delle app, scorciatoie native e audio locale. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
           fi
