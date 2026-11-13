@@ -143,6 +143,9 @@ public class MainActivity extends Activity {
             case "spotify":
                 openInstalled("Spotify", "com.spotify.music");
                 break;
+            case "local_music":
+                startActivity(new Intent(this, AudioLibraryActivity.class));
+                break;
             case "ytmusic":
                 openInstalled("YouTube Music", "com.google.android.apps.youtube.music");
                 break;
