@@ -241,6 +241,26 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
  .personalize-btn{padding:11px}
  body.dashboard-fullscreen .home-configurable-split{height:calc(100dvh - 20px)}
 }
+
+/* Android Auto setup: configures an eligible navigation+media pair on the phone.
+   Google controls the real car-screen dashboard. */
+.home-config-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.android-auto-btn{background:#213f5d;color:#c9eaff;border:1px solid #3e748e;border-radius:12px;padding:12px 16px;font-size:12px;font-weight:800}
+.android-auto-btn:focus-visible{outline:2px solid #62e6ec;outline-offset:2px}
+.aa-dialog-backdrop{position:fixed;inset:0;z-index:31;display:grid;place-items:center;padding:16px;background:#07111ee8}
+.aa-dialog-backdrop[hidden]{display:none}
+.aa-dialog{background:linear-gradient(150deg,#16394e,#102638);border:1px solid #49768e;border-radius:24px;max-width:500px;max-height:91dvh;overflow-y:auto;width:100%;padding:23px;box-shadow:0 22px 70px #0008}
+.aa-dialog label{display:block;color:#b6d9e5;font-size:12px;font-weight:800;margin:14px 0 6px}
+.aa-dialog select{width:100%;padding:12px;font:inherit;border-radius:12px;background:#0a2232;color:#f2ffff;border:1px solid #558296}
+.aa-explain{color:#b7cdd8;font-size:12px;line-height:1.65;margin:0 0 10px}
+.aa-guide{background:#0b2232;border:1px solid #365e6f;padding:12px 15px;border-radius:15px;margin-top:17px}
+.aa-guide>strong{font-size:13px;color:#5debd4}
+.aa-guide p{font-size:12px;color:#d2e7f0;line-height:1.4;margin:10px 0}
+@media(max-width:710px){
+ .home-config-actions{width:100%}
+ .home-config-actions button{flex:1;min-width:130px}
+ .aa-dialog{padding:17px}
+}
 </style>
 </head>
 <body>
@@ -263,7 +283,7 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
         <span class="drive-symbol" aria-hidden="true">A</span>
         <div><strong>AutoBox</strong><span>Home personalizzabile • Schermo diviso</span></div>
       </div>
-      <button type="button" class="personalize-btn" id="personalizeHome">⚙ Personalizza Home</button>
+      <div class="home-config-actions"><button type="button" class="personalize-btn" id="personalizeHome">⚙ Personalizza Home</button><button type="button" class="android-auto-btn" id="configureAndroidAuto">◧ Coppia Android Auto</button></div>
     </div>
     <div class="layout-picker home-layout" aria-label="Cinque modalità di visualizzazione">
       <span class="layout-caption">LAYOUT</span>
@@ -331,6 +351,37 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
     <label for="rightAppChoice">App riquadro destro</label><select id="rightAppChoice"></select>
     <p>Le scelte vengono salvate sul Samsung. Tocca «Apri» per passare all'app ufficiale.</p>
     <div class="chooser-actions"><button id="homeChooserReset" type="button">Waze + Spotify</button><button id="homeChooserSave" type="button">Salva Home</button></div>
+  </div>
+</div>
+<div class="aa-dialog-backdrop" id="androidAutoDialog" hidden>
+  <div class="aa-dialog" role="dialog" aria-modal="true" aria-labelledby="androidAutoDialogTitle">
+    <div class="chooser-heading">
+      <div><span>MODALITÀ ANDROID AUTO</span><h2 id="androidAutoDialogTitle">Navigazione + Musica</h2></div>
+      <button type="button" class="chooser-close" id="closeAndroidAuto" aria-label="Chiudi">✕</button>
+    </div>
+    <p class="aa-explain">Seleziona una combinazione realmente compatibile con la dashboard Android Auto. Le scelte aggiornano i riquadri della Home sul Samsung, ma dovrai aprire le app sul display della Kia.</p>
+    <label for="aaNavigation">Navigatore</label>
+    <select id="aaNavigation">
+      <option value="waze">Waze</option>
+      <option value="maps">Google Maps</option>
+    </select>
+    <label for="aaMedia">Musica</label>
+    <select id="aaMedia">
+      <option value="spotify">Spotify</option>
+      <option value="ytmusic">YouTube Music</option>
+      <option value="local_music">AutoBox Musica (brani locali)</option>
+    </select>
+    <div class="aa-guide">
+      <strong>Come utilizzarla sul display della Kia</strong>
+      <p>1. Collega il Samsung ad Android Auto, anche con schermo bloccato.</p>
+      <p>2. Sul display dell'auto apri <strong id="aaNavLabel">Waze</strong>.</p>
+      <p>3. Avvia la musica con <strong id="aaMusicLabel">Spotify</strong> nella sua app Android Auto.</p>
+      <p>4. Tocca l'icona Dashboard di Android Auto per vedere navigazione e controlli musicali affiancati, se supportato dal display.</p>
+    </div>
+    <div class="chooser-actions">
+      <button type="button" id="aaReset">Waze + Spotify</button>
+      <button type="button" id="aaSave">Salva coppia</button>
+    </div>
   </div>
 </div>
 <section class="page-view" id="page-apps" role="tabpanel" aria-labelledby="tab-apps" hidden>
@@ -606,5 +657,36 @@ fullscreenExit.addEventListener('click',()=>setDashboardFullscreen(false));
 document.addEventListener('keydown',event=>{
   if(event.key==='Escape' && document.body.classList.contains('dashboard-fullscreen'))setDashboardFullscreen(false);
 });
+
+// This is a setup/preview for Android Auto's existing dashboard, not a way to
+// force third-party apps into our MediaBrowserService or into car display panes.
+const aaDialog=document.getElementById('androidAutoDialog');
+const aaNavigation=document.getElementById('aaNavigation');
+const aaMedia=document.getElementById('aaMedia');
+const aaNavNames={waze:'Waze',maps:'Google Maps'};
+const aaMediaNames={spotify:'Spotify',ytmusic:'YouTube Music',local_music:'AutoBox Musica'};
+function updateAaGuide(){
+  document.getElementById('aaNavLabel').textContent=aaNavNames[aaNavigation.value];
+  document.getElementById('aaMusicLabel').textContent=aaMediaNames[aaMedia.value];
+}
+aaNavigation.addEventListener('change',updateAaGuide);
+aaMedia.addEventListener('change',updateAaGuide);
+function closeAaDialog(){aaDialog.hidden=true;}
+document.getElementById('configureAndroidAuto').addEventListener('click',()=>{
+  aaNavigation.value=Object.hasOwn(aaNavNames,slotChoices.left)?slotChoices.left:'waze';
+  aaMedia.value=Object.hasOwn(aaMediaNames,slotChoices.right)?slotChoices.right:'spotify';
+  updateAaGuide();aaDialog.hidden=false;
+});
+document.getElementById('closeAndroidAuto').addEventListener('click',closeAaDialog);
+document.getElementById('aaReset').addEventListener('click',()=>{
+  aaNavigation.value='waze';aaMedia.value='spotify';updateAaGuide();
+});
+document.getElementById('aaSave').addEventListener('click',()=>{
+  saveSlots(aaNavigation.value,aaMedia.value);
+  // Keep user's preferred split-screen ratio unchanged.
+  closeAaDialog();notify('Coppia salvata. Apri le due app dalla dashboard Android Auto sulla Kia.');
+});
+aaDialog.addEventListener('click',e=>{if(e.target===aaDialog)closeAaDialog();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!aaDialog.hidden)closeAaDialog();});
 </script>
 </body></html>
