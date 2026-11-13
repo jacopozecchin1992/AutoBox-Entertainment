@@ -86,19 +86,77 @@
   .ratio-choice{padding:8px 11px}
   .audio-destinations{grid-template-columns:1fr}
 }
+
+/* Navigation menu: the four tabs switch between actual screens inside the launcher. */
+.app-navbar{position:sticky;top:8px;z-index:4;display:flex;justify-content:space-between;align-items:center;gap:14px;background:#0b1927f0;border:1px solid #2d4858;box-shadow:0 12px 32px #0004;border-radius:20px;padding:9px 13px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);margin-bottom:21px}
+.page-menu{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.page-tab{display:inline-flex;align-items:center;gap:9px;border:1px solid transparent;background:transparent;color:#9ab7ca;border-radius:13px;padding:12px 17px;font-weight:780;font-size:13px;cursor:pointer}
+.page-tab span{font-size:18px;line-height:1}
+.page-tab.is-active{background:linear-gradient(130deg,#28ead4,#54d2df);color:#042b36;box-shadow:0 6px 17px #2cebc12b}
+.page-tab:focus-visible{outline:2px solid #8affed;outline-offset:2px}
+.nav-indicator{display:flex;align-items:center;gap:8px;font-size:11px;color:#a4c4c9;white-space:nowrap}
+.indicator-dot{display:inline-block;width:8px;height:8px;border-radius:100%;background:#50e9c9;box-shadow:0 0 0 4px #54d2ae22}
+.page-view[hidden]{display:none!important}
+.page-view.is-visible{animation:fadepage .22s ease both}
+@keyframes fadepage{from{opacity:.35;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page-lead{padding:28px 26px 20px;background:linear-gradient(125deg,#153b49 0%,#102336 65%,#0c1b2c 100%);border-radius:23px;border:1px solid #365464;margin:0 0 18px}
+.page-eyebrow{display:block;color:#50eed2;font-weight:800;letter-spacing:.18em;font-size:10px;margin-bottom:10px}
+.page-lead h1{font-size:clamp(25px,4vw,38px);line-height:1.13;letter-spacing:-.04em;margin:0 0 8px}
+.page-lead p{color:#a5bfcc;font-size:13px;margin:0}
+.page-view>.grid{margin-top:14px}
+.page-view>.section-header{margin-top:17px}
+.music-page-card{padding:24px;display:flex;align-items:center;gap:24px;border:1px solid #315a64;background:linear-gradient(120deg,#173f49,#102438 65%);border-radius:23px}
+.music-page-art{flex-shrink:0;height:150px;width:150px;display:grid;place-items:center;font-size:72px;font-weight:700;color:#00313d;background:linear-gradient(135deg,#2ef0cc,#35a6ce);border-radius:25px;box-shadow:0 12px 45px #0a1d2c77}
+.music-page-details>span{font-size:10px;font-weight:800;color:#71dfd3;letter-spacing:.16em}
+.music-page-details h2{font-size:27px;letter-spacing:-.04em;margin:7px 0}
+.music-page-details p{color:#bed0dc;line-height:1.55;font-size:13px;max-width:420px}
+.music-library-button{padding:12px 18px;border:0;border-radius:11px;background:#38e9d3;color:#083342;font-weight:850;margin-top:8px}
+.music-page-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:13px}
+.music-page-controls button{background:#162f41;border:1px solid #375464;border-radius:13px;padding:15px 8px;color:#dbf2f4;font-size:12px;font-weight:750}
+.music-page-controls .music-play{background:#2de3ca;color:#0c2b35;border:0}
+.music-services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.music-services button{display:flex;gap:13px;align-items:center;padding:18px;background:#152a3b;border:1px solid #365163;border-radius:17px;color:white;text-align:left}
+.music-services button strong{flex:1}
+.music-services button small{font-size:11px;color:#96b8c7}
+.music-services button>span:last-child{color:#68e8d9;font-size:19px}
+.music-service-logo{height:43px;width:43px;border-radius:13px;display:grid;place-items:center;font-size:23px;color:white}
+.music-service-logo.spotify{background:#1b8f62}.music-service-logo.ytmusic{background:#dd364d}
+@media(max-width:710px){
+  .app-navbar{padding:7px;top:4px;margin-bottom:15px;border-radius:15px}
+  .page-menu{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;gap:3px}
+  .page-tab{justify-content:center;flex-direction:column;gap:3px;font-size:10px;padding:9px 2px;border-radius:10px}
+  .page-tab span{font-size:21px}
+  .nav-indicator{display:none}
+  .music-page-card{align-items:flex-start;gap:14px;padding:15px}
+  .music-page-art{height:90px;width:90px;font-size:52px;border-radius:16px}
+  .music-page-details h2{font-size:19px}
+  .music-page-details p{font-size:11px}
+  .music-page-controls{grid-template-columns:repeat(2,1fr)}
+  .music-services{grid-template-columns:1fr}
+  .page-lead{padding:22px 20px}
+}
+@media(min-width:711px) and (max-width:920px){.nav-indicator{display:none}}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand"><span class="mark">A</span><div>AutoBox<small>ENTERTAINMENT · UNIVERSALE</small></div></div></header>
+<header class="top app-navbar">
+  <nav class="page-menu" role="tablist" aria-label="Menu principale">
+    <button id="tab-home" type="button" class="page-tab is-active" role="tab" aria-controls="page-home" aria-selected="true" data-page="home"><span aria-hidden="true">⌂</span> Home</button>
+    <button id="tab-apps" type="button" class="page-tab" role="tab" aria-controls="page-apps" aria-selected="false" data-page="apps"><span aria-hidden="true">▦</span> App</button>
+    <button id="tab-streaming" type="button" class="page-tab" role="tab" aria-controls="page-streaming" aria-selected="false" data-page="streaming"><span aria-hidden="true">▶</span> Streaming</button>
+    <button id="tab-music" type="button" class="page-tab" role="tab" aria-controls="page-music" aria-selected="false" data-page="music"><span aria-hidden="true">♫</span> Musica</button>
+  </nav>
+  <span class="nav-indicator" aria-hidden="true"><span class="indicator-dot"></span> Connesso al telefono</span>
+</header>
 <main>
 
 
-<section class="drive-shell" aria-label="AutoBox Drive Dashboard">
+<section class="page-view is-visible" id="page-home" role="tabpanel" aria-labelledby="tab-home"><div class="drive-shell" aria-label="Dashboard di guida">
   <div class="drive-head">
     <div class="drive-label">
       <span class="drive-symbol" aria-hidden="true">A</span>
-      <div><strong>AutoBox Drive</strong><span>Dashboard • Schermo diviso</span></div>
+      <div><strong>Il tuo viaggio</strong><span>Navigazione e musica • Schermo diviso</span></div>
     </div>
     <div class="layout-picker" aria-label="Proporzioni pannelli">
       <span class="layout-caption">LAYOUT</span>
@@ -181,7 +239,9 @@
     <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Split Samsung</button>
   </nav>
   <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
-</section>
+</div></section>
+<section class="page-view" id="page-apps" role="tabpanel" aria-labelledby="tab-apps" hidden>
+<div class="page-lead"><span class="page-eyebrow">LA TUA RACCOLTA</span><h1>Applicazioni</h1><p>Apri direttamente le app installate sul Samsung.</p></div>
 <div class="section-header"><h2>Guida e comunicazioni</h2><span class="hint">Accesso rapido</span></div>
 <div class="grid">
 <button class="tile" data-app="maps"><span class="symbol"><svg viewbox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15m6-12v15"></path></svg></span><span><strong>Google Maps</strong><small>Navigazione</small></span></button>
@@ -194,6 +254,9 @@
 <button class="tile" data-app="voice"><span class="symbol purple"><svg viewbox="0 0 24 24"><rect height="12" rx="3" width="6" x="9" y="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8"></path></svg></span><span><strong>Voce</strong><small>Comandi vocali</small></span></button>
 <button class="tile" data-app="sms"><span class="symbol blue"><svg viewbox="0 0 24 24"><rect height="14" rx="3" width="18" x="3" y="4"></rect><path d="m7 18-2 3v-3M7 9h10m-10 4h7"></path></svg></span><span><strong>Messaggi SMS</strong><small>App messaggi</small></span></button>
 </div>
+</section>
+<section class="page-view" id="page-streaming" role="tabpanel" aria-labelledby="tab-streaming" hidden>
+<div class="page-lead"><span class="page-eyebrow">SOLO A VEICOLO PARCHEGGIATO</span><h1>Streaming</h1><p>Apri le applicazioni video installate sul Samsung.</p></div>
 <div class="section-header"><h2>Streaming e intrattenimento</h2><span class="hint">Solo in sosta</span></div>
 
 <div class="grid stream-grid">
@@ -202,9 +265,26 @@
 <button class="tile video-tile" data-app="disney"><span class="video-symbol video-disney">D+</span><span><strong>Disney+</strong><small>Film e serie</small></span></button>
 <button class="tile video-tile" data-app="prime"><span class="video-symbol video-prime">▶</span><span><strong>Prime Video</strong><small>Film e serie</small></span></button>
 </div>
-
-
-
+</section>
+<section class="page-view" id="page-music" role="tabpanel" aria-labelledby="tab-music" hidden>
+  <div class="page-lead"><span class="page-eyebrow">LA TUA MUSICA</span><h1>Musica</h1><p>Riproduzione locale e collegamenti alle app audio.</p></div>
+  <section class="music-page-card">
+    <div class="music-page-art" aria-hidden="true">♫</div>
+    <div class="music-page-details"><span>LETTORE AUDIO</span><h2>Musica sul Samsung</h2><p>Ascolta file locali e l’audio originale di prova, anche tramite il lettore Android Auto.</p>
+      <button class="music-library-button" data-app="local_music" type="button">Apri la libreria <span aria-hidden="true">↗</span></button></div>
+  </section>
+  <div class="music-page-controls" aria-label="Controlli del lettore musicale">
+    <button type="button" data-audio="previous">◀◀ Precedente</button>
+    <button type="button" class="music-play" data-audio="play">▶ Riproduci</button>
+    <button type="button" data-audio="pause">Ⅱ Pausa</button>
+    <button type="button" data-audio="next">Successivo ▶▶</button>
+  </div>
+  <div class="section-header"><h2>Altre app musicali</h2><span class="hint">Apertura diretta</span></div>
+  <div class="music-services">
+    <button type="button" data-app="spotify"><span class="music-service-logo spotify">♫</span><strong>Spotify</strong><small>Apri l'app</small><span aria-hidden="true">↗</span></button>
+    <button type="button" data-app="ytmusic"><span class="music-service-logo ytmusic">▶</span><strong>YouTube Music</strong><small>Apri l'app</small><span aria-hidden="true">↗</span></button>
+  </div>
+</section>
 </main>
 </div>
 <div class="modal" hidden="" id="modal"><div class="modal-card"><h2 id="modalTitle"></h2><p id="modalText" style="white-space:pre-line"></p><div id="modalFields"></div><div class="modal-actions"><button id="modalCancel" type="button">Annulla</button><button class="main" id="modalConfirm" type="button">Conferma</button></div></div></div>
@@ -328,5 +408,41 @@ document.getElementById('splitSamsung').addEventListener('click',()=>{
     'Per affiancare due vere app sul Galaxy S25 Ultra:\n\n1. Apri Google Maps e Spotify dalle scorciatoie AutoBox.\n2. Apri App recenti sul Samsung.\n3. Tocca l’icona di Maps e scegli «Apri in visualizzazione a schermo diviso».\n4. Seleziona Spotify come seconda app.\n5. Trascina il divisore per scegliere le proporzioni; dalle opzioni del divisore puoi salvare la coppia.\n\nAndroid Auto decide autonomamente la disposizione delle app sul display dell’auto.',
     [],()=>launchNative('maps'),'Apri Google Maps');
 });
+
+// Navigate between the four launcher screens; no Android page reload or website redirect.
+const menuButtons = [...document.querySelectorAll('.page-tab')];
+const pageNames = ['home','apps','streaming','music'];
+function activatePage(page, remember = true){
+  if(!pageNames.includes(page)) page='home';
+  for(const name of pageNames){
+    const panel=document.getElementById('page-'+name);
+    const tab=document.getElementById('tab-'+name);
+    const current=name===page;
+    panel.hidden=!current;
+    panel.classList.toggle('is-visible',current);
+    tab.classList.toggle('is-active',current);
+    tab.setAttribute('aria-selected',String(current));
+    tab.tabIndex=current?0:-1;
+  }
+  if(remember){
+    try{localStorage.setItem('autobox_current_page',page);}catch{}
+  }
+  window.scrollTo(0,0);
+}
+menuButtons.forEach((button,index)=>{
+  button.addEventListener('click',()=>activatePage(button.dataset.page));
+  button.addEventListener('keydown',event=>{
+    if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+    event.preventDefault();
+    const next=event.key==='ArrowLeft'?(index+pageNames.length-1)%pageNames.length:
+      event.key==='ArrowRight'?(index+1)%pageNames.length:
+      event.key==='Home'?0:pageNames.length-1;
+    activatePage(pageNames[next]);
+    menuButtons[next].focus();
+  });
+});
+let initialPage='home';
+try{initialPage=localStorage.getItem('autobox_current_page')||'home';}catch{}
+activatePage(initialPage,false);
 </script>
 </body></html>
