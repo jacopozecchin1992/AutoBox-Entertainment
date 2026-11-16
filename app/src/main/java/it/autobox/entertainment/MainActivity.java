@@ -146,8 +146,15 @@ public class MainActivity extends Activity {
             case "maps": return "com.google.android.apps.maps";
             case "spotify": return "com.spotify.music";
             case "ytmusic": return "com.google.android.apps.youtube.music";
-            case "whatsapp": return "com.whatsapp";
-            case "sms": return "com.google.android.apps.messaging";
+            case "whatsapp":
+                if (getPackageManager().getLaunchIntentForPackage("com.whatsapp") != null) return "com.whatsapp";
+                return "com.whatsapp.w4b";
+            case "sms":
+                String smsDefault = Telephony.Sms.getDefaultSmsPackage(this);
+                if (smsDefault != null && getPackageManager().getLaunchIntentForPackage(smsDefault) != null) return smsDefault;
+                if (getPackageManager().getLaunchIntentForPackage("com.google.android.apps.messaging") != null)
+                    return "com.google.android.apps.messaging";
+                return "com.samsung.android.messaging";
             default: return null;
         }
     }
