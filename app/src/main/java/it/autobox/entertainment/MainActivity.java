@@ -111,6 +111,13 @@ public class MainActivity extends Activity {
         @JavascriptInterface public void setFullscreen(boolean fullscreen) {
             runOnUiThread(() -> applyDashboardImmersive(fullscreen));
         }
+        // Samsung phone only: request OS-managed split screen, no app embedding.
+        @JavascriptInterface public void openAdjacentApp(String key) {
+            runOnUiThread(() -> launchSplitShortcut(key, true));
+        }
+        @JavascriptInterface public void openInCurrentPane(String key) {
+            runOnUiThread(() -> launchSplitShortcut(key, false));
+        }
     }
 
     private void applyDashboardImmersive(boolean enabled) {
@@ -130,6 +137,60 @@ public class MainActivity extends Activity {
 
     private void message(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private String splitPackage(String key) {
+        if (key == null) return null;
+        switch (key) {
+            case "waze": return "com.waze";
+            case "maps": return "com.google.android.apps.maps";
+            case "spotify": return "com.spotify.music";
+            case "ytmusic": return "com.google.android.apps.youtube.music";
+            case "whatsapp": return "com.whatsapp";
+            case "sms": return "com.google.android.apps.messaging";
+            default: return null;
+        }
+    }
+
+    /**
+     * Request actual Samsung/Android Multi Window for an installed third-party
+     * app. The first request uses LAUNCH_ADJACENT; the user can then tap the
+     * second-step button in AutoBox's remaining pane. The OS can ignore the
+     * split request, so the UI also explains the native Samsung App Pair flow.
+     * This does not affect the Android Auto car display.
+     */
+    private void launchSplitShortcut(String key, boolean adjacent) {
+        if ("local_music".equals(key) && !adjacent) {
+            startActivity(new Intent(this, AudioLibraryActivity.class));
+            return;
+        }
+        if ("calls".equals(key) && !adjacent) {
+            launchShortcut("calls");
+            return;
+        }
+        String pkg = splitPackage(key);
+        if (pkg == null) {
+            message("Questa app va aperta da App recenti per lo schermo diviso.");
+            return;
+        }
+        Intent launch = getPackageManager().getLaunchIntentForPackage(pkg);
+        if (launch == null) {
+            message("App non installata: " + pkg);
+            return;
+        }
+        try {
+            if (adjacent) {
+                launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
+            } else {
+                // Allow Android to place the second app in AutoBox's currently
+                // active split pane instead of requesting another adjacent pane.
+                launch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            }
+            startActivity(launch);
+        } catch (Exception e) {
+            message("Schermo diviso non disponibile. Usa App recenti e crea una Coppia di app Samsung.");
+        }
     }
 
     private boolean launchInstalled(String packageName) {
