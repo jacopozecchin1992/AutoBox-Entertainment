@@ -261,6 +261,27 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
  .home-config-actions button{flex:1;min-width:130px}
  .aa-dialog{padding:17px}
 }
+
+/* Guided launch of real Android activities via the supported best-effort
+   LAUNCH_ADJACENT flag; visible previews are not third-party live content. */
+.pair-launch-primary{width:100%;border:1px solid #2aa9a6;border-radius:16px;padding:13px 16px;background:linear-gradient(110deg,#143f4b,#15424c);color:#e6fffb;display:flex;align-items:center;gap:12px;font-weight:800;text-align:left;margin:10px 0 12px;font-size:13px}
+.pair-launch-primary>span:first-child{font-size:25px;color:#52f0d6}
+.pair-launch-names{margin-left:auto;border-radius:10px;background:#267e6f66;padding:7px 10px;font-size:11px;white-space:nowrap}
+.pair-wizard-backdrop{position:fixed;inset:0;z-index:32;display:grid;place-items:center;padding:15px;background:#07121cf0}
+.pair-wizard-backdrop[hidden]{display:none}
+.pair-wizard{width:min(100%,500px);max-height:92dvh;overflow:auto;border:1px solid #457983;border-radius:22px;background:linear-gradient(150deg,#153446,#0b1f30);padding:20px;box-shadow:0 20px 70px #0009}
+.pair-wizard-summary{font-size:13px;color:#c6dce6;line-height:1.65}
+.pair-wizard-steps{display:flex;flex-direction:column;gap:6px;margin:16px 0}
+.pair-wizard-steps button{display:flex;align-items:center;gap:11px;border:1px solid #3b8b87;background:#1a5256;color:#f1fffd;border-radius:14px;font-weight:800;font-size:13px;text-align:left;padding:13px}
+.pair-wizard-steps button>span:nth-child(2){flex:1}
+.pair-wizard-steps button:nth-of-type(2){background:#20456b;border-color:#4e7a9c}
+.pair-wizard-steps p{font-size:12px;color:#acc2d0;line-height:1.55;margin:1px 0 13px 5px}
+.pair-step-number{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#31e7cb;color:#082e38;font-weight:900}
+.pair-alternative{border:1px solid #496272;border-radius:14px;padding:13px;background:#102738}
+.pair-alternative strong{color:#7ceada;font-size:12px}
+.pair-alternative p{font-size:12px;color:#c3d4df;line-height:1.65;margin:8px 0 0}
+.pair-car-note{font-size:11px;color:#8ba8bb;line-height:1.55}
+@media(max-width:710px){.pair-launch-primary{flex-wrap:wrap}.pair-launch-names{margin-left:0}.pair-wizard{padding:15px}}
 </style>
 </head>
 <body>
@@ -319,7 +340,8 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
         </div>
       </section>
     </div>
-    <div class="pane-hint"><span>▥</span> Questi sono riquadri di scelta, non le schermate delle app. Per due app vere affiancate usa lo schermo diviso del Samsung.</div>
+    <div class="pane-hint"><span>▥</span> I riquadri AutoBox mostrano anteprime. Le vere app possono essere visualizzate affiancate nella modalità Schermo diviso del Samsung.</div>
+    <button class="pair-launch-primary" type="button" id="launchSamsungPair"><span aria-hidden="true">▥</span> Apri la coppia sul Samsung <span class="pair-launch-names" id="pairLaunchNames">Waze + Spotify</span></button>
     <section class="home-navigation" aria-label="Destinazione e velocità">
       <div class="home-search">
         <span class="pane-kicker">DESTINAZIONE · WAZE</span>
@@ -337,7 +359,7 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
       <button data-app="spotify" type="button" class="dock-favorite"><span>♫</span> Spotify</button>
       <button data-app="maps" type="button"><span>⌁</span> Maps</button>
       <button data-app="whatsapp" type="button"><span>◉</span> WhatsApp</button>
-      <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Split Samsung</button>
+      <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Apri due app</button>
       <button id="fullDashboard" class="dock-fullscreen" aria-pressed="false" type="button"><span>⛶</span> Dashboard intera</button>
     </nav>
     <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
@@ -382,6 +404,23 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
       <button type="button" id="aaReset">Waze + Spotify</button>
       <button type="button" id="aaSave">Salva coppia</button>
     </div>
+  </div>
+</div>
+<div class="pair-wizard-backdrop" id="samsungPairWizard" hidden>
+  <div class="pair-wizard" role="dialog" aria-modal="true" aria-labelledby="samsungPairTitle">
+    <div class="chooser-heading"><div><span>MULTI WINDOW SAMSUNG</span><h2 id="samsungPairTitle">Apri due app reali</h2></div><button type="button" class="chooser-close" id="samsungPairClose" aria-label="Chiudi">✕</button></div>
+    <p class="pair-wizard-summary">Le app scelte nella Home sono <strong id="pairLeftTitle">Waze</strong> e <strong id="pairRightTitle">Spotify</strong>. Prova ad affiancarle con i comandi qui sotto.</p>
+    <div class="pair-wizard-steps">
+      <button id="pairStartFirst" type="button"><span class="pair-step-number">1</span> <span id="pairStartFirstText">Affianca Waze ad AutoBox</span> <span aria-hidden="true">↗</span></button>
+      <p>Se Android lo consente, <strong id="pairFirstName">Waze</strong> compare accanto ad AutoBox. Lascia aperto AutoBox nell'altra metà e premi il secondo pulsante.</p>
+      <button id="pairStartSecond" type="button"><span class="pair-step-number">2</span> <span id="pairStartSecondText">Apri Spotify nell'altra metà</span> <span aria-hidden="true">↗</span></button>
+      <p>La seconda app può prendere il posto di AutoBox nell'altra metà. La disposizione finale dipende dalla versione One UI e dalle app.</p>
+    </div>
+    <div class="pair-alternative">
+      <strong>Se la coppia non si apre automaticamente</strong>
+      <p>Apri entrambe le app, tocca <strong>App recenti</strong> → icona della prima app → <strong>Apri in visualizzazione a schermo diviso</strong> → seleziona la seconda app. Tocca i tre puntini sul divisore e la stella <strong>Crea coppia di app</strong> per salvarla nella schermata Home o nel pannello Edge.</p>
+    </div>
+    <p class="pair-car-note">Questa funzione riguarda il telefono Samsung, non il display Android Auto della Kia.</p>
   </div>
 </div>
 <section class="page-view" id="page-apps" role="tabpanel" aria-labelledby="tab-apps" hidden>
@@ -544,6 +583,7 @@ function saveSlots(left,right){
   slotChoices.left=safeAppKey(left,'waze');
   slotChoices.right=safeAppKey(right,'spotify');
   refreshSlot('left');refreshSlot('right');
+  if(document.getElementById('pairLaunchNames'))refreshPairLaunchNames();
   try {
     localStorage.setItem('autobox_slot_left',slotChoices.left);
     localStorage.setItem('autobox_slot_right',slotChoices.right);
@@ -596,12 +636,46 @@ document.querySelectorAll('[data-audio]').forEach(button=>button.addEventListene
   const actions={play:'audio_play',pause:'audio_pause',next:'audio_next',previous:'audio_previous'};
   if(actions[button.dataset.audio])launchNative(actions[button.dataset.audio]);
 }));
-document.getElementById('splitSamsung').addEventListener('click',()=>{
-  const a=slotApps[slotChoices.left].name,b=slotApps[slotChoices.right].name;
-  showModal('Due app sul Samsung',
-    'Hai scelto '+a+' e '+b+'. Per vederle come due vere applicazioni affiancate: apri entrambe, vai in App recenti, seleziona «Apri in visualizzazione a schermo diviso» dalla prima app e scegli la seconda. Trascina il divisore per regolare le proporzioni.\\n\\nAndroid Auto controlla autonomamente le proprie finestre.',
-    [],()=>openApp(slotChoices.left),'Apri '+a);
+
+const pairWizard = document.getElementById('samsungPairWizard');
+function openSamsungPairWizard(){
+  const first=slotApps[slotChoices.left],second=slotApps[slotChoices.right];
+  document.getElementById('pairLeftTitle').textContent=first.name;
+  document.getElementById('pairRightTitle').textContent=second.name;
+  document.getElementById('pairFirstName').textContent=first.name;
+  document.getElementById('pairStartFirstText').textContent='Affianca '+first.name+' ad AutoBox';
+  document.getElementById('pairStartSecondText').textContent='Apri '+second.name+" nell'altra metà";
+  pairWizard.hidden=false;
+}
+function closeSamsungPairWizard(){pairWizard.hidden=true;}
+document.getElementById('splitSamsung').addEventListener('click',openSamsungPairWizard);
+document.getElementById('launchSamsungPair').addEventListener('click',openSamsungPairWizard);
+document.getElementById('samsungPairClose').addEventListener('click',closeSamsungPairWizard);
+pairWizard.addEventListener('click',event=>{if(event.target===pairWizard)closeSamsungPairWizard();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!pairWizard.hidden)closeSamsungPairWizard();});
+const splitSupportedKeys=new Set(['waze','maps','spotify','ytmusic','whatsapp','sms']);
+document.getElementById('pairStartFirst').addEventListener('click',()=>{
+  const key=slotChoices.left;
+  if(slotChoices.left===slotChoices.right){notify('Scegli due app diverse per la coppia.');return;}
+  if(window.AutoBoxNative && typeof window.AutoBoxNative.openAdjacentApp==='function' && splitSupportedKeys.has(key)){
+    window.AutoBoxNative.openAdjacentApp(key);
+  }else{
+    notify('Affiancamento automatico non disponibile per questa app. Usa App recenti sul Samsung.');
+  }
 });
+document.getElementById('pairStartSecond').addEventListener('click',()=>{
+  const key=slotChoices.right;
+  if(slotChoices.left===slotChoices.right){notify('Scegli due app diverse per la coppia.');return;}
+  if(window.AutoBoxNative && typeof window.AutoBoxNative.openInCurrentPane==='function' && (splitSupportedKeys.has(key)||key==='local_music'||key==='calls')){
+    window.AutoBoxNative.openInCurrentPane(key);
+  }else{
+    notify('Questa app va selezionata manualmente da App recenti sul Samsung.');
+  }
+});
+function refreshPairLaunchNames(){
+  document.getElementById('pairLaunchNames').textContent=slotApps[slotChoices.left].name+' + '+slotApps[slotChoices.right].name;
+}
+refreshPairLaunchNames();
 
 // Navigate between Home, App and Streaming, retaining navigation in local storage.
 const menuButtons = [...document.querySelectorAll('.page-tab')];
