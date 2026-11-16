@@ -1,6 +1,24 @@
-# AutoBox Entertainment Universale 3.1
+# AutoBox Entertainment Universale 3.2
 
 AutoBox è un **launcher personalizzabile sul Samsung** e un **lettore audio Android Auto** che espone una libreria musicale tramite \`MediaBrowserServiceCompat\` / \`MediaSessionCompat\`. L'app è universale: nessuna scritta o vincolo per un particolare modello di automobile.
+
+## Aprire due vere app sul Samsung — versione 3.2
+
+La 3.1 permetteva soltanto di salvare un abbinamento e visualizzava i due riquadri grafici di AutoBox; non poteva mostrare le vere app all'interno della Home.
+
+La 3.2 aggiunge un pulsante **Apri la coppia sul Samsung**. Scegli prima le due app tramite **Personalizza Home**, poi:
+
+1. Tocca **Apri la coppia sul Samsung**.
+2. Tocca **1 · Affianca [prima app] ad AutoBox**: AutoBox chiede ad Android di aprire l'app scelta in una finestra adiacente usando gli intent flag pubblici `FLAG_ACTIVITY_LAUNCH_ADJACENT | FLAG_ACTIVITY_NEW_TASK`.
+3. Se AutoBox rimane nella metà libera, tocca **2 · Apri [seconda app] nell'altra metà** per provare a sostituirlo con la seconda app.
+4. Il posizionamento non è garantito da Android: se non riesce, apri entrambe da **App recenti → icona della prima app → Apri in visualizzazione a schermo diviso → seleziona la seconda app**.
+5. Tocca il **divisore con tre puntini** e **stella / Crea coppia di app** per salvare la coppia nella schermata Home o nel pannello Edge. Dopo averla salvata, Samsung consente di riaprire entrambe con un solo tocco.
+
+Queste operazioni aprono le app **sullo schermo del telefono**, fuori dalla Home AutoBox (i riquadri restano scorciatoie visive, non app incorporate). La richiesta di lancio affiancato è sperimentale e deve essere verificata sul Samsung Galaxy S25 Ultra: il sistema potrebbe ignorarla oppure alcune app potrebbero non consentire multi-window. Non richiede permessi speciali e non modifica le regole di Android Auto.
+
+Fonti ufficiali:
+- https://developer.android.com/develop/ui/views/layout/support-multi-window-mode
+- https://www.samsung.com/us/support/answer/ANS10002022/
 
 ## Modalità coppia Android Auto 3.1
 
