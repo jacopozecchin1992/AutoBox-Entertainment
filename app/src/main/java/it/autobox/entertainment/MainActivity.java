@@ -470,6 +470,12 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    @Override public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        // Reapply immersive mode after returning from an installed app.
+        if (hasFocus && dashboardImmersive) applyDashboardImmersive(true);
+    }
+
     @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_REQUEST && pendingGeolocation != null) {
@@ -484,7 +490,7 @@ public class MainActivity extends Activity {
         if (dashboardImmersive) {
             applyDashboardImmersive(false);
             if (webView != null) {
-                webView.evaluateJavascript("if(window.setDashboardFullscreen)setDashboardFullscreen(false)", null);
+                webView.evaluateJavascript("if(window.onAutoBoxSystemBack)onAutoBoxSystemBack();else if(window.setDashboardFullscreen)setDashboardFullscreen(false)", null);
             }
         } else if (webView.canGoBack()) webView.goBack();
         else super.onBackPressed();
