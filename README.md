@@ -1,6 +1,28 @@
-# AutoBox Entertainment Universale 3.2
+# AutoBox Entertainment Universale 3.3
 
 AutoBox è un **launcher personalizzabile sul Samsung** e un **lettore audio Android Auto** che espone una libreria musicale tramite \`MediaBrowserServiceCompat\` / \`MediaSessionCompat\`. L'app è universale: nessuna scritta o vincolo per un particolare modello di automobile.
+
+## AutoBox 3.3 — Launcher per un Android AI Box
+
+Questa versione aggiunge **codice nativo Android** oltre alla Home originale. La funzione è prevista per l'installazione su un **dispositivo con Android completo**, ad esempio un AI Box compatibile con la vettura, e non sostituisce Android Auto sul display della Kia tramite il normale collegamento Samsung.
+
+Nella Home è disponibile il pulsante **Modalità Box**:
+- **Avvia modalità Box**: amplia il launcher e attiva l'interfaccia immersiva, mantenendo visibili menu, riquadri, proporzioni e dock;
+- **Tutte le app**: cerca e apre le applicazioni che dichiarano un launcher Android o Leanback; l'elenco viene letto nativamente dal PackageManager e non richiede permesso `QUERY_ALL_PACKAGES`;
+- **Personalizza Home**: include ora anche le altre applicazioni installate e scoperte dal catalogo, oltre agli 8 collegamenti già presenti; le scelte sono salvate sul dispositivo;
+- **Abilita scelta Home**: mostra una conferma e, solo con azione esplicita, rende disponibile AutoBox tra i launcher HOME del dispositivo. Si apre quindi la schermata di sistema per scegliere l'app Home; **non viene imposto come predefinito**;
+- **Disabilita scelta Home**: toglie AutoBox dall'elenco dei launcher selezionabili. Su un telefono, lasciare questa opzione spenta.
+
+Queste funzionalità sfruttano le API pubbliche di Android (`CATEGORY_HOME`, `activity-alias`, `PackageManager`). L'**Android AI Box deve essere un hardware Android completo**, con supporto al lancio delle app e, per le coppie di app reali, alle finestre multiple di sistema. Non tutte le app accettano Multi Window. I cinque layout (30/70, 50/50, 70/30, Full SX e Full DX) continuano ad agire sui **riquadri del launcher AutoBox** e **non incorporano le finestre di Waze e Spotify**.
+
+### Limite che rimane invariato
+
+Un APK installato sul Samsung e collegato alla Kia tramite **Android Auto** non può assumere il ruolo di launcher del sistema dell'auto né proiettare arbitrariamente il proprio desktop su quello schermo. Per usare AutoBox 3.3 come launcher a pieno schermo direttamente in auto occorre installarlo su un AI Box realmente compatibile, separato dal Samsung. Su Android Auto il servizio musica AutoBox continua a usare il proprio MediaBrowserService e lo schermo è gestito dall'host Google.
+
+Documentazione Android:
+- https://developer.android.com/reference/android/content/Intent#CATEGORY_HOME
+- https://developer.android.com/reference/android/content/pm/PackageManager#setComponentEnabledSetting(android.content.ComponentName,%20int,%20int)
+- https://developer.android.com/training/cars/platforms/android-auto
 
 ## Aprire due vere app sul Samsung — versione 3.2
 
