@@ -582,6 +582,15 @@ function launchNative(name){
 }
 function openApp(name){
   if(typeof name==='string' && name.startsWith('pkg:')){
+    const protectedVideos={
+      'com.google.android.youtube':'youtube',
+      'com.netflix.mediaclient':'netflix',
+      'com.disney.disneyplus':'disney',
+      'com.amazon.avod.thirdpartyclient':'prime'
+    };
+    if(Object.hasOwn(protectedVideos,name.slice(4))){
+      confirmVideo(protectedVideos[name.slice(4)]);return;
+    }
     if(window.AutoBoxNative && window.AutoBoxNative.openInstalledPackage){
       try {window.AutoBoxNative.openInstalledPackage(name.slice(4));}catch{notify("Impossibile aprire l'app installata.");}
     } else notify('Per aprire questa app usa AutoBox installato su Android.');
