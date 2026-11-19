@@ -282,6 +282,45 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
 .pair-alternative p{font-size:12px;color:#c3d4df;line-height:1.65;margin:8px 0 0}
 .pair-car-note{font-size:11px;color:#8ba8bb;line-height:1.55}
 @media(max-width:710px){.pair-launch-primary{flex-wrap:wrap}.pair-launch-names{margin-left:0}.pair-wizard{padding:15px}}
+
+/* Optional full-Android AI Box launcher. Never affects the Google Android Auto
+   dashboard running on the vehicle head unit. */
+.drive-dock .dock-box{background:#1d465a;color:#d3f6ff;border-color:#3d7592}
+.drive-dock .dock-box-settings{background:#1c3d46;color:#e5fff5;border-color:#426b6e}
+body.box-mode .app{max-width:none;padding:13px clamp(12px,2.4vw,44px) 24px}
+body.box-mode .app-navbar{margin-bottom:12px;top:0}
+body.box-mode .drive-shell{border-radius:17px;min-height:calc(100dvh - 110px);padding:16px}
+body.box-mode .home-configurable-split{min-height:max(380px,51dvh)}
+body.box-mode .slot-app-icon{height:113px;width:113px;font-size:76px}
+body.box-mode .drive-dock{justify-content:center}
+body.box-mode .journey-foot{margin-top:2px}
+.box-dialog-backdrop{position:fixed;inset:0;display:grid;place-items:center;padding:15px;background:#050c17e8;z-index:35}
+.box-dialog-backdrop[hidden]{display:none!important}
+.box-dialog{width:min(100%,520px);max-height:91dvh;overflow:auto;border:1px solid #416c7b;border-radius:23px;padding:23px;background:linear-gradient(150deg,#193849,#0e2231);box-shadow:0 24px 70px #000a}
+.box-dialog .chooser-heading{margin-bottom:17px}
+.box-dialog p{font-size:12px;color:#b4cbd8;line-height:1.6}
+.box-dialog h3{font-size:16px;margin:17px 0 8px}
+.box-main-button,.box-secondary-button,.box-home-actions button{border-radius:12px;padding:13px 14px;font:inherit;font-size:12px;font-weight:850}
+.box-main-button{display:block;width:100%;border:0;background:#39e8cc;color:#08353b;margin:14px 0 9px}
+.box-secondary-button{display:block;width:100%;border:1px solid #3c6e85;background:#183e54;color:#e3f9ff}
+.box-settings-divider{border-top:1px solid #416070;margin:20px 0 10px}
+.box-settings-status{background:#0d2938;border-radius:10px;border:1px solid #35586d;padding:10px}
+.box-home-actions{display:flex;gap:8px;flex-wrap:wrap}
+.box-home-actions button{flex:1;min-width:145px;background:#244f57;border:1px solid #49817f;color:#eeffff}
+.box-home-actions button:last-child{background:#2b3442;border-color:#515d6b;color:#c8d7de}
+.box-apps-panel{width:min(100%,720px)}
+#boxAppsSearch{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #416d82;background:#0b1f2f;color:#f4ffff;margin:10px 0 16px;font:inherit}
+.box-app-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;min-height:80px}
+.box-app-tile{border:1px solid #375c6f;background:#142e3e;border-radius:14px;color:#f3ffff;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:12px 7px;font-size:11px;font-weight:750;min-width:0}
+.box-app-tile>span:first-child{display:grid;place-items:center;background:linear-gradient(130deg,#29d6c2,#238fa8);color:#072737;width:43px;height:43px;border-radius:13px;font-size:22px;font-weight:950}
+.box-app-empty{grid-column:1/-1;color:#9dbbc8;text-align:center;padding:20px;font-size:12px}
+@media(max-width:710px){
+ body.box-mode .app{padding:8px}
+ body.box-mode .home-configurable-split{height:640px}
+ body.box-mode .slot-app-icon{height:70px;width:70px;font-size:48px}
+ .box-dialog{padding:16px}
+ .box-app-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
@@ -360,6 +399,8 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
       <button data-app="maps" type="button"><span>⌁</span> Maps</button>
       <button data-app="whatsapp" type="button"><span>◉</span> WhatsApp</button>
       <button id="splitSamsung" class="dock-split" type="button"><span>▥</span> Apri due app</button>
+      <button id="boxAppsButton" class="dock-box" type="button"><span>▦</span> Tutte le app</button>
+      <button id="boxSettingsButton" class="dock-box-settings" type="button"><span>⛶</span> Modalità Box</button>
       <button id="fullDashboard" class="dock-fullscreen" aria-pressed="false" type="button"><span>⛶</span> Dashboard intera</button>
     </nav>
     <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
@@ -421,6 +462,33 @@ body.dashboard-fullscreen .drive-shell>.pane-hint{display:none}
       <p>Apri entrambe le app, tocca <strong>App recenti</strong> → icona della prima app → <strong>Apri in visualizzazione a schermo diviso</strong> → seleziona la seconda app. Tocca i tre puntini sul divisore e la stella <strong>Crea coppia di app</strong> per salvarla nella schermata Home o nel pannello Edge.</p>
     </div>
     <p class="pair-car-note">Questa funzione riguarda il telefono Samsung, non il display Android Auto della Kia.</p>
+  </div>
+</div>
+
+<!-- These controls are for an Android device running the full operating
+     system, such as a compatible dedicated AI Box, not for Android Auto. -->
+<div class="box-dialog-backdrop" id="boxSettingsDialog" hidden>
+  <div class="box-dialog" role="dialog" aria-modal="true" aria-labelledby="boxSettingsTitle">
+    <div class="chooser-heading"><div><span>ANDROID COMPLETO • LAUNCHER</span><h2 id="boxSettingsTitle">Modalità Box</h2></div><button id="boxSettingsClose" class="chooser-close" type="button" aria-label="Chiudi">✕</button></div>
+    <p>Questa modalità sfrutta un dispositivo con <strong>Android completo</strong> (per esempio un AI Box compatibile). Non trasforma il collegamento Android Auto della Kia in un Android Box.</p>
+    <button class="box-main-button" id="boxModeToggle" type="button">⛶ Avvia modalità Box</button>
+    <button class="box-secondary-button" id="boxAppsFromSettings" type="button">▦ Sfoglia tutte le app installate</button>
+    <div class="box-settings-divider"></div>
+    <h3>Usa AutoBox come schermata Home</h3>
+    <p>Solo su un dispositivo Android dedicato. La scelta del launcher avviene nelle impostazioni di sistema; AutoBox non diventa automaticamente l'app Home.</p>
+    <p class="box-settings-status" id="boxHomeStatus">Controllo disponibilità launcher…</p>
+    <div class="box-home-actions">
+      <button id="boxEnableHome" type="button">Abilita scelta Home</button>
+      <button id="boxDisableHome" type="button">Disabilita scelta Home</button>
+    </div>
+  </div>
+</div>
+<div class="box-dialog-backdrop" id="boxAppsDialog" hidden>
+  <div class="box-dialog box-apps-panel" role="dialog" aria-modal="true" aria-labelledby="boxAppsTitle">
+    <div class="chooser-heading"><div><span>CATALOGO DEL DISPOSITIVO</span><h2 id="boxAppsTitle">Tutte le app</h2></div><button id="boxAppsClose" class="chooser-close" type="button" aria-label="Chiudi">✕</button></div>
+    <p>Le applicazioni qui elencate si aprono sul dispositivo Android. Non vengono incorporate nei pannelli AutoBox e non diventano automaticamente disponibili su Android Auto.</p>
+    <input id="boxAppsSearch" type="search" placeholder="Cerca un'app installata…" aria-label="Cerca nelle applicazioni installate" />
+    <div class="box-app-grid" id="boxInstalledGrid" aria-live="polite"></div>
   </div>
 </div>
 <section class="page-view" id="page-apps" role="tabpanel" aria-labelledby="tab-apps" hidden>
@@ -513,6 +581,12 @@ function launchNative(name){
   notify('Questa scorciatoia apre l’app installata sul telefono nella versione Android di AutoBox.');
 }
 function openApp(name){
+  if(typeof name==='string' && name.startsWith('pkg:')){
+    if(window.AutoBoxNative && window.AutoBoxNative.openInstalledPackage){
+      try {window.AutoBoxNative.openInstalledPackage(name.slice(4));}catch{notify("Impossibile aprire l'app installata.");}
+    } else notify('Per aprire questa app usa AutoBox installato su Android.');
+    return;
+  }
   if(['youtube','netflix','disney','prime'].includes(name)){confirmVideo(name);return;}
   launchNative(name);
 }
@@ -560,6 +634,31 @@ const slotApps = {
   calls:      {name:'Telefono',icon:'☎',description:'Chiamate sul telefono'},
   local_music:{name:'AutoBox Musica',icon:'♪',description:'Brani locali e audio di prova'}
 };
+const installedLauncherApps=[];
+const knownNativePackages={
+  'com.waze':'waze','com.google.android.apps.maps':'maps',
+  'com.spotify.music':'spotify','com.google.android.apps.youtube.music':'ytmusic',
+  'com.whatsapp':'whatsapp','com.whatsapp.w4b':'whatsapp',
+  'com.google.android.apps.messaging':'sms','com.samsung.android.messaging':'sms'
+};
+try{
+  if(window.AutoBoxNative && window.AutoBoxNative.getInstalledLaunchers){
+    const data=JSON.parse(window.AutoBoxNative.getInstalledLaunchers()||'[]');
+    if(Array.isArray(data)){
+      for(const item of data.slice(0,160)){
+        if(typeof item.pkg!=='string'||!item.pkg.match(/^[A-Za-z0-9_.]{1,180}$/))continue;
+        const name=typeof item.name==='string'?item.name.trim().slice(0,65):item.pkg;
+        const key=knownNativePackages[item.pkg]||'pkg:'+item.pkg;
+        if(!Object.hasOwn(slotApps,key))slotApps[key]={
+          name:name||item.pkg,icon:(name||'?').slice(0,1).toUpperCase(),
+          description:'App installata sul dispositivo Android'
+        };
+        installedLauncherApps.push({key,pkg:item.pkg,name:name||item.pkg});
+      }
+    }
+  }
+}catch{ /* The browser preview has no native Android app catalog. */ }
+
 const slotChoices = {left:'waze',right:'spotify'};
 const chooser = document.getElementById('homeChooser');
 const leftSelect=document.getElementById('leftAppChoice');
@@ -762,5 +861,131 @@ document.getElementById('aaSave').addEventListener('click',()=>{
 });
 aaDialog.addEventListener('click',e=>{if(e.target===aaDialog)closeAaDialog();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!aaDialog.hidden)closeAaDialog();});
+
+// Optional standalone Android device launcher. This does not replace the
+// Google Android Auto car display and never silently changes phone defaults.
+const boxSettingsDialog=document.getElementById('boxSettingsDialog');
+const boxAppsDialog=document.getElementById('boxAppsDialog');
+const boxInstalledGrid=document.getElementById('boxInstalledGrid');
+const boxAppsSearch=document.getElementById('boxAppsSearch');
+const boxModeToggle=document.getElementById('boxModeToggle');
+let boxModeEnabled=false;
+function updateBoxModeUi(){
+  boxModeToggle.textContent=boxModeEnabled?'✕ Esci dalla modalità Box':'⛶ Avvia modalità Box';
+  document.getElementById('boxSettingsButton').setAttribute('aria-pressed',String(boxModeEnabled));
+}
+function setBoxMode(enable){
+  boxModeEnabled=!!enable;
+  document.body.classList.toggle('box-mode',boxModeEnabled);
+  updateBoxModeUi();
+  try{localStorage.setItem('autobox_box_mode',boxModeEnabled?'1':'0');}catch{}
+  // Keep in-app navigation and app catalog visible, unlike the Dashboard intera mode.
+  try{
+    if(window.AutoBoxNative && window.AutoBoxNative.setFullscreen){
+      window.AutoBoxNative.setFullscreen(boxModeEnabled);
+    }
+  }catch{}
+  if(boxModeEnabled)activatePage('home');
+}
+function openBoxSettings(){
+  refreshBoxHomeStatus();
+  boxSettingsDialog.hidden=false;
+}
+function closeBoxSettings(){boxSettingsDialog.hidden=true;}
+function refreshBoxHomeStatus(){
+  const el=document.getElementById('boxHomeStatus');
+  try{
+    if(window.AutoBoxNative && window.AutoBoxNative.isBoxHomeOffered){
+      el.textContent=window.AutoBoxNative.isBoxHomeOffered()?
+      'AutoBox è disponibile fra le app Home. La scelta predefinita rimane a carico del sistema.':
+      'AutoBox non è offerto come launcher Home. Nessuna impostazione predefinita modificata.';
+      return;
+    }
+  }catch{}
+  el.textContent='La selezione del launcher Home è disponibile solo nell’APK Android installato.';
+}
+function renderBoxApps(query=''){
+  boxInstalledGrid.replaceChildren();
+  const q=query.trim().toLocaleLowerCase('it');
+  const list=installedLauncherApps.filter(a=>a.name.toLocaleLowerCase('it').includes(q)).slice(0,160);
+  if(!list.length){
+    const message=document.createElement('p');
+    message.className='box-app-empty';
+    message.textContent=installedLauncherApps.length?
+       'Nessuna applicazione corrisponde alla ricerca.':
+       'L’elenco delle applicazioni si carica nell’APK Android, non nell’anteprima browser.';
+    boxInstalledGrid.appendChild(message);return;
+  }
+  for(const app of list){
+    const tile=document.createElement('button');
+    tile.type='button';tile.className='box-app-tile';
+    const icon=document.createElement('span');
+    icon.setAttribute('aria-hidden','true');
+    icon.textContent=app.name.slice(0,1).toUpperCase();
+    const name=document.createElement('span');
+    name.textContent=app.name;
+    tile.append(icon,name);
+    tile.addEventListener('click',()=>{
+      closeBoxApps();
+      openApp(app.key);
+    });
+    boxInstalledGrid.appendChild(tile);
+  }
+}
+function openBoxApps(){
+  boxAppsSearch.value='';
+  renderBoxApps();
+  boxAppsDialog.hidden=false;
+}
+function closeBoxApps(){boxAppsDialog.hidden=true;}
+document.getElementById('boxSettingsButton').addEventListener('click',openBoxSettings);
+document.getElementById('boxSettingsClose').addEventListener('click',closeBoxSettings);
+document.getElementById('boxModeToggle').addEventListener('click',()=>{
+  setBoxMode(!boxModeEnabled);closeBoxSettings();
+});
+document.getElementById('boxAppsButton').addEventListener('click',openBoxApps);
+document.getElementById('boxAppsFromSettings').addEventListener('click',()=>{
+  closeBoxSettings();openBoxApps();
+});
+document.getElementById('boxAppsClose').addEventListener('click',closeBoxApps);
+boxAppsSearch.addEventListener('input',()=>renderBoxApps(boxAppsSearch.value));
+document.getElementById('boxEnableHome').addEventListener('click',()=>{
+  closeBoxSettings();
+  showModal('Launcher Home su Android completo',
+    'Attiva questa opzione solo su un dispositivo Android dedicato, come un AI Box compatibile. Il sistema ti farà scegliere quale launcher usare come Home; potrai tornare al precedente dalle impostazioni. Questa operazione non modifica la schermata Android Auto della Kia.',
+    [],()=>{
+      if(window.AutoBoxNative && window.AutoBoxNative.offerBoxHome){
+        window.AutoBoxNative.offerBoxHome();
+      }else notify('Questa funzione richiede un dispositivo con Android completo.');
+    },'Apri impostazioni Home');
+});
+document.getElementById('boxDisableHome').addEventListener('click',()=>{
+  if(window.AutoBoxNative && window.AutoBoxNative.removeBoxHome){
+    window.AutoBoxNative.removeBoxHome();
+  }else notify('Questa funzione richiede l’APK Android installato.');
+  refreshBoxHomeStatus();
+});
+boxSettingsDialog.addEventListener('click',e=>{if(e.target===boxSettingsDialog)closeBoxSettings();});
+boxAppsDialog.addEventListener('click',e=>{if(e.target===boxAppsDialog)closeBoxApps();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(!boxAppsDialog.hidden)closeBoxApps();
+    else if(!boxSettingsDialog.hidden)closeBoxSettings();
+  }
+});
+window.onAutoBoxSystemBack=()=>{
+  if(!boxAppsDialog.hidden){closeBoxApps();return;}
+  if(!boxSettingsDialog.hidden){closeBoxSettings();return;}
+  if(document.body.classList.contains('dashboard-fullscreen')){setDashboardFullscreen(false);return;}
+  if(boxModeEnabled){setBoxMode(false);return;}
+  setDashboardFullscreen(false);
+};
+try {
+  if(localStorage.getItem('autobox_box_mode')==='1')setBoxMode(true);
+  else updateBoxModeUi();
+}catch{updateBoxModeUi();}
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden && !boxSettingsDialog.hidden)refreshBoxHomeStatus();
+});
 </script>
 </body></html>
