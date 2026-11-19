@@ -3,12 +3,15 @@ package it.autobox.entertainment;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.pm.ResolveInfo;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Telephony;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
@@ -24,6 +27,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Collections;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MainActivity extends Activity {
     private static final int LOCATION_REQUEST = 100;
@@ -117,6 +126,116 @@ public class MainActivity extends Activity {
         }
         @JavascriptInterface public void openInCurrentPane(String key) {
             runOnUiThread(() -> launchSplitShortcut(key, false));
+        }
+        // Optional full-Android launcher capabilities (NOT Android Auto projection).
+        @JavascriptInterface public String getInstalledLaunchers() {
+            return listLaunchablePackages();
+        }
+        @JavascriptInterface public void openInstalledPackage(String pkg) {
+            runOnUiThread(() -> launchUserPackage(pkg));
+        }
+        @JavascriptInterface public boolean isBoxHomeOffered() {
+            return boxHomeOffered();
+        }
+        @JavascriptInterface public void offerBoxHome() {
+            runOnUiThread(() -> offerLauncherAsHome());
+        }
+        @JavascriptInterface public void removeBoxHome() {
+            runOnUiThread(() -> changeHomeAlias(false));
+        }
+    }
+
+
+    /**
+     * An Android home launcher on a FULL Android device (e.g. an AI Box).
+     * An activity-alias is disabled by default to avoid taking over a phone.
+     * Offering the alias does not make it the default: the USER chooses via
+     * standard OS Home app settings. This does NOT change Android Auto.
+     */
+    private ComponentName boxHomeComponent() {
+        return new ComponentName(this, getPackageName() + ".BoxHome");
+    }
+
+    private boolean boxHomeOffered() {
+        return getPackageManager().getComponentEnabledSetting(boxHomeComponent())
+                == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
+    }
+
+    private void changeHomeAlias(boolean enable) {
+        try {
+            getPackageManager().setComponentEnabledSetting(boxHomeComponent(),
+                    enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                           : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP);
+            message(enable ? "AutoBox disponibile tra i launcher Home. Sceglilo nelle impostazioni."
+                           : "AutoBox non è più disponibile come launcher Home.");
+        } catch (Exception e) {
+            message("Impossibile modificare il launcher Home su questo dispositivo.");
+        }
+    }
+
+    private void offerLauncherAsHome() {
+        changeHomeAlias(true);
+        try {
+            startActivity(new Intent(Settings.ACTION_HOME_SETTINGS));
+        } catch (ActivityNotFoundException e) {
+            try {
+                startActivity(new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS));
+            } catch (Exception ignored) {
+                message("Apri Impostazioni > App predefinite > App Home.");
+            }
+        } catch (Exception e) {
+            message("Apri Impostazioni > App predefinite > App Home.");
+        }
+    }
+
+    /** Only report and launch activities explicitly advertised by installed apps.
+     * Avoid QUERY_ALL_PACKAGES by declaring ACTION_MAIN/LAUNCHER queries.
+     */
+    private String listLaunchablePackages() {
+        PackageManager pm = getPackageManager();
+        JSONArray array = new JSONArray();
+        java.util.ArrayList<JSONObject> entries = new java.util.ArrayList<>();
+        Set<String> seen = new HashSet<>();
+        collectLaunchers(pm, new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER), entries, seen);
+        collectLaunchers(pm, new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER), entries, seen);
+        Collections.sort(entries, (a,b) -> a.optString("name").compareToIgnoreCase(b.optString("name")));
+        for (int i=0; i<Math.min(160,entries.size()); i++) array.put(entries.get(i));
+        return array.toString();
+    }
+
+    private void collectLaunchers(PackageManager pm, Intent query,
+                                  java.util.ArrayList<JSONObject> entries, Set<String> seen) {
+        List<ResolveInfo> resolved = pm.queryIntentActivities(query, 0);
+        for (ResolveInfo info : resolved) {
+            if (info.activityInfo == null) continue;
+            String pkg = info.activityInfo.packageName;
+            if (pkg == null || pkg.equals(getPackageName()) || !seen.add(pkg)) continue;
+            CharSequence label = info.loadLabel(pm);
+            JSONObject item = new JSONObject();
+            try {
+                item.put("pkg", pkg);
+                item.put("name", label == null ? pkg : label.toString());
+                entries.add(item);
+            } catch (Exception ignored) { }
+        }
+    }
+
+    private void launchUserPackage(String pkg) {
+        if (pkg == null || pkg.length() > 180 || !pkg.matches("[a-zA-Z0-9_.]+")) {
+            message("Applicazione non valida."); return;
+        }
+        PackageManager pm = getPackageManager();
+        Intent launch = pm.getLaunchIntentForPackage(pkg);
+        if (launch == null) launch = pm.getLeanbackLaunchIntentForPackage(pkg);
+        if (launch == null) {
+            message("Questa app non è disponibile sul dispositivo."); return;
+        }
+        try {
+            launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(launch);
+        } catch (Exception e) {
+            message("Impossibile aprire questa applicazione.");
         }
     }
 
