@@ -134,6 +134,10 @@ public class MainActivity extends Activity {
         @JavascriptInterface public void openInstalledPackage(String pkg) {
             runOnUiThread(() -> launchUserPackage(pkg));
         }
+        @JavascriptInterface public String getRecentLaunches() {
+            return getSharedPreferences("autobox_prefs", MODE_PRIVATE)
+                    .getString("recent_packages", "[]");
+        }
         @JavascriptInterface public boolean isBoxHomeOffered() {
             return boxHomeOffered();
         }
@@ -221,6 +225,36 @@ public class MainActivity extends Activity {
         }
     }
 
+
+    // Remembers only apps opened via AutoBox. Normal apps cannot query the
+    // active tasks of other packages; this is launch history, not a task list.
+    private void rememberOpenedPackage(String pkg) {
+        if (pkg == null || !pkg.matches("[a-zA-Z0-9_.]{1,180}")) return;
+        android.content.SharedPreferences preferences =
+                getSharedPreferences("autobox_prefs", MODE_PRIVATE);
+        JSONArray recent;
+        try {
+            recent = new JSONArray(preferences.getString("recent_packages", "[]"));
+        } catch (Exception e) {
+            recent = new JSONArray();
+        }
+        JSONArray updated = new JSONArray();
+        updated.put(pkg);
+        for (int i = 0; i < recent.length() && updated.length() < 6; i++) {
+            String prev = recent.optString(i, "");
+            if (!pkg.equals(prev) && prev.matches("[a-zA-Z0-9_.]{1,180}"))
+                updated.put(prev);
+        }
+        preferences.edit().putString("recent_packages", updated.toString()).apply();
+    }
+
+    // Android generally reuses an existing task for a launcher intent with
+    // NEW_TASK. Do not use CLEAR_TASK, MULTIPLE_TASK or CLEAR_TOP here.
+    private void prepareResumeIntent(Intent launch) {
+        launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    }
+
     private void launchUserPackage(String pkg) {
         if (pkg == null || pkg.length() > 180 || !pkg.matches("[a-zA-Z0-9_.]+")) {
             message("Applicazione non valida."); return;
@@ -232,8 +266,9 @@ public class MainActivity extends Activity {
             message("Questa app non è disponibile sul dispositivo."); return;
         }
         try {
-            launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            prepareResumeIntent(launch);
             startActivity(launch);
+            rememberOpenedPackage(pkg);
         } catch (Exception e) {
             message("Impossibile aprire questa applicazione.");
         }
@@ -309,11 +344,12 @@ public class MainActivity extends Activity {
                 launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
             } else {
-                // Allow Android to place the second app in AutoBox's currently
-                // active split pane instead of requesting another adjacent pane.
-                launch.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                // Resume an existing task when possible. CLEAR_TOP previously
+                // discarded parts of an app's navigation stack.
+                prepareResumeIntent(launch);
             }
             startActivity(launch);
+            rememberOpenedPackage(pkg);
         } catch (Exception e) {
             message("Schermo diviso non disponibile. Usa App recenti e crea una Coppia di app Samsung.");
         }
@@ -323,8 +359,9 @@ public class MainActivity extends Activity {
         Intent launch = getPackageManager().getLaunchIntentForPackage(packageName);
         if (launch == null) return false;
         try {
-            launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            prepareResumeIntent(launch);
             startActivity(launch);
+            rememberOpenedPackage(packageName);
             return true;
         } catch (Exception e) {
             return false;
@@ -425,6 +462,7 @@ public class MainActivity extends Activity {
         navigation.setPackage("com.waze");
         try {
             startActivity(navigation);
+            rememberOpenedPackage("com.waze");
         } catch (ActivityNotFoundException e) {
             message("Installa o aggiorna Waze per avviare il percorso.");
         } catch (Exception e) {
@@ -468,6 +506,14 @@ public class MainActivity extends Activity {
             return true;
         }
         return true;
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        if (webView != null) {
+            webView.evaluateJavascript(
+                "if(window.refreshAutoBoxRecentApps)refreshAutoBoxRecentApps()", null);
+        }
     }
 
     @Override public void onWindowFocusChanged(boolean hasFocus) {
