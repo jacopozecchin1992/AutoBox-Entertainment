@@ -707,7 +707,7 @@ function refreshSlot(side){
   document.getElementById(side+'Description').textContent=app.description;
   const preview=document.getElementById(side+'Preview');
   preview.className='slot-preview app-'+key;
-  preview.querySelector('.slot-open').textContent='Apri '+app.name+' a tutto schermo ↗';
+  preview.querySelector('.slot-open').textContent='Apri o riprendi '+app.name+' ↗';
 }
 function saveSlots(left,right){
   slotChoices.left=safeAppKey(left,'waze');
