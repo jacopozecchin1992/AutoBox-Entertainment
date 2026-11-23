@@ -321,6 +321,21 @@ body.box-mode .journey-foot{margin-top:2px}
  .box-dialog{padding:16px}
  .box-app-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* Recent launch history: the OS owns real activity tasks and window content.
+   Never claim these buttons render a live third-party app inside WebView. */
+.resume-section{margin:14px 0 4px;padding:14px;border:1px solid #355968;border-radius:17px;background:linear-gradient(140deg,#142d3f,#0d2632)}
+.resume-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.resume-heading h2{font-size:17px;margin:4px 0 0;letter-spacing:-.025em}
+.resume-kicker{font-size:9px;color:#57e9d2;font-weight:900;letter-spacing:.16em}
+.resume-tag{font-size:10px;color:#b6d5dd;padding:7px 10px;border-radius:99px;background:#183d4a;border:1px solid #315867}
+.resume-list{display:flex;gap:8px;overflow-x:auto;padding:2px 1px 5px;scrollbar-width:thin}
+.resume-tile{flex:0 0 auto;min-width:116px;max-width:175px;display:flex;align-items:center;gap:8px;text-align:left;border:1px solid #3d6774;border-radius:12px;background:#1a3c4b;color:#f1ffff;padding:10px 11px;font-size:11px;font-weight:800}
+.resume-icon{height:32px;width:32px;min-width:32px;display:grid;place-items:center;background:#32dec7;color:#0c323a;border-radius:10px;font-size:19px}
+.resume-tile>span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.resume-empty{color:#98b2c4;font-size:12px;line-height:1.5;padding:7px 2px}
+.resume-help{margin:8px 0 0;color:#9db6c4;font-size:10px;line-height:1.45}
+@media(max-width:710px){.resume-section{padding:12px}.resume-tile{min-width:110px}}
 </style>
 </head>
 <body>
@@ -380,6 +395,13 @@ body.box-mode .journey-foot{margin-top:2px}
       </section>
     </div>
     <div class="pane-hint"><span>▥</span> I riquadri AutoBox mostrano anteprime. Le vere app possono essere visualizzate affiancate nella modalità Schermo diviso del Samsung.</div>
+    <section class="resume-section" aria-label="Riprendi le app utilizzate">
+      <div class="resume-heading"><div><span class="resume-kicker">LA TUA SESSIONE</span><h2>Riprendi le app</h2></div><span class="resume-tag">Ultimi accessi</span></div>
+      <div class="resume-list" id="recentAppsList">
+        <span class="resume-empty">Le app avviate tramite AutoBox appariranno qui.</span>
+      </div>
+      <p class="resume-help">Riapri l'app dal punto in cui eri, quando Android ha conservato la sua sessione. Le app reali si aprono fuori dai riquadri AutoBox.</p>
+    </section>
     <button class="pair-launch-primary" type="button" id="launchSamsungPair"><span aria-hidden="true">▥</span> Apri la coppia sul Samsung <span class="pair-launch-names" id="pairLaunchNames">Waze + Spotify</span></button>
     <section class="home-navigation" aria-label="Destinazione e velocità">
       <div class="home-search">
@@ -995,6 +1017,52 @@ try {
 }catch{updateBoxModeUi();}
 document.addEventListener('visibilitychange',()=>{
   if(!document.hidden && !boxSettingsDialog.hidden)refreshBoxHomeStatus();
+});
+
+// Show only applications launched via AutoBox: Android does not disclose a
+// reliable cross-app running-task list to ordinary third-party applications.
+function refreshAutoBoxRecentApps(){
+  const root=document.getElementById('recentAppsList');
+  if(!root)return;
+  let packages=[];
+  try{
+    if(window.AutoBoxNative && window.AutoBoxNative.getRecentLaunches){
+      const list=JSON.parse(window.AutoBoxNative.getRecentLaunches()||'[]');
+      if(Array.isArray(list))packages=list.slice(0,6)
+        .filter(pkg=>typeof pkg==='string' && /^[A-Za-z0-9_.]{1,180}$/.test(pkg));
+    }
+  }catch{}
+  root.replaceChildren();
+  if(!packages.length){
+    const empty=document.createElement('span');
+    empty.className='resume-empty';
+    empty.textContent='Le app avviate da AutoBox compariranno qui e potrai riprenderle rapidamente.';
+    root.appendChild(empty);
+    return;
+  }
+  for(const pkg of packages){
+    const key=Object.hasOwn(knownNativePackages,pkg)?
+      knownNativePackages[pkg]:'pkg:'+pkg;
+    const fromList=installedLauncherApps.find(item=>item.pkg===pkg);
+    const app=Object.hasOwn(slotApps,key)?slotApps[key]:null;
+    const name=fromList?.name || app?.name || pkg;
+    const tile=document.createElement('button');
+    tile.type='button';tile.className='resume-tile';
+    tile.title='Torna a '+name+' se Android ha conservato la sessione';
+    const icon=document.createElement('span');
+    icon.className='resume-icon';icon.setAttribute('aria-hidden','true');
+    icon.textContent=app?.icon||name.slice(0,1).toUpperCase();
+    const label=document.createElement('span');
+    label.textContent=name;
+    tile.append(icon,label);
+    tile.addEventListener('click',()=>openApp(key));
+    root.appendChild(tile);
+  }
+}
+window.refreshAutoBoxRecentApps=refreshAutoBoxRecentApps;
+refreshAutoBoxRecentApps();
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden)refreshAutoBoxRecentApps();
 });
 </script>
 </body></html>
