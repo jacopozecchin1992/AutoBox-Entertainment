@@ -68,8 +68,8 @@ jobs:
         run: |
           set -euo pipefail
           APK=app/build/outputs/apk/debug/app-debug.apk
-          if gh release view v3.3.0 >/dev/null 2>&1; then
-            gh release upload v3.3.0 "$APK#AutoBox-Entertainment.apk" --clobber
+          if gh release view v3.4.0 >/dev/null 2>&1; then
+            gh release upload v3.4.0 "$APK#AutoBox-Entertainment.apk" --clobber
           else
-            gh release create v3.3.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 3.3.0" --notes "AutoBox Drive 3.3.0: launcher Android AI Box opt-in, modalita immersiva, elenco delle app installate apribili, configurazione dei riquadri anche con altre app e scelta HOME di sistema su Android completo; layout AutoBox invariati. La normale proiezione Android Auto non e una box Android. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
+            gh release create v3.4.0 "$APK#AutoBox-Entertainment.apk" --title "AutoBox Entertainment 3.4.0" --notes "AutoBox Drive 3.4.0: Home mantiene gli slot e i cinque layout; aggiunge Riprendi le app con storico delle ultime app aperte dal launcher e apertura delle attivita esistenti senza CLEAR_TOP. Non incorpora altre app nella Home e non modifica la dashboard Android Auto. Android Auto mantiene il servizio media standard: il layout sul display è controllato da Android Auto e non mostra le app video."
           fi
