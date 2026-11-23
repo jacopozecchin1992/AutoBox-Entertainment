@@ -1,6 +1,18 @@
-# AutoBox Entertainment Universale 3.3
+# AutoBox Entertainment Universale 3.4
 
 AutoBox è un **launcher personalizzabile sul Samsung** e un **lettore audio Android Auto** che espone una libreria musicale tramite \`MediaBrowserServiceCompat\` / \`MediaSessionCompat\`. L'app è universale: nessuna scritta o vincolo per un particolare modello di automobile.
+
+## AutoBox 3.4 — Riprendi le app all'apertura della Home
+
+La schermata Home mantiene le **due app preferite** scelte dall'utente e i cinque rapporti dei pannelli. Dalla nuova sezione **Riprendi le app**, visibile subito quando si apre AutoBox, puoi tornare alle ultime applicazioni avviate tramite AutoBox, fino a sei, senza doverle ricercare. Il registro viene salvato nelle preferenze private dell'APK e aggiornato quando l'utente avvia un'app dal launcher, dalla navigazione Waze o dal tentativo di Multi Window.
+
+Le scorciatoie usano gli intent di avvio Android con `FLAG_ACTIVITY_NEW_TASK` e `FLAG_ACTIVITY_REORDER_TO_FRONT`: il sistema può riportare in primo piano l'attività già esistente e il suo stato, se non è stata terminata. Non viene mai forzato `CLEAR_TASK` o `CLEAR_TOP` per i lanci gestiti da AutoBox. Il comando che usava `CLEAR_TOP` per la seconda finestra è stato corretto.
+
+**Precisazione:** il registro mostra le app *usate tramite AutoBox*, non la lista di tutte le app effettivamente in esecuzione o avviate altrove. Android non fornisce a una normale app un elenco affidabile delle attività di altre app. I riquadri di AutoBox sono sempre dei collegamenti personalizzabili, non contengono superfici interattive di Waze/Spotify e non possono mantenere le loro finestre dentro la WebView.
+
+Il ritorno alla sessione precedente dipende dal comportamento delle singole app e da Android. La funzionalità è destinata a un **Android completo**; non cambia la dashboard gestita da Google su Android Auto.
+
+Documentazione: https://developer.android.com/reference/android/content/Intent e https://developer.android.com/reference/android/app/ActivityManager
 
 ## AutoBox 3.3 — Launcher per un Android AI Box
 
