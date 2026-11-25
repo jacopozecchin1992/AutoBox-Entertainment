@@ -2,6 +2,7 @@ package it.autobox.entertainment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.os.Build;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.pm.ResolveInfo;
@@ -37,6 +38,8 @@ import org.json.JSONObject;
 public class MainActivity extends Activity {
     private static final int LOCATION_REQUEST = 100;
     private static final int VOICE_REQUEST = 101;
+    private static final int CAR_PERMISSIONS_REQUEST = 102;
+    private boolean webUiReady = false;
     private WebView webView;
     private boolean dashboardImmersive = false;
     private GeolocationPermissions.Callback pendingGeolocation;
@@ -61,6 +64,10 @@ public class MainActivity extends Activity {
         webView.addJavascriptInterface(new DestinationBridge(), "AutoBoxBridge");
         webView.addJavascriptInterface(new NativeShortcuts(), "AutoBoxNative");
         webView.setWebViewClient(new WebViewClient() {
+            @Override public void onPageFinished(WebView view,String url){
+                webUiReady=true;
+                handleCarLaunchIntent(getIntent());
+            }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return openExternal(request.getUrl().toString());
             }
@@ -137,6 +144,33 @@ public class MainActivity extends Activity {
         @JavascriptInterface public String getRecentLaunches() {
             return getSharedPreferences("autobox_prefs", MODE_PRIVATE)
                     .getString("recent_packages", "[]");
+        }
+        @JavascriptInterface public String getCarConnectionSetup(){
+            return CarConnectionManager.getSetupJson(MainActivity.this);
+        }
+        @JavascriptInterface public boolean saveCarBluetoothDevice(String address){
+            return CarConnectionManager.saveDevice(MainActivity.this,address);
+        }
+        @JavascriptInterface public void disableCarBluetoothPrompt(){
+            CarConnectionManager.disable(MainActivity.this);
+            CarConnectionManager.clearChoiceNotification(MainActivity.this);
+        }
+        @JavascriptInterface public void requestCarPermissions(){
+            runOnUiThread(() -> requestCarConnectionPermissions());
+        }
+        @JavascriptInterface public void testCarChoiceNotification(){
+            runOnUiThread(() -> {
+                if(CarConnectionManager.notificationGranted(MainActivity.this)){
+                    CarConnectionManager.showChoiceNotification(MainActivity.this,
+                        "Kia (test)",true);
+                }else{
+                    message("Consenti le notifiche per ricevere la scelta Bluetooth.");
+                    requestCarConnectionPermissions();
+                }
+            });
+        }
+        @JavascriptInterface public void keepStandardAndroidAuto(){
+            runOnUiThread(() -> CarConnectionManager.clearChoiceNotification(MainActivity.this));
         }
         @JavascriptInterface public boolean isBoxHomeOffered() {
             return boxHomeOffered();
@@ -272,6 +306,49 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             message("Impossibile aprire questa applicazione.");
         }
+    }
+
+
+    private void requestCarConnectionPermissions(){
+        java.util.ArrayList<String> requested=new java.util.ArrayList<>();
+        if(Build.VERSION.SDK_INT>=31 &&
+           checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT)
+                != PackageManager.PERMISSION_GRANTED){
+            requested.add(Manifest.permission.BLUETOOTH_CONNECT);
+        }
+        if(Build.VERSION.SDK_INT>=33 &&
+           checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED){
+            requested.add(Manifest.permission.POST_NOTIFICATIONS);
+        }
+        if(requested.isEmpty()){
+            if(webView!=null)webView.evaluateJavascript(
+                "if(window.refreshCarConnectionSetup)refreshCarConnectionSetup()",null);
+        }else{
+            requestPermissions(requested.toArray(new String[0]),CAR_PERMISSIONS_REQUEST);
+        }
+    }
+
+    private void handleCarLaunchIntent(Intent intent){
+        if(!webUiReady||webView==null||intent==null)return;
+        String action=intent.getAction();
+        if(CarConnectionManager.ACTION_OPEN_AUTOBOX.equals(action)){
+            CarConnectionManager.clearChoiceNotification(this);
+            webView.evaluateJavascript(
+                "if(window.onAutoBoxCarChoice)onAutoBoxCarChoice('autobox')",null);
+            intent.setAction(Intent.ACTION_MAIN);
+        }else if(CarConnectionManager.ACTION_OPEN_CHOOSER.equals(action)){
+            CarConnectionManager.clearChoiceNotification(this);
+            webView.evaluateJavascript(
+                "if(window.onAutoBoxCarChoice)onAutoBoxCarChoice('choose')",null);
+            intent.setAction(Intent.ACTION_MAIN);
+        }
+    }
+
+    @Override protected void onNewIntent(Intent intent){
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleCarLaunchIntent(intent);
     }
 
     private void applyDashboardImmersive(boolean enabled) {
@@ -524,6 +601,13 @@ public class MainActivity extends Activity {
 
     @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode==CAR_PERMISSIONS_REQUEST){
+            if(webView!=null){
+                webView.evaluateJavascript(
+                    "if(window.refreshCarConnectionSetup)refreshCarConnectionSetup()",null);
+            }
+            return;
+        }
         if (requestCode == LOCATION_REQUEST && pendingGeolocation != null) {
             boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
             pendingGeolocation.invoke(pendingOrigin, granted, false);
