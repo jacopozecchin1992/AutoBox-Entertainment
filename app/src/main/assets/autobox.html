@@ -336,6 +336,39 @@ body.box-mode .journey-foot{margin-top:2px}
 .resume-empty{color:#98b2c4;font-size:12px;line-height:1.5;padding:7px 2px}
 .resume-help{margin:8px 0 0;color:#9db6c4;font-size:10px;line-height:1.45}
 @media(max-width:710px){.resume-section{padding:12px}.resume-tile{min-width:110px}}
+
+/* Phone-only choice, never a replacement for Android Auto's projected UI. */
+.car-connection-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 13px;border:1px solid #34666a;background:linear-gradient(120deg,#143d42,#132b3d);border-radius:16px;padding:13px 16px}
+.car-connection-copy{display:flex;flex-direction:column;gap:3px}
+.car-connection-eyebrow{color:#51e4d0;font-size:9px;font-weight:850;letter-spacing:.14em}
+.car-connection-copy strong{font-size:15px}
+.car-connection-copy small{color:#b4ccd4;font-size:11px}
+.car-connection-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.car-connection-actions button{border-radius:10px;padding:11px 13px;background:#244759;border:1px solid #4b7182;color:#e4ffff;font-size:11px;font-weight:850}
+.car-connection-actions #carUseAutoBox{background:#32e6ce;color:#07323a;border-color:#32e6ce}
+.car-connection-actions #carConfigure{font-size:17px;min-width:42px}
+.car-modal-backdrop{position:fixed;inset:0;z-index:39;display:grid;place-items:center;padding:15px;background:#030a12ef}
+.car-modal-backdrop[hidden]{display:none}
+.car-modal{width:min(100%,510px);max-height:92dvh;overflow:auto;padding:22px;background:linear-gradient(145deg,#16394a,#0d2336);border:1px solid #4a7a88;border-radius:22px;box-shadow:0 21px 60px #0009}
+.car-modal>.chooser-heading{margin-bottom:13px}
+.car-modal>p{font-size:12px;color:#b9d2dc;line-height:1.58}
+.car-mode-option{width:100%;display:flex;align-items:center;gap:14px;padding:16px 13px;margin:12px 0 0;border-radius:14px;border:1px solid #477386;background:#1d4254;color:#f3ffff;text-align:left}
+.car-mode-option>span:first-child{font-size:31px;line-height:1.2}
+.car-mode-option>span:last-child{display:flex;flex-direction:column;gap:4px}
+.car-mode-option strong{font-size:14px}
+.car-mode-option small{font-size:11px;line-height:1.4;color:#b5d3df}
+.car-mode-option-box{background:linear-gradient(125deg,#147767,#14646a);border-color:#4ae6d1}
+.car-settings-link{margin-top:16px;border:0;color:#70e5d8;background:transparent;font-size:12px;font-weight:750;padding:6px}
+.car-modal label{display:block;margin:16px 0 8px;color:#d1e7ed;font-size:12px;font-weight:850}
+.car-modal select{width:100%;background:#092232;border:1px solid #558090;color:#f3ffff;border-radius:11px;padding:12px;font:inherit;font-size:12px}
+.car-setup-allow,.car-setup-test{width:100%;padding:12px;border-radius:11px;font-weight:800;font-size:12px;background:#1d4d57;color:#e7ffff;border:1px solid #427f87}
+.car-permission-status,.car-setup-status{background:#0b2938;border:1px solid #345b65;border-radius:11px;padding:10px;margin:9px 0;font-size:11px}
+.car-setup-actions{display:flex;gap:10px;margin:14px 0}
+.car-setup-actions button{flex:1;border:0;padding:12px 8px;border-radius:11px;font-weight:800;font-size:11px;background:#2ce1ca;color:#092b34}
+.car-setup-actions button:last-child{border:1px solid #567181;background:#243847;color:#c1d5df}
+.car-setup-test{background:#21485c}
+.car-limit-note{font-size:11px!important;color:#95b0bf!important}
+@media(max-width:710px){.car-connection-bar{padding:11px;gap:8px}.car-connection-actions{width:100%;display:grid;grid-template-columns:1fr 1fr 40px}.car-connection-actions button{padding:10px 5px;font-size:10px}.car-modal{padding:16px}}
 </style>
 </head>
 <body>
@@ -360,6 +393,15 @@ body.box-mode .journey-foot{margin-top:2px}
       </div>
       <div class="home-config-actions"><button type="button" class="personalize-btn" id="personalizeHome">⚙ Personalizza Home</button><button type="button" class="android-auto-btn" id="configureAndroidAuto">◧ Coppia Android Auto</button></div>
     </div>
+    <section class="car-connection-bar" aria-label="Scelta alla connessione della Kia">
+      <div class="car-connection-copy"><span class="car-connection-eyebrow">CONNESSIONE AUTO</span><strong>Android Auto o AutoBox?</strong>
+        <small>Android Auto rimane sul display Kia. AutoBox si apre sul Samsung.</small></div>
+      <div class="car-connection-actions">
+        <button type="button" id="carUseStandard">Android Auto normale</button>
+        <button type="button" id="carUseAutoBox">AutoBox sul Samsung</button>
+        <button type="button" id="carConfigure" aria-label="Configura scelta alla connessione Bluetooth">⚙</button>
+      </div>
+    </section>
     <div class="layout-picker home-layout" aria-label="Cinque modalità di visualizzazione">
       <span class="layout-caption">LAYOUT</span>
       <button class="ratio-choice" data-ratio="30" type="button" aria-pressed="false">30/70</button>
@@ -428,6 +470,36 @@ body.box-mode .journey-foot{margin-top:2px}
     <div class="journey-foot"><span>IL TUO VIAGGIO</span><strong id="clock">--:--</strong><span id="date">Caricamento data…</span></div>
   </div>
 </section>
+
+<!-- Android Auto cannot be replaced on the Kia by this phone app.
+     These dialogs only choose whether to leave Android Auto alone or open the
+     native AutoBox launcher on the Samsung after a paired car Bluetooth event. -->
+<div class="car-modal-backdrop" id="carChoiceDialog" hidden>
+  <div class="car-modal" role="dialog" aria-modal="true" aria-labelledby="carChoiceTitle">
+    <div class="chooser-heading"><div><span>SCELTA ALLA CONNESSIONE</span><h2 id="carChoiceTitle">Come vuoi utilizzare il Samsung?</h2></div><button id="carChoiceClose" class="chooser-close" type="button" aria-label="Chiudi">✕</button></div>
+    <p>Seleziona cosa visualizzare <strong>sul telefono</strong>. Il display della Kia continua a essere gestito da Android Auto.</p>
+    <button class="car-mode-option" id="carChoiceStandard" type="button"><span aria-hidden="true">🚗</span><span><strong>Android Auto normale</strong><small>Lascia Android Auto sul display Kia; non cambiare il launcher Samsung</small></span></button>
+    <button class="car-mode-option car-mode-option-box" id="carChoiceAutoBox" type="button"><span aria-hidden="true">▦</span><span><strong>Apri AutoBox sul Samsung</strong><small>Apri la nostra Home immersiva sul telefono, non sul display dell'auto</small></span></button>
+    <button id="carChoiceSettings" type="button" class="car-settings-link">⚙ Configura il Bluetooth della Kia</button>
+  </div>
+</div>
+<div class="car-modal-backdrop" id="carSettingsDialog" hidden>
+  <div class="car-modal" role="dialog" aria-modal="true" aria-labelledby="carSettingsTitle">
+    <div class="chooser-heading"><div><span>ATTIVAZIONE FACOLTATIVA</span><h2 id="carSettingsTitle">Scelta alla connessione</h2></div><button id="carSettingsClose" class="chooser-close" type="button" aria-label="Chiudi">✕</button></div>
+    <p>Quando il Samsung si collega via Bluetooth al dispositivo selezionato, AutoBox può mostrare una notifica con due opzioni: <strong>Android Auto normale</strong> oppure <strong>AutoBox sul Samsung</strong>. La notifica non sostituisce l'interfaccia sul display Kia.</p>
+    <button id="carPermissions" class="car-setup-allow" type="button">Consenti Bluetooth e notifiche</button>
+    <p id="carPermissionStatus" class="car-permission-status" aria-live="polite">Controllo autorizzazioni…</p>
+    <label for="carBluetoothDevice">Bluetooth dell'auto già associato al Samsung</label>
+    <select id="carBluetoothDevice"><option value="">Scegli il Bluetooth della Kia…</option></select>
+    <div class="car-setup-actions">
+      <button id="carEnableChoice" type="button">Attiva scelta automatica</button>
+      <button id="carDisableChoice" type="button">Disattiva</button>
+    </div>
+    <button id="carTestChoice" class="car-setup-test" type="button">Prova la notifica di scelta</button>
+    <p id="carSetupStatus" class="car-setup-status" aria-live="polite">Nessun dispositivo configurato.</p>
+    <p class="car-limit-note">Funziona quando Android segnala la connessione Bluetooth del dispositivo scelto. Su alcune versioni Samsung o con il solo cavo USB l'avviso potrebbe non apparire; in quel caso usa i pulsanti nella Home. Sullo schermo dell'auto rimane Android Auto.</p>
+  </div>
+</div>
 <div class="chooser-backdrop" id="homeChooser" hidden>
   <div class="chooser-card" role="dialog" aria-modal="true" aria-labelledby="homeChooserTitle">
     <div class="chooser-heading"><div><span>CONFIGURA I RIQUADRI</span><h2 id="homeChooserTitle">Personalizza Home</h2></div>
@@ -1063,6 +1135,104 @@ window.refreshAutoBoxRecentApps=refreshAutoBoxRecentApps;
 refreshAutoBoxRecentApps();
 document.addEventListener('visibilitychange',()=>{
   if(!document.hidden)refreshAutoBoxRecentApps();
+});
+
+// Connection choice applies ONLY on the Samsung. Android Auto on the Kia
+// continues independently and cannot be replaced by an ordinary phone APK.
+const carChoiceDialog=document.getElementById('carChoiceDialog');
+const carSettingsDialog=document.getElementById('carSettingsDialog');
+const carDeviceSelect=document.getElementById('carBluetoothDevice');
+function closeCarChoice(){carChoiceDialog.hidden=true;}
+function closeCarSettings(){carSettingsDialog.hidden=true;}
+function openCarChoice(){carChoiceDialog.hidden=false;}
+function openCarSettings(){
+  closeCarChoice();carSettingsDialog.hidden=false;refreshCarConnectionSetup();
+}
+function carUseStandard(){
+  closeCarChoice();
+  if(boxModeEnabled)setBoxMode(false);
+  try{window.AutoBoxNative?.keepStandardAndroidAuto?.();}catch{}
+  notify('Android Auto normale: continua sul display della Kia.');
+}
+function carUseAutoBox(){
+  closeCarChoice();closeCarSettings();
+  activatePage('home');
+  if(!boxModeEnabled)setBoxMode(true);
+  try{window.AutoBoxNative?.keepStandardAndroidAuto?.();}catch{}
+  notify('AutoBox aperto sul Samsung. Il display Kia rimane in Android Auto.');
+}
+window.onAutoBoxCarChoice=mode=>{
+  if(mode==='autobox')carUseAutoBox();
+  else if(mode==='choose')openCarChoice();
+};
+function refreshCarConnectionSetup(){
+  const permissionStatus=document.getElementById('carPermissionStatus');
+  const status=document.getElementById('carSetupStatus');
+  let data=null;
+  try{
+    if(window.AutoBoxNative?.getCarConnectionSetup){
+      data=JSON.parse(window.AutoBoxNative.getCarConnectionSetup()||'{}');
+    }
+  }catch{}
+  if(!data){
+    permissionStatus.textContent='La configurazione automatica richiede l’APK installato sul Samsung.';
+    status.textContent='Nell’anteprima browser puoi provare i pulsanti manuali della Home.';
+    carDeviceSelect.replaceChildren(new Option('Disponibile soltanto sul Samsung',''));
+    return;
+  }
+  permissionStatus.textContent='Bluetooth: '+(data.bluetoothGranted?'consentito':'da autorizzare')+
+    ' • Notifiche: '+(data.notificationGranted?'consentite':'da autorizzare');
+  carDeviceSelect.replaceChildren();
+  carDeviceSelect.appendChild(new Option('Scegli il Bluetooth della Kia…',''));
+  for(const device of (Array.isArray(data.devices)?data.devices:[])){
+    if(!device||typeof device.address!=='string'||typeof device.name!=='string')continue;
+    carDeviceSelect.appendChild(new Option(device.name,device.address));
+  }
+  if(data.address)carDeviceSelect.value=data.address;
+  status.textContent=data.enabled
+    ? 'Scelta attiva per: '+(data.name||'Bluetooth selezionato')+
+      (data.notificationGranted?'':' • abilita notifiche per ricevere l’avviso')
+    : 'Scelta non attiva. Seleziona l’auto e premi «Attiva».';
+}
+window.refreshCarConnectionSetup=refreshCarConnectionSetup;
+document.getElementById('carUseStandard').addEventListener('click',carUseStandard);
+document.getElementById('carUseAutoBox').addEventListener('click',carUseAutoBox);
+document.getElementById('carConfigure').addEventListener('click',openCarSettings);
+document.getElementById('carChoiceClose').addEventListener('click',closeCarChoice);
+document.getElementById('carSettingsClose').addEventListener('click',closeCarSettings);
+document.getElementById('carChoiceStandard').addEventListener('click',carUseStandard);
+document.getElementById('carChoiceAutoBox').addEventListener('click',carUseAutoBox);
+document.getElementById('carChoiceSettings').addEventListener('click',openCarSettings);
+document.getElementById('carPermissions').addEventListener('click',()=>{
+  if(window.AutoBoxNative?.requestCarPermissions)window.AutoBoxNative.requestCarPermissions();
+  else notify('Installa l’APK AutoBox sul Samsung per configurare Bluetooth e notifiche.');
+});
+document.getElementById('carEnableChoice').addEventListener('click',()=>{
+  const address=carDeviceSelect.value;
+  if(!address){notify('Seleziona prima il Bluetooth della Kia.');return;}
+  let saved=false;
+  try{saved=!!window.AutoBoxNative?.saveCarBluetoothDevice?.(address);}catch{}
+  if(saved)notify('Scelta Bluetooth attiva. Riceverai un avviso alla connessione.');
+  else notify('Impossibile attivare. Controlla Bluetooth e autorizzazioni.');
+  refreshCarConnectionSetup();
+});
+document.getElementById('carDisableChoice').addEventListener('click',()=>{
+  try{window.AutoBoxNative?.disableCarBluetoothPrompt?.();}catch{}
+  refreshCarConnectionSetup();
+  notify('Scelta automatica disattivata.');
+});
+document.getElementById('carTestChoice').addEventListener('click',()=>{
+  if(window.AutoBoxNative?.testCarChoiceNotification)
+    window.AutoBoxNative.testCarChoiceNotification();
+  else openCarChoice();
+});
+carChoiceDialog.addEventListener('click',e=>{if(e.target===carChoiceDialog)closeCarChoice();});
+carSettingsDialog.addEventListener('click',e=>{if(e.target===carSettingsDialog)closeCarSettings();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(!carChoiceDialog.hidden)closeCarChoice();
+    if(!carSettingsDialog.hidden)closeCarSettings();
+  }
 });
 </script>
 </body></html>
