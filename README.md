@@ -1,6 +1,34 @@
-# AutoBox Entertainment Universale 3.4
+# AutoBox Entertainment Universale 3.5
 
 AutoBox è un **launcher personalizzabile sul Samsung** e un **lettore audio Android Auto** che espone una libreria musicale tramite \`MediaBrowserServiceCompat\` / \`MediaSessionCompat\`. L'app è universale: nessuna scritta o vincolo per un particolare modello di automobile.
+
+## AutoBox 3.5 — Scegli quando il Samsung si collega alla Kia
+
+L'APK sul Samsung può mostrare una **notifica con due scelte alla connessione Bluetooth del veicolo abbinato**:
+
+- **Android Auto normale** — non modifica la connessione: Android Auto continua a funzionare sul display della Kia;
+- **AutoBox sul Samsung** — apre la Home AutoBox in modalità immersiva **sullo smartphone**, conservando i due riquadri personalizzabili e i cinque layout.
+
+**Non si tratta di due sistemi di proiezione alternativi sul display dell'auto.** Un APK Android installato sul telefono non può sostituire il launcher di Android Auto sulla Kia né proiettare un desktop Android completo sul display. Anche scegliendo AutoBox, Android Auto rimane l'interfaccia del display Kia.
+
+### Attivazione sul Samsung Galaxy S25 Ultra
+
+1. Installa AutoBox 3.5 e apri **Home → icona ⚙ nella sezione Connessione auto**.
+2. Tocca **Consenti Bluetooth e notifiche**. Android 12+ richiede BLUETOOTH_CONNECT, Android 13+ richiede POST_NOTIFICATIONS. Concedi le autorizzazioni richieste.
+3. Associa il Bluetooth del veicolo al Samsung, se non è ancora associato; scegli il nome della Kia nell'elenco dei dispositivi già abbinati.
+4. Tocca **Attiva scelta automatica**, poi **Prova la notifica di scelta** per verificare che le notifiche siano abilitate.
+5. Alla successiva connessione Bluetooth con l'auto selezionata, Android può mostrare una notifica con i pulsanti **Android Auto normale** e **AutoBox sul Samsung**. Il primo lascia il collegamento invariato, il secondo apre AutoBox sul telefono.
+6. Per interrompere gli avvisi usa **Disattiva**; puoi sempre scegliere manualmente dalla Home.
+
+L'avviso avviene per l'evento `BluetoothDevice.ACTION_ACL_CONNECTED`, non per ogni connessione USB o per ogni evento di Android Auto. Può non apparire quando Android Auto si collega solamente via cavo, quando non si crea una nuova connessione Bluetooth o se il sistema limita le notifiche/risveglio dell'app in background. Non parte automaticamente nessuna attività sopra lo schermo di guida: Android richiede che sia l'utente a toccare la notifica.
+
+La scelta è volontaria, senza Play Console. L'APK **non diventa l'app predefinita per Android Auto**, non richiede root e non cambia le impostazioni di proiezione della Kia.
+
+Fonti Android:
+- https://developer.android.com/reference/android/bluetooth/BluetoothDevice#ACTION_ACL_CONNECTED
+- https://developer.android.com/develop/background-work/background-tasks/broadcasts/broadcast-exceptions
+- https://developer.android.com/develop/ui/views/notifications/notification-permission
+- https://developer.android.com/training/cars/platforms/android-auto
 
 ## AutoBox 3.4 — Riprendi le app all'apertura della Home
 
